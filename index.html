@@ -652,6 +652,60 @@
     catch(e){ /* armazenamento indisponível, segue sem salvar */ }
   }
 
+  function cpuBrand(cpu){ return cpu.socket.indexOf('AM')===0 ? 'AMD' : 'Intel'; }
+
+  function getFilteredOptions(cat){
+    if(cat==='board'){
+      const cpu=DATA.cpu.find(function(i){return i.id===sel.cpu;});
+      return DATA.board.filter(function(b){return b.socket===cpu.socket;});
+    }
+    if(cat==='ram'){
+      const board=DATA.board.find(function(i){return i.id===sel.board;});
+      return DATA.ram.filter(function(r){return r.tipo===board.ramType;});
+    }
+    if(cat==='case'){
+      const board=DATA.board.find(function(i){return i.id===sel.board;});
+      return DATA['case'].filter(function(cs){return cs.formFactors.indexOf(board.formFactor)!==-1;});
+    }
+    return DATA[cat];
+  }
+
+  function refreshSelect(cat){
+    const options=getFilteredOptions(cat);
+    const selectEl=document.getElementById('sel-'+cat);
+    selectEl.innerHTML='';
+    options.forEach(function(item){
+      const opt=document.createElement('option');
+      opt.value=item.id;
+      opt.textContent=optionLabel(cat,item);
+      selectEl.appendChild(opt);
+    });
+    const stillValid=options.some(function(i){return i.id===sel[cat];});
+    if(!stillValid){
+      sel[cat]=options.slice().sort(function(a,b){return a.preco-b.preco;})[0].id;
+    }
+    selectEl.value=sel[cat];
+  }
+
+  function refreshDependents(){
+    refreshSelect('board');
+    refreshSelect('ram');
+    refreshSelect('case');
+    saveSel();
+    render();
+  }
+
+  function applySelToUI(){
+    ['cpu','cooler','gpu','storage','psu'].forEach(function(cat){
+      document.getElementById('sel-'+cat).value=sel[cat];
+    });
+    refreshSelect('board');
+    refreshSelect('ram');
+    refreshSelect('case');
+    saveSel();
+    render();
+  }
+
   const slotsEl=document.getElementById('slots');
   ORDER.forEach(function(cat){
     const slot=document.createElement('div');
@@ -665,19 +719,39 @@
     slotsEl.appendChild(slot);
 
     const selectEl=slot.querySelector('select');
-    DATA[cat].forEach(function(item){
-      const opt=document.createElement('option');
-      opt.value=item.id;
-      opt.textContent=optionLabel(cat,item);
-      selectEl.appendChild(opt);
-    });
-    selectEl.value=sel[cat];
+    if(cat==='cpu'){
+      const groups={AMD:document.createElement('optgroup'), Intel:document.createElement('optgroup')};
+      groups.AMD.label='AMD'; groups.Intel.label='Intel';
+      CPUS.forEach(function(item){
+        const opt=document.createElement('option');
+        opt.value=item.id;
+        opt.textContent=optionLabel(cat,item);
+        groups[cpuBrand(item)].appendChild(opt);
+      });
+      selectEl.appendChild(groups.AMD);
+      selectEl.appendChild(groups.Intel);
+      selectEl.value=sel[cat];
+    } else if(cat==='board' || cat==='ram' || cat==='case'){
+      /* preenchido depois via refreshSelect, conforme cpu/placa-mãe escolhidos */
+    } else {
+      DATA[cat].forEach(function(item){
+        const opt=document.createElement('option');
+        opt.value=item.id;
+        opt.textContent=optionLabel(cat,item);
+        selectEl.appendChild(opt);
+      });
+      selectEl.value=sel[cat];
+    }
+
     selectEl.addEventListener('change', function(){
       sel[cat]=selectEl.value;
-      saveSel();
-      render();
+      refreshDependents();
     });
   });
+
+  refreshSelect('board');
+  refreshSelect('ram');
+  refreshSelect('case');
 
   function findItem(selObj,cat){ return DATA[cat].find(function(i){return i.id===selObj[cat];}); }
 
@@ -927,21 +1001,25 @@
   }
 
   document.getElementById('btn-random').addEventListener('click', function(){
-    ORDER.forEach(function(cat){
+    const cpu=CPUS[Math.floor(Math.random()*CPUS.length)];
+    sel.cpu=cpu.id;
+    const boardOptions=DATA.board.filter(function(b){return b.socket===cpu.socket;});
+    const board=boardOptions[Math.floor(Math.random()*boardOptions.length)];
+    sel.board=board.id;
+    const ramOptions=DATA.ram.filter(function(r){return r.tipo===board.ramType;});
+    sel.ram=ramOptions[Math.floor(Math.random()*ramOptions.length)].id;
+    const caseOptions=DATA['case'].filter(function(cs){return cs.formFactors.indexOf(board.formFactor)!==-1;});
+    sel.case=caseOptions[Math.floor(Math.random()*caseOptions.length)].id;
+    ['cooler','gpu','storage','psu'].forEach(function(cat){
       const options=DATA[cat];
-      const pick=options[Math.floor(Math.random()*options.length)];
-      sel[cat]=pick.id;
-      document.getElementById('sel-'+cat).value=pick.id;
+      sel[cat]=options[Math.floor(Math.random()*options.length)].id;
     });
-    saveSel();
-    render();
+    applySelToUI();
   });
 
   document.getElementById('btn-reset').addEventListener('click', function(){
     sel=Object.assign({}, DEFAULT_SEL);
-    ORDER.forEach(function(cat){ document.getElementById('sel-'+cat).value=sel[cat]; });
-    saveSel();
-    render();
+    applySelToUI();
   });
 
   document.getElementById('btn-fix-psu').addEventListener('click', function(){
@@ -980,9 +1058,7 @@
     presetGrid.appendChild(card);
     card.querySelector('button').addEventListener('click', function(){
       sel=Object.assign({}, preset.sel);
-      ORDER.forEach(function(cat){ document.getElementById('sel-'+cat).value=sel[cat]; });
-      saveSel();
-      render();
+      applySelToUI();
       document.getElementById('montador').scrollIntoView({behavior:'smooth'});
     });
   });
