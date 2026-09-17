@@ -288,6 +288,18 @@
   .shop-item-info span{color:var(--text-dim); font-size:0.78rem;}
   .shop-item-links{display:flex; gap:6px; flex-shrink:0;}
   .shop-item-links .chip{padding:4px 10px; font-size:0.76rem;}
+
+  #client-name{
+    width:100%; padding:8px 10px; border-radius:7px; border:1px solid var(--border);
+    background:var(--panel-alt); color:var(--text); font-family:var(--font-head); font-size:0.86rem;
+    margin-bottom:10px;
+  }
+  @media print{
+    #print-summary h1{margin-bottom:4px;}
+    #print-summary a{color:#1a5fb4; text-decoration:underline;}
+    #print-summary .quote-meta{color:#555; margin-bottom:16px;}
+    #print-summary .quote-foot p{margin:4px 0;}
+  }
 </style>
 </head>
 <body>
@@ -506,6 +518,7 @@
           <h2>Resumo</h2>
           <div class="total-row"><span>Total estimado</span><span class="amount" id="total-price">R$ 0</span></div>
           <p class="note">Preços e especificações são valores de referência aproximados, para simular a montagem — confira sempre no fornecedor antes de comprar de verdade.</p>
+          <input type="text" id="client-name" placeholder="Nome do cliente (opcional, aparece no orçamento em PDF)">
           <div class="share-row">
             <button id="btn-share" class="btn small">🔗 Compartilhar build</button>
             <button id="btn-shoplist" class="btn small">🛒 Ir às compras</button>
@@ -1109,16 +1122,26 @@
   }
 
   function buildPrintSummary(s){
+      const clientEl=document.getElementById('client-name');
+      const clientName=clientEl ? clientEl.value.trim() : '';
+      const today=new Date().toLocaleDateString('pt-BR');
       const rows=ORDER.map(function(cat){
         const item=findItem(sel,cat);
-        return '<tr><td>'+LABELS[cat]+'</td><td>'+item.nome+'</td><td>'+fmtBRL(item.preco)+'</td></tr>';
+        const links=storeSearchLinks(item.nome).map(function(l){
+          return '<a href="'+l.url+'" target="_blank" rel="noopener">'+l.nome+'</a>';
+        }).join(' · ');
+        return '<tr><td>'+LABELS[cat]+'</td><td>'+item.nome+'</td><td>'+fmtBRL(item.preco)+'</td><td>'+links+'</td></tr>';
       }).join('');
-      return '<h1>Minha lista de compras — Montador de PC</h1>'+
-        '<table><thead><tr><th>Categoria</th><th>Peça</th><th>Preço</th></tr></thead>'+
+      return '<h1>Orçamento de PC</h1>'+
+        '<p class="quote-meta">Data: '+today+(clientName ? ' · Cliente: '+clientName : '')+'</p>'+
+        '<table><thead><tr><th>Categoria</th><th>Peça</th><th>Preço</th><th>Comprar</th></tr></thead>'+
         '<tbody>'+rows+'</tbody>'+
-        '<tfoot><tr><td colspan="2"><strong>Total</strong></td><td><strong>'+fmtBRL(s.totalPrice)+'</strong></td></tr></tfoot></table>'+
+        '<tfoot><tr><td colspan="2"><strong>Total</strong></td><td colspan="2"><strong>'+fmtBRL(s.totalPrice)+'</strong></td></tr></tfoot></table>'+
+        '<div class="quote-foot">'+
         '<p>Consumo estimado: '+s.totalW+'W · fonte recomendada a partir de '+s.recommendedMin+'W.</p>'+
-        '<p style="color:#888;font-size:0.8em;">Gerado no Montador de PC — preços de referência, confira no fornecedor.</p>';
+        '<p>'+(s.allOk ? 'Compatibilidade conferida: todas as peças combinam entre si.' : 'Atenção: revisar compatibilidade de alguma peça no site antes de fechar.')+'</p>'+
+        '<p style="color:#888;font-size:0.8em;">Orçamento gerado no Montador de PC — preços de referência, confira o valor final no fornecedor antes de fechar negócio.</p>'+
+        '</div>';
     }
 
     document.getElementById('btn-shoplist').addEventListener('click', function(){
