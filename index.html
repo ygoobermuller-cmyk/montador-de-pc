@@ -280,6 +280,14 @@
     #print-summary th, #print-summary td{padding:6px 10px; border-bottom:1px solid #ccc; text-align:left;}
     #print-summary th:last-child, #print-summary td:last-child{text-align:right;}
   }
+
+  .shop-list{display:none; flex-direction:column; gap:0; margin-top:12px;}
+  .shop-list.show{display:flex;}
+  .shop-item{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.85rem;}
+  .shop-item-info b{display:block;}
+  .shop-item-info span{color:var(--text-dim); font-size:0.78rem;}
+  .shop-item-links{display:flex; gap:6px; flex-shrink:0;}
+  .shop-item-links .chip{padding:4px 10px; font-size:0.76rem;}
 </style>
 </head>
 <body>
@@ -500,8 +508,9 @@
           <p class="note">Preços e especificações são valores de referência aproximados, para simular a montagem — confira sempre no fornecedor antes de comprar de verdade.</p>
           <div class="share-row">
             <button id="btn-share" class="btn small">🔗 Compartilhar build</button>
-            <button id="btn-print" class="btn small">🖨️ Lista de compras</button>
+            <button id="btn-shoplist" class="btn small">🛒 Ir às compras</button>
           </div>
+          <div class="shop-list" id="shop-list"></div>
           <div class="share-row">
             <p class="note" style="margin-top:0; margin-bottom:6px;">Quer uma segunda opinião? Pergunte pra uma IA sobre essa build exata:</p>
             <div class="quicklinks">
@@ -996,6 +1005,9 @@
       document.getElementById('resolution-text').textContent=s.resolution;
       renderIllustration(s);
 
+      const shopPanel=document.getElementById('shop-list');
+      if(shopPanel.className.indexOf('show')!==-1){ shopPanel.innerHTML=buildShopList(s); }
+
       const opinionEncoded=encodeURIComponent(buildOpinionPrompt(s));
       document.getElementById('ai-chatgpt').href='https://chatgpt.com/?q='+opinionEncoded;
       document.getElementById('ai-perplexity').href='https://www.perplexity.ai/search?q='+opinionEncoded;
@@ -1074,7 +1086,29 @@
       applyThemeIcon();
     });
 
-    function buildPrintSummary(s){
+    function storeSearchLinks(query){
+    const enc=encodeURIComponent(query);
+    return [
+      {nome:'Terabyte', url:'https://www.terabyteshop.com.br/busca?str='+enc},
+      {nome:'Amazon', url:'https://www.amazon.com.br/s?k='+enc}
+    ];
+  }
+
+  function buildShopList(s){
+    const rows=ORDER.map(function(cat){
+      const item=findItem(sel,cat);
+      const links=storeSearchLinks(item.nome).map(function(l){
+        return '<a class="chip" href="'+l.url+'" target="_blank" rel="noopener">'+l.nome+'</a>';
+      }).join('');
+      return '<div class="shop-item"><div class="shop-item-info"><b>'+LABELS[cat]+'</b><span>'+item.nome+'</span></div>'+
+        '<div class="shop-item-links">'+links+'</div></div>';
+    }).join('');
+    return rows+
+      '<button id="btn-print-inline" class="btn small" style="margin-top:12px;">🖨️ Imprimir lista</button>'+
+      '<p class="note">Os links abrem a busca por esse produto exato na loja — confira preço, estoque e vendedor antes de comprar.</p>';
+  }
+
+  function buildPrintSummary(s){
       const rows=ORDER.map(function(cat){
         const item=findItem(sel,cat);
         return '<tr><td>'+LABELS[cat]+'</td><td>'+item.nome+'</td><td>'+fmtBRL(item.preco)+'</td></tr>';
@@ -1087,10 +1121,18 @@
         '<p style="color:#888;font-size:0.8em;">Gerado no Montador de PC — preços de referência, confira no fornecedor.</p>';
     }
 
-    document.getElementById('btn-print').addEventListener('click', function(){
-      const s=compute(sel, extras);
-      document.getElementById('print-summary').innerHTML=buildPrintSummary(s);
-      window.print();
+    document.getElementById('btn-shoplist').addEventListener('click', function(){
+      const panel=document.getElementById('shop-list');
+      const isShown=panel.className.indexOf('show')!==-1;
+      panel.className='shop-list'+(isShown?'':' show');
+      if(!isShown){ panel.innerHTML=buildShopList(compute(sel, extras)); }
+    });
+    document.getElementById('shop-list').addEventListener('click', function(e){
+      if(e.target && e.target.id==='btn-print-inline'){
+        const s=compute(sel, extras);
+        document.getElementById('print-summary').innerHTML=buildPrintSummary(s);
+        window.print();
+      }
     });
 
     document.getElementById('btn-share').addEventListener('click', function(){
