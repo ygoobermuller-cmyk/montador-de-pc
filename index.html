@@ -233,6 +233,17 @@
   .preset-card button{width:100%; justify-content:center;}
   .btn.small, button.small{padding:7px 14px; font-size:0.82rem;}
   .share-row{margin-top:12px;}
+
+  /* ---------- ilustração do build ---------- */
+  #pc-svg{width:100%; height:auto; display:block; margin-bottom:4px;}
+  .fx-part{stroke-width:2; transition:x 0.2s, y 0.2s, width 0.2s, height 0.2s;}
+  .fx-ok{fill:color-mix(in srgb, var(--ok) 16%, transparent); stroke:var(--ok);}
+  .fx-warn{fill:color-mix(in srgb, var(--warn) 16%, transparent); stroke:var(--warn);}
+  .fx-bad{fill:color-mix(in srgb, var(--danger) 16%, transparent); stroke:var(--danger);}
+  .fx-neutral{fill:var(--panel-alt); stroke:var(--border);}
+  .fx-label{font-family:var(--font-mono); font-size:9px; fill:var(--text-dim);}
+  .fx-dash{stroke:var(--border); stroke-width:1; stroke-dasharray:4 3;}
+  @media (prefers-reduced-motion: reduce){ .fx-part{transition:none;} }
 </style>
 </head>
 <body>
@@ -327,6 +338,24 @@
       <div class="rail" id="slots"></div>
 
       <aside class="summary">
+        <div class="card">
+          <h2>Como fica montado</h2>
+          <svg id="pc-svg" viewBox="0 0 260 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração esquemática do PC montado">
+            <rect id="ill-case" class="fx-part fx-neutral" rx="10"></rect>
+            <rect id="ill-board" class="fx-part fx-neutral" rx="4"></rect>
+            <rect id="ill-cpu" class="fx-part fx-neutral" rx="2"></rect>
+            <g id="ill-cooler"></g>
+            <rect id="ill-ram1" class="fx-part fx-neutral" rx="1"></rect>
+            <rect id="ill-ram2" class="fx-part fx-neutral" rx="1"></rect>
+            <line id="ill-maxgpu-line" class="fx-dash"></line>
+            <rect id="ill-gpu" class="fx-part fx-neutral" rx="3"></rect>
+            <text id="ill-gpu-label" class="fx-label"></text>
+            <rect id="ill-psu" class="fx-part fx-neutral" rx="3"></rect>
+            <rect id="ill-storage" class="fx-part fx-neutral" rx="2"></rect>
+          </svg>
+          <p class="note">Vista lateral esquemática, só pra visualizar proporção e encaixe — não é o produto real.</p>
+        </div>
+
         <div class="card">
           <h2>Compatibilidade</h2>
           <div class="all-ok-banner" id="all-ok-banner">🎉 Tudo compatível — pode fechar o carrinho.</div>
@@ -683,6 +712,88 @@
       totalW,recommendedMin,recommendedIdeal,psuStatus,dots,bottleneck,totalPrice,allOk,resolution};
   }
 
+  const CASE_HEIGHT={'itx-compact':200,'matx-mid':255,'atx-mid':320,'atx-full':375};
+  const BOARD_WIDTH={'ITX':90,'mATX':135,'ATX':175};
+  const GPU_SCALE=0.42;
+
+  function statusClass(st){
+    if(st==='ok') return 'fx-ok';
+    if(st==='warn') return 'fx-warn';
+    if(st==='bad') return 'fx-bad';
+    return 'fx-neutral';
+  }
+
+  function setRect(id,x,y,w,h,cls){
+    const el=document.getElementById(id);
+    el.setAttribute('x',x); el.setAttribute('y',y);
+    el.setAttribute('width',Math.max(w,0)); el.setAttribute('height',Math.max(h,0));
+    if(cls) el.setAttribute('class','fx-part '+cls);
+  }
+
+  function renderIllustration(s){
+    const caseW=210, caseX=25, baselineY=430;
+    const caseH=CASE_HEIGHT[s.pcCase.id]||300;
+    const caseY=baselineY-caseH;
+    setRect('ill-case',caseX,caseY,caseW,caseH,statusClass(s.dots.case));
+
+    const boardW=BOARD_WIDTH[s.board.formFactor]||135;
+    const boardH=boardW*0.6;
+    const boardX=caseX+(caseW-boardW)/2;
+    const boardY=caseY+20;
+    setRect('ill-board',boardX,boardY,boardW,boardH,statusClass(s.dots.board));
+
+    const cpuSize=18;
+    const cpuX=boardX+12, cpuY=boardY+12;
+    setRect('ill-cpu',cpuX,cpuY,cpuSize,cpuSize,statusClass(s.dots.cpu));
+
+    const coolerCls=statusClass(s.dots.cooler);
+    const coolerG=document.getElementById('ill-cooler');
+    const isAio=s.cooler.id.indexOf('aio')===0;
+    if(isAio){
+      const radW = s.cooler.id==='aio-360' ? 130 : 95;
+      const radX = caseX+(caseW-radW)/2;
+      const radY = caseY+8;
+      const pumpX = cpuX+cpuSize/2, pumpY = cpuY+cpuSize/2;
+      coolerG.innerHTML =
+        '<rect x="'+radX+'" y="'+radY+'" width="'+radW+'" height="12" rx="2" class="fx-part '+coolerCls+'"></rect>'+
+        '<path d="M '+pumpX+' '+pumpY+' C '+pumpX+' '+(radY+30)+', '+(radX+12)+' '+(radY+30)+', '+(radX+12)+' '+(radY+12)+'" fill="none" class="fx-part '+coolerCls+'"></path>'+
+        '<path d="M '+pumpX+' '+pumpY+' C '+pumpX+' '+(radY+38)+', '+(radX+radW-12)+' '+(radY+38)+', '+(radX+radW-12)+' '+(radY+12)+'" fill="none" class="fx-part '+coolerCls+'"></path>'+
+        '<circle cx="'+pumpX+'" cy="'+pumpY+'" r="6" class="fx-part '+coolerCls+'"></circle>'+
+        '<text x="'+(radX+radW/2)+'" y="'+(radY+26)+'" text-anchor="middle" class="fx-label">radiador</text>';
+    } else {
+      const h = s.cooler.capacidadeW<=65 ? 12 : s.cooler.capacidadeW<=95 ? 20 : 30;
+      const w = 18;
+      const cx = cpuX+cpuSize/2-w/2, cy = cpuY-h;
+      coolerG.innerHTML = '<rect x="'+cx+'" y="'+cy+'" width="'+w+'" height="'+h+'" rx="2" class="fx-part '+coolerCls+'"></rect>';
+    }
+
+    const ramX=cpuX+cpuSize+12;
+    ['ill-ram1','ill-ram2'].forEach(function(id,i){
+      setRect(id, ramX+i*9, cpuY-5, 6, cpuSize+10, statusClass(s.dots.ram));
+    });
+
+    const gpuY=boardY+boardH+14;
+    const maxLine=document.getElementById('ill-maxgpu-line');
+    const maxX2=Math.min(caseX+14+(s.pcCase.maxGpu*GPU_SCALE), caseX+caseW-6);
+    maxLine.setAttribute('x1',caseX+14); maxLine.setAttribute('x2',maxX2);
+    maxLine.setAttribute('y1',gpuY-6); maxLine.setAttribute('y2',gpuY-6);
+
+    const gpuLabel=document.getElementById('ill-gpu-label');
+    if(!s.gpuHasCard){
+      setRect('ill-gpu',caseX+14,gpuY,0,0,'fx-neutral');
+      gpuLabel.textContent='sem GPU dedicada';
+      gpuLabel.setAttribute('x',caseX+14); gpuLabel.setAttribute('y',gpuY+14);
+    } else {
+      const gpuW=Math.min(s.gpu.comprimento*GPU_SCALE, caseW-24);
+      setRect('ill-gpu',caseX+14,gpuY,gpuW,20,statusClass(s.dots.gpu));
+      gpuLabel.textContent = s.gpu.comprimento+'mm'+(s.gpuFitOk===false ? ' ⚠ não cabe' : '');
+      gpuLabel.setAttribute('x',caseX+14); gpuLabel.setAttribute('y',gpuY+34);
+    }
+
+    setRect('ill-psu', caseX+14, caseY+caseH-34, 60, 22, statusClass(s.dots.psu));
+    setRect('ill-storage', caseX+90, caseY+caseH-30, 30, 16, 'fx-ok');
+  }
+
   function render(){
     const s=compute(sel);
 
@@ -742,6 +853,7 @@
 
     document.getElementById('total-price').textContent=fmtBRL(s.totalPrice);
     document.getElementById('resolution-text').textContent=s.resolution;
+    renderIllustration(s);
   }
 
   document.getElementById('btn-random').addEventListener('click', function(){
