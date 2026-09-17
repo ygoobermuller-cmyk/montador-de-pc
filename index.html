@@ -484,7 +484,7 @@
   let DATA = {};
   
   // COLE SUA URL RAW DO GITHUB AQUI
-  const URL_DO_GITHUB = "SUA_URL_RAW_DO_GITHUB_AQUI"; 
+  const URL_DO_GITHUB = "https://raw.githubusercontent.com/ygoobermuller-cmyk/montador-de-pc/refs/heads/main/hardware-data.json"; 
   
   const LABELS={cpu:'Processador',cooler:'Refrigeração',board:'Placa-mãe',ram:'Memória RAM',gpu:'Placa de vídeo',storage:'Armazenamento',psu:'Fonte de alimentação',case:'Gabinete'};
   const ORDER=['cpu','cooler','board','ram','gpu','storage','psu','case'];
@@ -494,7 +494,6 @@
   // FUNÇÃO QUE BUSCA O JSON NO GITHUB E INICIA TUDO
   async function carregarDados() {
     try {
-      // Se URL_DO_GITHUB estiver vazia ou com o texto de ajuda, usamos os dados locais como fallback de segurança
       if (URL_DO_GITHUB === "SUA_URL_RAW_DO_GITHUB_AQUI" || URL_DO_GITHUB === "") {
         console.warn("URL do GitHub não configurada. Carregando banco de dados local.");
         carregarDadosLocais();
