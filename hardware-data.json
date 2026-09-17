@@ -1,0 +1,9 @@
+{
+  "cpu": [
+    { "id": "r5-5600", "nome": "AMD Ryzen 5 5600", "tdp": 65, "preco": 700, "url": "https://kabum.com.br/link-do-ryzen" },
+    { "id": "i5-12400f", "nome": "Intel Core i5-12400F", "tdp": 65, "preco": 900, "url": "https://terabyteshop.com.br/link-do-i5" }
+  ],
+  "gpu": [
+    // ...
+  ]
+}
