@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%96%A5%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Monte um PC, confira compatibilidade de peças, calcule o consumo da fonte e veja se sua build tem gargalo — de graça, sem cadastro.">
+<meta property="og:title" content="Montador de PC">
+<meta property="og:description" content="Monte um PC, confira compatibilidade de peças, calcule o consumo da fonte e veja se sua build tem gargalo — de graça, sem cadastro.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#11151A">
 <title>Montador de PC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -233,7 +239,7 @@
   .preset-badge.warn{background:var(--warn-bg); color:var(--warn);}
   .preset-card button{width:100%; justify-content:center;}
   .btn.small, button.small{padding:7px 14px; font-size:0.82rem;}
-  .share-row{margin-top:12px;}
+  .share-row{margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;}
 
   /* ---------- ilustração do build ---------- */
   #pc-svg{width:100%; height:auto; display:block; margin-bottom:4px;}
@@ -263,6 +269,17 @@
   .gauge-tick{stroke:var(--text-dim); stroke-width:3;}
   #gauge-value-text{text-align:center; font-family:var(--font-mono); font-size:1.05rem; font-weight:600; margin-top:-8px;}
   @media (prefers-reduced-motion: reduce){ #gauge-needle{transition:none;} }
+
+  #theme-toggle{padding:6px 11px; font-size:1rem; line-height:1;}
+  #print-summary{display:none;}
+  @media print{
+    body *{visibility:hidden;}
+    #print-summary, #print-summary *{visibility:visible;}
+    #print-summary{display:block; position:absolute; top:0; left:0; width:100%; padding:24px; color:#000; background:#fff;}
+    #print-summary table{width:100%; border-collapse:collapse; font-family:sans-serif;}
+    #print-summary th, #print-summary td{padding:6px 10px; border-bottom:1px solid #ccc; text-align:left;}
+    #print-summary th:last-child, #print-summary td:last-child{text-align:right;}
+  }
 </style>
 </head>
 <body>
@@ -277,6 +294,7 @@
       <a href="#novidades">Novidades</a>
       <a href="#montador">Montador</a>
     </div>
+    <button id="theme-toggle" class="btn small" aria-label="Alternar tema claro/escuro">🌙</button>
   </div>
 </nav>
 
@@ -480,7 +498,10 @@
           <h2>Resumo</h2>
           <div class="total-row"><span>Total estimado</span><span class="amount" id="total-price">R$ 0</span></div>
           <p class="note">Preços e especificações são valores de referência aproximados, para simular a montagem — confira sempre no fornecedor antes de comprar de verdade.</p>
-          <div class="share-row"><button id="btn-share" class="btn small">🔗 Compartilhar build</button></div>
+          <div class="share-row">
+            <button id="btn-share" class="btn small">🔗 Compartilhar build</button>
+            <button id="btn-print" class="btn small">🖨️ Lista de compras</button>
+          </div>
           <div class="share-row">
             <p class="note" style="margin-top:0; margin-bottom:6px;">Quer uma segunda opinião? Pergunte pra uma IA sobre essa build exata:</p>
             <div class="quicklinks">
@@ -504,28 +525,28 @@
   "use strict";
 
   const CPUS=[
-    {id:'r3-3200g',nome:'AMD Ryzen 3 3200G',socket:'AM4',tdp:65,tier:1,preco:550},
-    {id:'i3-10100f',nome:'Intel Core i3-10100F',socket:'LGA1200',tdp:65,tier:2,preco:500},
-    {id:'i5-9400f',nome:'Intel Core i5-9400F',socket:'LGA1151',tdp:65,tier:2,preco:550},
-    {id:'r5-3600',nome:'AMD Ryzen 5 3600',socket:'AM4',tdp:65,tier:3,preco:650},
-    {id:'i5-10400f',nome:'Intel Core i5-10400F',socket:'LGA1200',tdp:65,tier:3,preco:650},
-    {id:'r5-5600',nome:'AMD Ryzen 5 5600',socket:'AM4',tdp:65,tier:4,preco:700},
-    {id:'i5-11400f',nome:'Intel Core i5-11400F',socket:'LGA1200',tdp:65,tier:4,preco:750},
-    {id:'i7-9700k',nome:'Intel Core i7-9700K',socket:'LGA1151',tdp:95,tier:5,preco:900},
-    {id:'i5-12400f',nome:'Intel Core i5-12400F',socket:'LGA1700',tdp:65,tier:5,preco:900},
-    {id:'r5-9600x',nome:'AMD Ryzen 5 9600X',socket:'AM5',tdp:65,tier:5,preco:1800},
-    {id:'r5-5600x',nome:'AMD Ryzen 5 5600X',socket:'AM4',tdp:65,tier:5,preco:850},
-    {id:'i7-11700k',nome:'Intel Core i7-11700K',socket:'LGA1200',tdp:125,tier:6,preco:1400},
-    {id:'r7-5700x',nome:'AMD Ryzen 7 5700X',socket:'AM4',tdp:65,tier:6,preco:1100},
-    {id:'r7-9700x',nome:'AMD Ryzen 7 9700X',socket:'AM5',tdp:65,tier:7,preco:2600},
-    {id:'ultra5-245k',nome:'Intel Core Ultra 5 245K',socket:'LGA1851',tdp:125,tier:7,preco:2000},
-    {id:'r9-5900x',nome:'AMD Ryzen 9 5900X',socket:'AM4',tdp:105,tier:7,preco:1900},
-    {id:'r7-5800x3d',nome:'AMD Ryzen 7 5800X3D',socket:'AM4',tdp:105,tier:8,preco:2100},
-    {id:'r9-5950x',nome:'AMD Ryzen 9 5950X',socket:'AM4',tdp:105,tier:8,preco:2600},
-    {id:'i7-14700k',nome:'Intel Core i7-14700K',socket:'LGA1700',tdp:125,tier:8,preco:2800},
-    {id:'r7-9800x3d',nome:'AMD Ryzen 7 9800X3D',socket:'AM5',tdp:120,tier:9,preco:3800},
-    {id:'ultra9-285k',nome:'Intel Core Ultra 9 285K',socket:'LGA1851',tdp:125,tier:9,preco:4500},
-    {id:'r9-9950x',nome:'AMD Ryzen 9 9950X',socket:'AM5',tdp:170,tier:10,preco:5200},
+    {id:'r3-3200g',nome:'AMD Ryzen 3 3200G',socket:'AM4',tdp:65,tier:1,preco:550,igpu:true},
+    {id:'i3-10100f',nome:'Intel Core i3-10100F',socket:'LGA1200',tdp:65,tier:2,preco:500,igpu:false},
+    {id:'i5-9400f',nome:'Intel Core i5-9400F',socket:'LGA1151',tdp:65,tier:2,preco:550,igpu:false},
+    {id:'r5-3600',nome:'AMD Ryzen 5 3600',socket:'AM4',tdp:65,tier:3,preco:650,igpu:false},
+    {id:'i5-10400f',nome:'Intel Core i5-10400F',socket:'LGA1200',tdp:65,tier:3,preco:650,igpu:false},
+    {id:'r5-5600',nome:'AMD Ryzen 5 5600',socket:'AM4',tdp:65,tier:4,preco:700,igpu:false},
+    {id:'i5-11400f',nome:'Intel Core i5-11400F',socket:'LGA1200',tdp:65,tier:4,preco:750,igpu:false},
+    {id:'i7-9700k',nome:'Intel Core i7-9700K',socket:'LGA1151',tdp:95,tier:5,preco:900,igpu:true},
+    {id:'i5-12400f',nome:'Intel Core i5-12400F',socket:'LGA1700',tdp:65,tier:5,preco:900,igpu:false},
+    {id:'r5-9600x',nome:'AMD Ryzen 5 9600X',socket:'AM5',tdp:65,tier:5,preco:1800,igpu:false},
+    {id:'r5-5600x',nome:'AMD Ryzen 5 5600X',socket:'AM4',tdp:65,tier:5,preco:850,igpu:false},
+    {id:'i7-11700k',nome:'Intel Core i7-11700K',socket:'LGA1200',tdp:125,tier:6,preco:1400,igpu:true},
+    {id:'r7-5700x',nome:'AMD Ryzen 7 5700X',socket:'AM4',tdp:65,tier:6,preco:1100,igpu:false},
+    {id:'r7-9700x',nome:'AMD Ryzen 7 9700X',socket:'AM5',tdp:65,tier:7,preco:2600,igpu:false},
+    {id:'ultra5-245k',nome:'Intel Core Ultra 5 245K',socket:'LGA1851',tdp:125,tier:7,preco:2000,igpu:true},
+    {id:'r9-5900x',nome:'AMD Ryzen 9 5900X',socket:'AM4',tdp:105,tier:7,preco:1900,igpu:false},
+    {id:'r7-5800x3d',nome:'AMD Ryzen 7 5800X3D',socket:'AM4',tdp:105,tier:8,preco:2100,igpu:false},
+    {id:'r9-5950x',nome:'AMD Ryzen 9 5950X',socket:'AM4',tdp:105,tier:8,preco:2600,igpu:false},
+    {id:'i7-14700k',nome:'Intel Core i7-14700K',socket:'LGA1700',tdp:125,tier:8,preco:2800,igpu:true},
+    {id:'r7-9800x3d',nome:'AMD Ryzen 7 9800X3D',socket:'AM5',tdp:120,tier:9,preco:3800,igpu:false},
+    {id:'ultra9-285k',nome:'Intel Core Ultra 9 285K',socket:'LGA1851',tdp:125,tier:9,preco:4500,igpu:true},
+    {id:'r9-9950x',nome:'AMD Ryzen 9 9950X',socket:'AM5',tdp:170,tier:10,preco:5200,igpu:false},
   ];
   const BOARDS=[
     {id:'a320m',nome:'ASRock A320M-HDV',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:350},
@@ -866,7 +887,7 @@
       cooler: coolerStatus,
       board: worse(worse(socketOk?'ok':'bad', ramOk?'ok':'bad'), formOk?'ok':'bad'),
       ram: ramOk?'ok':'bad',
-      gpu: gpuHasCard ? (gpuFitOk?'ok':'bad') : 'neutral',
+      gpu: gpuHasCard ? (gpuFitOk?'ok':'bad') : (cpu.igpu?'neutral':'bad'),
       storage: 'ok',
       psu: psuStatus,
       case: worse(formOk?'ok':'bad', gpuHasCard ? (gpuFitOk?'ok':'bad') : 'neutral')
@@ -993,7 +1014,7 @@
     const gpuLabel=document.getElementById('ill-gpu-label');
     if(!s.gpuHasCard){
       setRect('ill-gpu',caseX+14,gpuY,0,0,'fx-neutral');
-      gpuLabel.textContent='sem GPU dedicada';
+      gpuLabel.textContent='sem GPU dedicada'+(s.cpu.igpu?'':' ⚠ CPU sem vídeo integrado');
       gpuLabel.setAttribute('x',caseX+14); gpuLabel.setAttribute('y',gpuY+14);
     } else {
       const gpuW=Math.min(s.gpu.comprimento*GPU_SCALE, caseW-24);
@@ -1040,7 +1061,9 @@
     renderCheckRow(checks, s.formOk?'ok':'bad', 'Formato da placa-mãe × gabinete',
       s.formOk ? ('O gabinete suporta placas '+s.board.formFactor+'.') : ('O gabinete não suporta o formato '+s.board.formFactor+' — só '+s.pcCase.formFactors.join(', ')+'.'));
     if(!s.gpuHasCard){
-      renderCheckRow(checks, 'na', 'Placa de vídeo × gabinete', 'Sem placa dedicada selecionada, nada para conferir aqui.');
+      renderCheckRow(checks, s.cpu.igpu?'ok':'bad', 'Vídeo integrado × processador',
+        s.cpu.igpu ? (s.cpu.nome+' tem vídeo integrado, então dá pra usar sem placa dedicada.') :
+        (s.cpu.nome+' não tem vídeo integrado — sem uma placa de vídeo dedicada, o PC não vai nem exibir imagem.'));
     } else {
       renderCheckRow(checks, s.gpuFitOk?'ok':'bad', 'Placa de vídeo × gabinete',
         s.gpuFitOk ? (s.gpu.comprimento+'mm cabe nesse gabinete (até '+s.pcCase.maxGpu+'mm).') : (s.gpu.comprimento+'mm é maior que o limite do gabinete ('+s.pcCase.maxGpu+'mm).'));
@@ -1133,6 +1156,45 @@
     render();
   });
 
+  function getEffectiveTheme(){
+    const explicit=document.documentElement.getAttribute('data-theme');
+    if(explicit) return explicit;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
+  function applyThemeIcon(){
+    document.getElementById('theme-toggle').textContent = getEffectiveTheme()==='dark' ? '☀️' : '🌙';
+  }
+  try{
+    const savedTheme=localStorage.getItem('montador-pc-theme');
+    if(savedTheme==='light' || savedTheme==='dark') document.documentElement.setAttribute('data-theme', savedTheme);
+  }catch(e){ /* ignora, segue no automático */ }
+  applyThemeIcon();
+  document.getElementById('theme-toggle').addEventListener('click', function(){
+    const next = getEffectiveTheme()==='dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try{ localStorage.setItem('montador-pc-theme', next); }catch(e){ /* segue sem salvar */ }
+    applyThemeIcon();
+  });
+
+  function buildPrintSummary(s){
+    const rows=ORDER.map(function(cat){
+      const item=findItem(sel,cat);
+      return '<tr><td>'+LABELS[cat]+'</td><td>'+item.nome+'</td><td>'+fmtBRL(item.preco)+'</td></tr>';
+    }).join('');
+    return '<h1>Minha lista de compras — Montador de PC</h1>'+
+      '<table><thead><tr><th>Categoria</th><th>Peça</th><th>Preço</th></tr></thead>'+
+      '<tbody>'+rows+'</tbody>'+
+      '<tfoot><tr><td colspan="2"><strong>Total</strong></td><td><strong>'+fmtBRL(s.totalPrice)+'</strong></td></tr></tfoot></table>'+
+      '<p>Consumo estimado: '+s.totalW+'W · fonte recomendada a partir de '+s.recommendedMin+'W.</p>'+
+      '<p style="color:#888;font-size:0.8em;">Gerado no Montador de PC — preços de referência, confira no fornecedor.</p>';
+  }
+
+  document.getElementById('btn-print').addEventListener('click', function(){
+    const s=compute(sel, extras);
+    document.getElementById('print-summary').innerHTML=buildPrintSummary(s);
+    window.print();
+  });
+
   document.getElementById('btn-share').addEventListener('click', function(){
     const url=location.origin+location.pathname+'#build='+ORDER.map(function(c){return sel[c];}).join(',');
     const btn=document.getElementById('btn-share');
@@ -1167,5 +1229,6 @@
   render();
 })();
 </script>
+<div id="print-summary"></div>
 </body>
 </html>
