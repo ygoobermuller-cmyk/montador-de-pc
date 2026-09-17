@@ -1,120 +1,133 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Montador de PC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #000000; 
-    --panel: #111111; 
-    --panel-alt: #1A1A1A; 
-    --border: #333333;
-    --text: #FFFFFF; 
-    --text-dim: #999999;
-    --accent: #E60012; 
-    --accent-strong: #FF1A2B;
-    --ok: #3F8F5F; --ok-bg: #15291C;
-    --warn: #D9A441; --warn-bg: #2E2A18;
-    --danger: #E60012; --danger-bg: #2B1113;
-    --font-head: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
-    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    --bg:#EEF1F3; --panel:#FFFFFF; --panel-alt:#F4F6F8; --border:#D7DDE3;
+    --text:#1B222A; --text-dim:#5B6774;
+    --accent:#B06B32; --accent-strong:#8F5525;
+    --ok:#3F8F5F; --ok-bg:#E4F1E8;
+    --warn:#A97417; --warn-bg:#F6EDD8;
+    --danger:#C14A3B; --danger-bg:#F7E4E1;
+    --font-head:'Space Grotesk','Segoe UI',system-ui,sans-serif;
+    --font-mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
   }
-
-  body{
-    margin:0; background:var(--bg); color:var(--text);
-    font-family:var(--font-head); line-height:1.45;
-    -webkit-font-smoothing:antialiased;
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#11151A; --panel:#1A2029; --panel-alt:#212932; --border:#2E3946;
+      --text:#E7EBEF; --text-dim:#8C99A6;
+      --accent:#CB8D52; --accent-strong:#E3A96E;
+      --ok:#5FAE7C; --ok-bg:#1C2B22;
+      --warn:#D9A441; --warn-bg:#2E2A18;
+      --danger:#DB6C5D; --danger-bg:#301E1B;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#11151A; --panel:#1A2029; --panel-alt:#212932; --border:#2E3946;
+    --text:#E7EBEF; --text-dim:#8C99A6;
+    --accent:#CB8D52; --accent-strong:#E3A96E;
+    --ok:#5FAE7C; --ok-bg:#1C2B22;
+    --warn:#D9A441; --warn-bg:#2E2A18;
+    --danger:#DB6C5D; --danger-bg:#301E1B;
   }
 
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
-  
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:var(--font-head); line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+  }
   .wrap{max-width:1180px; margin:0 auto; padding:0 20px;}
   a{color:inherit;}
 
+  /* ---------- nav ---------- */
   nav.topnav{
     position:sticky; top:0; z-index:20; backdrop-filter:blur(6px);
-    background:color-mix(in srgb, var(--bg) 90%, transparent);
+    background:var(--panel);
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
     border-bottom:1px solid var(--border);
   }
   .topnav-inner{
-    max-width:1180px; margin:0 auto; padding:16px 20px;
+    max-width:1180px; margin:0 auto; padding:14px 20px;
     display:flex; align-items:center; justify-content:space-between; gap:16px;
   }
-  .brand{font-weight:700; font-size:1.1rem; display:flex; align-items:center; gap:10px; text-decoration:none; text-transform:uppercase; letter-spacing:0.5px;}
-  .brand-mark{width:12px; height:12px; background:var(--accent); display:inline-block; clip-path: polygon(0 0, 100% 0, 50% 100%);}
-  .navlinks{display:flex; gap:22px; font-size:0.92rem; font-weight: 500;}
-  .navlinks a{text-decoration:none; color:var(--text-dim); transition: color 0.2s;}
-  .navlinks a:hover{color:var(--text);}
+  .brand{font-weight:600; font-size:1.05rem; display:flex; align-items:center; gap:8px; text-decoration:none;}
+  .brand-mark{width:10px; height:10px; border-radius:3px; background:var(--accent); display:inline-block; transform:rotate(45deg);}
+  .navlinks{display:flex; gap:22px; font-size:0.92rem;}
+  .navlinks a{text-decoration:none; color:var(--text-dim);}
+  .navlinks a:hover{color:var(--accent);}
 
-  .hero{padding:70px 0 60px; position:relative; overflow:hidden;}
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 48px; position:relative; overflow:hidden;}
   .hero::before{
-    content:''; position:absolute; right:-120px; top:-160px; width:500px; height:500px;
-    background:radial-gradient(circle, color-mix(in srgb, var(--accent) 15%, transparent), transparent 70%);
+    content:''; position:absolute; right:-120px; top:-160px; width:420px; height:420px;
+    background:radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent), transparent 70%);
     pointer-events:none;
   }
   .hero-inner{position:relative; animation:heroIn 0.6s ease-out both;}
   @keyframes heroIn{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
   @media (prefers-reduced-motion: reduce){ .hero-inner{animation:none;} }
-  .eyebrow-free{color:var(--accent); font-family:var(--font-mono); font-size:0.85rem; margin:0 0 12px; text-transform: uppercase;}
+  .eyebrow-free{color:var(--accent); font-family:var(--font-mono); font-size:0.82rem; margin:0 0 10px;}
   .hero h1{
     font-size:clamp(2.1rem, 3.2vw + 1rem, 3.1rem);
-    margin:0 0 16px; font-weight:700; letter-spacing:-0.015em; max-width:18ch; text-transform: uppercase;
+    margin:0 0 14px; font-weight:600; letter-spacing:-0.015em; max-width:18ch;
   }
-  .hero p{margin:0 0 28px; color:var(--text-dim); max-width:56ch; font-size:1.05rem;}
-  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:40px;}
-  .stat-row{display:flex; gap:32px; flex-wrap:wrap;}
+  .hero p{margin:0 0 24px; color:var(--text-dim); max-width:56ch; font-size:1.05rem;}
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:36px;}
+  .stat-row{display:flex; gap:28px; flex-wrap:wrap;}
   .stat-row div{font-family:var(--font-mono);}
-  .stat-num{font-size:1.6rem; font-weight:600; color:var(--accent);}
-  .stat-label{font-size:0.76rem; color:var(--text-dim); font-family:var(--font-head); text-transform: uppercase; letter-spacing: 0.5px;}
+  .stat-num{font-size:1.5rem; font-weight:600; color:var(--accent);}
+  .stat-label{font-size:0.76rem; color:var(--text-dim); font-family:var(--font-head);}
 
   button, .btn{
-    font-family:var(--font-head); font-size:0.92rem; font-weight:600; text-transform: uppercase; letter-spacing: 0.5px;
-    padding:12px 24px; border-radius:2px; border:1px solid var(--border);
+    font-family:var(--font-head); font-size:0.92rem; font-weight:500;
+    padding:11px 20px; border-radius:8px; border:1px solid var(--border);
     background:var(--panel); color:var(--text); cursor:pointer; text-decoration:none;
-    display:inline-flex; align-items:center; gap:8px; transition: all 0.2s;
+    display:inline-flex; align-items:center; gap:8px;
   }
-  button:hover, .btn:hover{border-color:var(--text); background: var(--panel-alt);}
+  button:hover, .btn:hover{border-color:var(--accent);}
   button.primary, .btn.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
   button.primary:hover, .btn.primary:hover{background:var(--accent-strong); border-color:var(--accent-strong);}
   button:focus-visible, select:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
 
-  section{padding:64px 0;}
+  section{padding:56px 0;}
   section.alt{background:var(--panel-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
-  .section-head{margin-bottom:32px; max-width:62ch;}
-  .section-head h2{font-size:1.8rem; margin:0 0 10px; font-weight:700; text-transform: uppercase;}
+  .section-head{margin-bottom:28px; max-width:62ch;}
+  .section-head h2{font-size:1.6rem; margin:0 0 8px; font-weight:600;}
   .section-head p{margin:0; color:var(--text-dim);}
 
-  .store-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px; margin-bottom:24px;}
+  /* ---------- ofertas / lojas ---------- */
+  .store-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px; margin-bottom:22px;}
   .store-card{
-    background:var(--panel); border:1px solid var(--border); border-radius:2px;
-    padding:20px; border-left:4px solid var(--store-color, var(--accent));
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    padding:18px; border-left:3px solid var(--store-color, var(--accent));
     display:flex; flex-direction:column; gap:10px; text-decoration:none; color:var(--text);
-    transition: transform 0.2s, border-color 0.2s;
   }
-  .store-card:hover{border-color:var(--store-color, var(--accent)); transform: translateY(-3px);}
-  .store-card h3{margin:0; font-size:1.1rem; font-weight:600;}
+  .store-card:hover{border-color:var(--store-color, var(--accent));}
+  .store-card h3{margin:0; font-size:1.05rem; font-weight:600;}
   .store-card p{margin:0; font-size:0.85rem; color:var(--text-dim); flex-grow:1;}
   .store-card span.go{font-size:0.82rem; font-family:var(--font-mono); color:var(--store-color, var(--accent));}
-  
   .quicklinks{display:flex; flex-wrap:wrap; gap:8px;}
   .chip{
-    font-size:0.82rem; padding:6px 14px; border-radius:2px; border:1px solid var(--border);
-    text-decoration:none; color:var(--text-dim); background:var(--panel); font-family: var(--font-mono);
-    transition: all 0.2s;
+    font-size:0.82rem; padding:6px 12px; border-radius:20px; border:1px solid var(--border);
+    text-decoration:none; color:var(--text); background:var(--panel);
   }
-  .chip:hover{border-color:var(--accent); color:var(--text);}
+  .chip:hover{border-color:var(--accent); color:var(--accent);}
   .note-block{font-size:0.82rem; color:var(--text-dim); margin-top:18px; max-width:66ch;}
 
-  .layout{display:grid; grid-template-columns:1fr; gap:24px;}
+  /* ---------- montador (builder) ---------- */
+  .layout{display:grid; grid-template-columns:1fr; gap:22px;}
   @media (min-width:900px){
     .layout{grid-template-columns:1.55fr 1fr; align-items:start;}
-    .summary{position:sticky; top:84px;}
+    .summary{position:sticky; top:76px;}
   }
 
   .rail{position:relative; padding-left:26px;}
@@ -124,139 +137,135 @@
   }
   .slot{
     position:relative; background:var(--panel); border:1px solid var(--border);
-    border-radius:2px; padding:18px 20px 16px; margin-bottom:16px;
+    border-radius:10px; padding:16px 16px 14px; margin-bottom:14px;
   }
   .slot .dot{
-    position:absolute; left:-21px; top:24px; width:11px; height:11px; border-radius:0;
-    background:var(--border); box-shadow:0 0 0 4px var(--bg); transform: rotate(45deg);
+    position:absolute; left:-21px; top:24px; width:11px; height:11px; border-radius:50%;
+    background:var(--border); box-shadow:0 0 0 3px var(--bg);
   }
   .slot .dot.ok{background:var(--ok);}
   .slot .dot.warn{background:var(--warn);}
   .slot .dot.bad{background:var(--danger);}
-  .slot-top{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:10px;}
-  .slot-top label{font-weight:600; font-size:1rem; text-transform: uppercase;}
+  .slot-top{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:8px;}
+  .slot-top label{font-weight:600; font-size:0.98rem;}
   .slot select{
-    width:100%; padding:10px 12px; border-radius:2px; border:1px solid var(--border);
+    width:100%; padding:9px 10px; border-radius:7px; border:1px solid var(--border);
     background:var(--panel-alt); color:var(--text); font-family:var(--font-head); font-size:0.94rem;
-    transition: border-color 0.2s;
   }
-  .slot select:focus{border-color:var(--accent); outline:none;}
   .specs{
-    margin-top:10px; font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);
+    margin-top:8px; font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);
   }
 
-  .summary{display:flex; flex-direction:column; gap:16px;}
+  .summary{display:flex; flex-direction:column; gap:14px;}
   .card{
-    background:var(--panel); border:1px solid var(--border); border-radius:2px; padding:20px;
+    background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px;
   }
-  .card h2{margin:0 0 14px; font-size:1.05rem; font-weight:700; text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 10px;}
-  
+  .card h2{margin:0 0 12px; font-size:1rem; font-weight:600;}
   .all-ok-banner{
-    display:none; background:var(--ok-bg); color:var(--ok); border-radius:2px;
-    padding:10px 12px; font-size:0.85rem; font-weight:600; margin-bottom:14px; border: 1px solid var(--ok);
+    display:none; background:var(--ok-bg); color:var(--ok); border-radius:8px;
+    padding:8px 12px; font-size:0.85rem; font-weight:600; margin-bottom:12px;
   }
   .all-ok-banner.show{display:block;}
-  .check-row{display:flex; align-items:flex-start; gap:12px; padding:8px 0; font-size:0.87rem;}
+  .check-row{display:flex; align-items:flex-start; gap:9px; padding:6px 0; font-size:0.87rem;}
   .check-row + .check-row{border-top:1px solid var(--border);}
-  .check-dot{width:8px; height:8px; margin-top:6px; flex-shrink:0; background:var(--border); transform: rotate(45deg);}
+  .check-dot{width:9px; height:9px; border-radius:50%; margin-top:5px; flex-shrink:0; background:var(--border);}
   .check-dot.ok{background:var(--ok);}
   .check-dot.warn{background:var(--warn);}
   .check-dot.bad{background:var(--danger);}
-  .check-text b{display:block; font-weight:600; margin-bottom:2px;}
+  .check-text b{display:block; font-weight:600; margin-bottom:1px;}
   .check-text span{color:var(--text-dim);}
 
   .bar-track{
-    height:8px; border-radius:0; background:var(--panel-alt); border:1px solid var(--border);
-    overflow:hidden; position:relative; margin:8px 0 6px;
+    height:10px; border-radius:5px; background:var(--panel-alt); border:1px solid var(--border);
+    overflow:hidden; position:relative; margin:6px 0 4px;
   }
-  .bar-fill{height:100%; border-radius:0;}
+  .bar-fill{height:100%; border-radius:5px 0 0 5px;}
   .bar-fill.ok{background:var(--ok);}
   .bar-fill.warn{background:var(--warn);}
   .bar-fill.bad{background:var(--danger);}
   .bar-fill.neutral{background:var(--accent);}
   .bar-label{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:0.78rem; color:var(--text-dim);}
-  
-  .power-readout{font-family:var(--font-mono); font-size:2rem; font-weight:700; margin:5px 0 15px; color: var(--accent);}
-  .power-readout small{font-family:var(--font-head); font-weight:600; font-size:0.75rem; color:var(--text-dim); display:block; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;}
-  
+  .power-readout{font-family:var(--font-mono); font-size:1.4rem; font-weight:600; margin:2px 0 10px;}
+  .power-readout small{font-family:var(--font-head); font-weight:500; font-size:0.72rem; color:var(--text-dim); display:block;}
   .status-pill{
-    display:inline-block; font-size:0.76rem; font-family:var(--font-mono); padding:4px 10px;
-    border-radius:2px; margin-bottom:10px; font-weight: 600; text-transform: uppercase;
+    display:inline-block; font-size:0.76rem; font-family:var(--font-mono); padding:2px 8px;
+    border-radius:20px; margin-bottom:10px;
   }
-  .status-pill.ok{background:var(--ok-bg); color:var(--ok); border: 1px solid var(--ok);}
-  .status-pill.warn{background:var(--warn-bg); color:var(--warn); border: 1px solid var(--warn);}
-  .status-pill.bad{background:var(--danger-bg); color:var(--danger); border: 1px solid var(--danger);}
+  .status-pill.ok{background:var(--ok-bg); color:var(--ok);}
+  .status-pill.warn{background:var(--warn-bg); color:var(--warn);}
+  .status-pill.bad{background:var(--danger-bg); color:var(--danger);}
 
-  .bottleneck-track{position:relative; height:34px; margin:14px 0 8px;}
+  .bottleneck-track{position:relative; height:34px; margin:10px 0 6px;}
   .bottleneck-line{position:absolute; left:0; right:0; top:16px; height:2px; background:var(--border);}
   .marker{
-    position:absolute; top:6px; width:22px; height:22px; border-radius:0; transform: translateX(-50%) rotate(45deg);
-    display:flex; align-items:center; justify-content:center;
+    position:absolute; top:6px; width:22px; height:22px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-mono);
+    font-size:0.62rem; font-weight:600; color:#fff; transform:translateX(-50%);
     border:2px solid var(--panel);
   }
-  .marker::after { content: attr(data-label); font-family:var(--font-mono); font-size:0.55rem; font-weight:700; color:#fff; transform: rotate(-45deg); }
   .marker.cpu{background:var(--accent);}
   .marker.gpu{background:#5B7C99;}
-  .bottleneck-legend{display:flex; gap:14px; font-size:0.78rem; color:var(--text-dim); margin-bottom:12px; font-family: var(--font-mono);}
-  .bottleneck-legend span{display:flex; align-items:center; gap:6px;}
-  .swatch{width:10px; height:10px; display:inline-block; transform: rotate(45deg);}
+  .bottleneck-legend{display:flex; gap:14px; font-size:0.78rem; color:var(--text-dim); margin-bottom:8px;}
+  .bottleneck-legend span{display:flex; align-items:center; gap:5px;}
+  .swatch{width:9px; height:9px; border-radius:50%; display:inline-block;}
   .swatch.cpu{background:var(--accent);}
   .swatch.gpu{background:#5B7C99;}
   .bottleneck-text{font-size:0.87rem; color:var(--text-dim);}
 
-  .total-row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
-  .total-row .amount{font-family:var(--font-mono); font-size:1.6rem; font-weight:700; color: var(--text);}
-  .note{font-size:0.76rem; color:var(--text-dim); margin-top:8px;}
+  .total-row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;}
+  .total-row .amount{font-family:var(--font-mono); font-size:1.3rem; font-weight:600;}
+  .note{font-size:0.76rem; color:var(--text-dim); margin-top:6px;}
 
-  footer{padding:32px 0 48px; text-align:center; color:var(--text-dim); font-size:0.8rem; font-family: var(--font-mono);}
+  footer{padding:28px 0 48px; text-align:center; color:var(--text-dim); font-size:0.8rem;}
 
+  /* ---------- builds prontas ---------- */
   .preset-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px;}
   .preset-card{
-    background:var(--panel); border:1px solid var(--border); border-radius:2px;
-    padding:20px; display:flex; flex-direction:column; gap:12px;
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    padding:18px; display:flex; flex-direction:column; gap:10px;
   }
-  .preset-card h3{margin:0; font-size:1.05rem; font-weight:700; text-transform: uppercase;}
+  .preset-card h3{margin:0; font-size:1.02rem; font-weight:600;}
   .preset-card p{margin:0; font-size:0.85rem; color:var(--text-dim); flex-grow:1;}
-  .preset-meta{display:flex; align-items:center; justify-content:space-between; border-top: 1px solid var(--border); padding-top: 12px;}
+  .preset-meta{display:flex; align-items:center; justify-content:space-between;}
   .preset-price{font-family:var(--font-mono); font-weight:600;}
-  .preset-badge{font-size:0.72rem; font-family:var(--font-mono); padding:2px 8px; border-radius:2px; border: 1px solid;}
-  .preset-badge.ok{background:var(--ok-bg); color:var(--ok); border-color:var(--ok);}
-  .preset-badge.warn{background:var(--warn-bg); color:var(--warn); border-color:var(--warn);}
+  .preset-badge{font-size:0.72rem; font-family:var(--font-mono); padding:2px 8px; border-radius:20px;}
+  .preset-badge.ok{background:var(--ok-bg); color:var(--ok);}
+  .preset-badge.warn{background:var(--warn-bg); color:var(--warn);}
   .preset-card button{width:100%; justify-content:center;}
-  .btn.small, button.small{padding:8px 16px; font-size:0.82rem;}
-  .share-row{margin-top:16px;}
+  .btn.small, button.small{padding:7px 14px; font-size:0.82rem;}
+  .share-row{margin-top:12px;}
 
-  #pc-svg{width:100%; height:auto; display:block; margin-bottom:12px; background: #080808; border: 1px solid var(--border); border-radius: 2px;}
+  /* ---------- ilustração do build ---------- */
+  #pc-svg{width:100%; height:auto; display:block; margin-bottom:4px;}
   .fx-part{stroke-width:2; transition:x 0.2s, y 0.2s, width 0.2s, height 0.2s;}
-  .fx-ok{fill:color-mix(in srgb, var(--ok) 25%, transparent); stroke:var(--ok);}
-  .fx-warn{fill:color-mix(in srgb, var(--warn) 25%, transparent); stroke:var(--warn);}
-  .fx-bad{fill:color-mix(in srgb, var(--danger) 25%, transparent); stroke:var(--danger);}
-  .fx-neutral{fill:#1a1a1a; stroke:#444;}
+  .fx-ok{fill:var(--ok-bg); stroke:var(--ok);}
+  .fx-ok{fill:color-mix(in srgb, var(--ok) 16%, transparent); stroke:var(--ok);}
+  .fx-warn{fill:var(--warn-bg); stroke:var(--warn);}
+  .fx-warn{fill:color-mix(in srgb, var(--warn) 16%, transparent); stroke:var(--warn);}
+  .fx-bad{fill:var(--danger-bg); stroke:var(--danger);}
+  .fx-bad{fill:color-mix(in srgb, var(--danger) 16%, transparent); stroke:var(--danger);}
+  .fx-neutral{fill:var(--panel-alt); stroke:var(--border);}
   .fx-label{font-family:var(--font-mono); font-size:9px; fill:var(--text-dim);}
   .fx-dash{stroke:var(--border); stroke-width:1; stroke-dasharray:4 3;}
   @media (prefers-reduced-motion: reduce){ .fx-part{transition:none;} }
 
-  /* Loader para enquanto o JSON estiver carregando */
-  #loader-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--bg); z-index: 9999; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 20px; transition: opacity 0.5s;
+  /* ---------- calculadora de fonte (estilo MSI) ---------- */
+  .extras-row{display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-bottom:12px; font-size:0.84rem;}
+  .extras-row label{display:flex; align-items:center; gap:6px; color:var(--text-dim);}
+  .extras-row input[type="number"]{
+    width:46px; padding:4px 6px; border-radius:6px; border:1px solid var(--border);
+    background:var(--panel-alt); color:var(--text); font-family:var(--font-mono); font-size:0.84rem;
   }
-  .loader-spinner {
-    width: 40px; height: 40px; border: 3px solid var(--border);
-    border-top-color: var(--accent); border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .extras-row input[type="checkbox"]{width:15px; height:15px;}
+  #psu-gauge{width:100%; max-width:220px; margin:2px auto 0; display:block;}
+  #gauge-track{fill:none; stroke:var(--border); stroke-width:10; stroke-linecap:round;}
+  #gauge-needle{stroke-width:4; stroke-linecap:round; transition:x2 0.25s, y2 0.25s;}
+  .gauge-tick{stroke:var(--text-dim); stroke-width:3;}
+  #gauge-value-text{text-align:center; font-family:var(--font-mono); font-size:1.05rem; font-weight:600; margin-top:-8px;}
+  @media (prefers-reduced-motion: reduce){ #gauge-needle{transition:none;} }
 </style>
 </head>
 <body>
-
-<!-- Loader cobrindo a tela até os dados chegarem -->
-<div id="loader-overlay">
-  <div class="loader-spinner"></div>
-  <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase;">Carregando banco de dados...</div>
-</div>
 
 <nav class="topnav">
   <div class="topnav-inner">
@@ -301,7 +310,7 @@
       <p>Preço de hardware muda de hora em hora, então em vez de fingir que sei o preço de agora, aqui vão os atalhos pras lojas que mais vendem peça de PC no Brasil — clique e veja o valor de verdade, ao vivo.</p>
     </div>
     <div class="store-grid">
-      <a class="store-card" style="--store-color:#E60012" href="https://www.kabum.com.br" target="_blank" rel="noopener">
+      <a class="store-card" style="--store-color:#C98A4E" href="https://www.kabum.com.br" target="_blank" rel="noopener">
         <h3>KaBuM!</h3>
         <p>Um dos maiores catálogos de hardware do país, com promoções relâmpago quase todo dia.</p>
         <span class="go">kabum.com.br →</span>
@@ -316,7 +325,7 @@
         <p>Boa pedida pra SSD, fonte e gabinete, com preço à vista costumando ser o mais agressivo.</p>
         <span class="go">terabyteshop.com.br →</span>
       </a>
-      <a class="store-card" style="--store-color:#F5A623" href="https://www.amazon.com.br/s?k=placa+de+video" target="_blank" rel="noopener">
+      <a class="store-card" style="--store-color:#2F8F86" href="https://www.amazon.com.br/s?k=placa+de+video" target="_blank" rel="noopener">
         <h3>Amazon</h3>
         <p>Entrega rápida e fácil de comparar com histórico de preço em extensões de terceiros.</p>
         <span class="go">amazon.com.br →</span>
@@ -341,7 +350,7 @@
       <p>Não dá pra cravar qual é "o" vídeo perfeito de montagem nem fingir que sei a notícia de agora — mas aponto pros lugares certos pra isso, sempre atualizados.</p>
     </div>
 
-    <h3 style="margin:0 0 12px; font-size:1.05rem; font-weight:700; text-transform:uppercase;">Vídeos de montagem</h3>
+    <h3 style="margin:0 0 12px; font-size:1.02rem;">Vídeos de montagem</h3>
     <div class="quicklinks" style="margin-bottom:32px;">
       <a class="chip" href="https://www.youtube.com/results?search_query=como+montar+um+pc+do+zero+passo+a+passo" target="_blank" rel="noopener">Montar um PC do zero</a>
       <a class="chip" href="https://www.youtube.com/results?search_query=como+aplicar+pasta+t%C3%A9rmica+processador" target="_blank" rel="noopener">Aplicar pasta térmica</a>
@@ -350,13 +359,13 @@
       <a class="chip" href="https://www.youtube.com/results?search_query=como+limpar+e+trocar+pasta+termica+do+pc" target="_blank" rel="noopener">Manutenção e limpeza</a>
     </div>
 
-    <h3 style="margin:0 0 12px; font-size:1.05rem; font-weight:700; text-transform:uppercase;">Últimas notícias de hardware</h3>
+    <h3 style="margin:0 0 12px; font-size:1.02rem;">Últimas notícias de hardware</h3>
     <p class="note-block" style="margin-top:0; margin-bottom:16px;">
       Uma que já é fato: as próximas GPUs AMD (RDNA 5) não devem chegar antes de 2027/2028, segundo rumores da indústria — então a linha RX 9000 (já no catálogo aqui) deve seguir sendo o topo da AMD por um bom tempo.
-      <a href="https://www.tecmundo.com.br/produto/413694-pe-no-freio-novas-gpus-radeon-da-amd-so-devem-ser-lancadas-perto-de-2028.htm" target="_blank" rel="noopener" style="color:var(--accent);">(fonte)</a>
+      <a href="https://www.tecmundo.com.br/produto/413694-pe-no-freio-novas-gpus-radeon-da-amd-so-devem-ser-lancadas-perto-de-2028.htm" target="_blank" rel="noopener">(fonte)</a>
     </p>
     <div class="store-grid">
-      <a class="store-card" style="--store-color:#E60012" href="https://www.adrenaline.com.br" target="_blank" rel="noopener">
+      <a class="store-card" style="--store-color:#C98A4E" href="https://www.adrenaline.com.br" target="_blank" rel="noopener">
         <h3>Adrenaline</h3>
         <p>Referência em hardware no Brasil, com notícias, reviews e um fórum ativo de quem testa peça de verdade.</p>
         <span class="go">adrenaline.com.br →</span>
@@ -373,7 +382,7 @@
       </a>
     </div>
 
-    <h3 style="margin:32px 0 12px; font-size:1.05rem; font-weight:700; text-transform:uppercase;">Peça ajuda a uma IA</h3>
+    <h3 style="margin:32px 0 12px; font-size:1.02rem;">Peça ajuda a uma IA</h3>
     <p class="note-block" style="margin-top:0; margin-bottom:12px;">Um empurrão pra quem não sabe nem por onde começar — abre o chat já com a pergunta pronta.</p>
     <div class="quicklinks">
       <a class="chip" href="https://chatgpt.com/?q=Quero%20montar%20um%20PC%20pela%20primeira%20vez.%20Pode%20me%20ajudar%20a%20escolher%20pe%C3%A7as%20compat%C3%ADveis%20%28processador%2C%20placa-m%C3%A3e%2C%20mem%C3%B3ria%20RAM%2C%20placa%20de%20v%C3%ADdeo%2C%20fonte%20e%20gabinete%29%2C%20explicando%20o%20que%20cada%20uma%20faz%20e%20como%20saber%20se%20elas%20combinam%20entre%20si%3F" target="_blank" rel="noopener">Perguntar no ChatGPT</a>
@@ -401,17 +410,17 @@
         <div class="card">
           <h2>Como fica montado</h2>
           <svg id="pc-svg" viewBox="0 0 260 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração esquemática do PC montado">
-            <rect id="ill-case" class="fx-part fx-neutral" rx="2"></rect>
-            <rect id="ill-board" class="fx-part fx-neutral" rx="1"></rect>
-            <rect id="ill-cpu" class="fx-part fx-neutral" rx="1"></rect>
+            <rect id="ill-case" class="fx-part fx-neutral" rx="10"></rect>
+            <rect id="ill-board" class="fx-part fx-neutral" rx="4"></rect>
+            <rect id="ill-cpu" class="fx-part fx-neutral" rx="2"></rect>
             <g id="ill-cooler"></g>
-            <rect id="ill-ram1" class="fx-part fx-neutral" rx="0"></rect>
-            <rect id="ill-ram2" class="fx-part fx-neutral" rx="0"></rect>
+            <rect id="ill-ram1" class="fx-part fx-neutral" rx="1"></rect>
+            <rect id="ill-ram2" class="fx-part fx-neutral" rx="1"></rect>
             <line id="ill-maxgpu-line" class="fx-dash"></line>
-            <rect id="ill-gpu" class="fx-part fx-neutral" rx="1"></rect>
+            <rect id="ill-gpu" class="fx-part fx-neutral" rx="3"></rect>
             <text id="ill-gpu-label" class="fx-label"></text>
-            <rect id="ill-psu" class="fx-part fx-neutral" rx="1"></rect>
-            <rect id="ill-storage" class="fx-part fx-neutral" rx="1"></rect>
+            <rect id="ill-psu" class="fx-part fx-neutral" rx="3"></rect>
+            <rect id="ill-storage" class="fx-part fx-neutral" rx="2"></rect>
           </svg>
           <p class="note">Vista lateral esquemática, só pra visualizar proporção e encaixe — não é o produto real.</p>
         </div>
@@ -425,13 +434,27 @@
         <div class="card">
           <h2>Consumo de energia</h2>
           <div id="power-status"></div>
+          <div class="extras-row">
+            <label>Fans extras <input type="number" id="extra-fans" min="0" max="8" value="0"></label>
+            <label>Discos extras <input type="number" id="extra-drives" min="0" max="4" value="0"></label>
+            <label><input type="checkbox" id="extra-oc"> Overclock (+15%)</label>
+          </div>
+          <svg id="psu-gauge" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Medidor de consumo em relação à capacidade da fonte">
+            <path id="gauge-track" d="M 20 100 A 80 80 0 0 1 180 100"></path>
+            <line id="gauge-capacity-tick" class="gauge-tick"></line>
+            <line id="gauge-needle" class="fx-part fx-neutral"></line>
+            <circle cx="100" cy="100" r="4" class="fx-part fx-neutral"></circle>
+            <text id="gauge-scale-min" x="14" y="115" class="fx-label"></text>
+            <text id="gauge-scale-max" x="186" y="115" text-anchor="end" class="fx-label"></text>
+          </svg>
+          <div id="gauge-value-text"></div>
           <div class="power-readout" id="power-number"><small>Consumo estimado</small>0 W</div>
           <div class="bar-label"><span>Consumo</span><span id="power-scale-a"></span></div>
           <div class="bar-track"><div class="bar-fill neutral" id="bar-draw" style="width:0%"></div></div>
           <div class="bar-label"><span>Fonte selecionada</span><span id="power-scale-b"></span></div>
           <div class="bar-track"><div class="bar-fill neutral" id="bar-psu" style="width:0%"></div></div>
           <p class="note" id="power-note"></p>
-          <button id="btn-fix-psu" class="btn small" style="display:none; margin-top:10px;">⚡ Trocar por fonte adequada</button>
+          <button id="btn-fix-psu" class="btn small" style="display:none;">⚡ Trocar por fonte adequada</button>
         </div>
 
         <div class="card">
@@ -447,8 +470,8 @@
           </div>
           <div class="bottleneck-track">
             <div class="bottleneck-line"></div>
-            <div class="marker cpu" id="marker-cpu" data-label="CPU"></div>
-            <div class="marker gpu" id="marker-gpu" data-label="GPU"></div>
+            <div class="marker cpu" id="marker-cpu">CPU</div>
+            <div class="marker gpu" id="marker-gpu">GPU</div>
           </div>
           <p class="bottleneck-text" id="bottleneck-text"></p>
         </div>
@@ -473,650 +496,675 @@
 </section>
 
 <footer>
-  Feito pra brincar e testar combinações de PC · Inspirado na estética MSI
+  Feito pra brincar e testar combinações de PC · dados de referência, não em tempo real
 </footer>
 
 <script>
 (function(){
   "use strict";
 
-  // VARIAVEL GLOBAL DO BANCO DE DADOS
-  let DATA = {};
-  
-  // COLE SUA URL RAW DO GITHUB AQUI
-  const URL_DO_GITHUB = "https://raw.githubusercontent.com/ygoobermuller-cmyk/montador-de-pc/refs/heads/main/hardware-data.json"; 
-  
+  const CPUS=[
+    {id:'r3-3200g',nome:'AMD Ryzen 3 3200G',socket:'AM4',tdp:65,tier:1,preco:550},
+    {id:'i3-10100f',nome:'Intel Core i3-10100F',socket:'LGA1200',tdp:65,tier:2,preco:500},
+    {id:'i5-9400f',nome:'Intel Core i5-9400F',socket:'LGA1151',tdp:65,tier:2,preco:550},
+    {id:'r5-3600',nome:'AMD Ryzen 5 3600',socket:'AM4',tdp:65,tier:3,preco:650},
+    {id:'i5-10400f',nome:'Intel Core i5-10400F',socket:'LGA1200',tdp:65,tier:3,preco:650},
+    {id:'r5-5600',nome:'AMD Ryzen 5 5600',socket:'AM4',tdp:65,tier:4,preco:700},
+    {id:'i5-11400f',nome:'Intel Core i5-11400F',socket:'LGA1200',tdp:65,tier:4,preco:750},
+    {id:'i7-9700k',nome:'Intel Core i7-9700K',socket:'LGA1151',tdp:95,tier:5,preco:900},
+    {id:'i5-12400f',nome:'Intel Core i5-12400F',socket:'LGA1700',tdp:65,tier:5,preco:900},
+    {id:'r5-9600x',nome:'AMD Ryzen 5 9600X',socket:'AM5',tdp:65,tier:5,preco:1800},
+    {id:'r5-5600x',nome:'AMD Ryzen 5 5600X',socket:'AM4',tdp:65,tier:5,preco:850},
+    {id:'i7-11700k',nome:'Intel Core i7-11700K',socket:'LGA1200',tdp:125,tier:6,preco:1400},
+    {id:'r7-5700x',nome:'AMD Ryzen 7 5700X',socket:'AM4',tdp:65,tier:6,preco:1100},
+    {id:'r7-9700x',nome:'AMD Ryzen 7 9700X',socket:'AM5',tdp:65,tier:7,preco:2600},
+    {id:'ultra5-245k',nome:'Intel Core Ultra 5 245K',socket:'LGA1851',tdp:125,tier:7,preco:2000},
+    {id:'r9-5900x',nome:'AMD Ryzen 9 5900X',socket:'AM4',tdp:105,tier:7,preco:1900},
+    {id:'r7-5800x3d',nome:'AMD Ryzen 7 5800X3D',socket:'AM4',tdp:105,tier:8,preco:2100},
+    {id:'r9-5950x',nome:'AMD Ryzen 9 5950X',socket:'AM4',tdp:105,tier:8,preco:2600},
+    {id:'i7-14700k',nome:'Intel Core i7-14700K',socket:'LGA1700',tdp:125,tier:8,preco:2800},
+    {id:'r7-9800x3d',nome:'AMD Ryzen 7 9800X3D',socket:'AM5',tdp:120,tier:9,preco:3800},
+    {id:'ultra9-285k',nome:'Intel Core Ultra 9 285K',socket:'LGA1851',tdp:125,tier:9,preco:4500},
+    {id:'r9-9950x',nome:'AMD Ryzen 9 9950X',socket:'AM5',tdp:170,tier:10,preco:5200},
+  ];
+  const BOARDS=[
+    {id:'a320m',nome:'ASRock A320M-HDV',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:350},
+    {id:'b365m',nome:'ASRock B365M Pro4',socket:'LGA1151',formFactor:'mATX',ramType:'DDR4',preco:450},
+    {id:'h510m',nome:'Gigabyte H510M H',socket:'LGA1200',formFactor:'mATX',ramType:'DDR4',preco:420},
+    {id:'b450m',nome:'Gigabyte B450M S2H',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:480},
+    {id:'z390-atx',nome:'ASUS Prime Z390-A',socket:'LGA1151',formFactor:'ATX',ramType:'DDR4',preco:900},
+    {id:'b550m',nome:'MSI B550M Pro-VDH',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:600},
+    {id:'z490-atx',nome:'ASUS TUF Gaming Z490-Plus',socket:'LGA1200',formFactor:'ATX',ramType:'DDR4',preco:1100},
+    {id:'b550-atx',nome:'Gigabyte B550 Gaming X',socket:'AM4',formFactor:'ATX',ramType:'DDR4',preco:800},
+    {id:'b760m',nome:'ASRock B760M Pro RS',socket:'LGA1700',formFactor:'mATX',ramType:'DDR4',preco:700},
+    {id:'x570-atx',nome:'ASUS TUF Gaming X570-Plus',socket:'AM4',formFactor:'ATX',ramType:'DDR4',preco:1300},
+    {id:'b650-atx',nome:'ASUS TUF Gaming B650-Plus',socket:'AM5',formFactor:'ATX',ramType:'DDR5',preco:1400},
+    {id:'b650m',nome:'Gigabyte B650M K',socket:'AM5',formFactor:'mATX',ramType:'DDR5',preco:900},
+    {id:'a620i',nome:'ASRock A620I Lightning',socket:'AM5',formFactor:'ITX',ramType:'DDR5',preco:1100},
+    {id:'z790-atx',nome:'ASUS Prime Z790-A',socket:'LGA1700',formFactor:'ATX',ramType:'DDR5',preco:1800},
+    {id:'b860m',nome:'MSI PRO B860M-A',socket:'LGA1851',formFactor:'mATX',ramType:'DDR5',preco:1100},
+    {id:'z890-atx',nome:'Gigabyte Z890 Aorus Elite',socket:'LGA1851',formFactor:'ATX',ramType:'DDR5',preco:2200},
+  ];
+  const RAMS=[
+    {id:'ddr4-8',nome:'Kit 8GB (2x4) DDR4 2666MHz',tipo:'DDR4',capacidade:8,preco:150},
+    {id:'ddr4-16',nome:'Kit 16GB (2x8) DDR4 3200MHz',tipo:'DDR4',capacidade:16,preco:250},
+    {id:'ddr4-32',nome:'Kit 32GB (2x16) DDR4 3200MHz',tipo:'DDR4',capacidade:32,preco:450},
+    {id:'ddr5-16',nome:'Kit 16GB (2x8) DDR5 6000MHz',tipo:'DDR5',capacidade:16,preco:400},
+    {id:'ddr5-32',nome:'Kit 32GB (2x16) DDR5 6000MHz',tipo:'DDR5',capacidade:32,preco:750},
+    {id:'ddr5-64',nome:'Kit 64GB (2x32) DDR5 6000MHz',tipo:'DDR5',capacidade:64,preco:1600},
+  ];
+  const GPUS=[
+    {id:'none',nome:'Nenhuma — usar vídeo integrado',tdp:0,tier:2,comprimento:0,preco:0},
+    {id:'gtx1650',nome:'NVIDIA GTX 1650',tdp:75,tier:2,comprimento:170,preco:900},
+    {id:'rx580',nome:'AMD RX 580 8GB',tdp:185,tier:3,comprimento:240,preco:750},
+    {id:'gtx1660super',nome:'NVIDIA GTX 1660 Super',tdp:125,tier:3,comprimento:210,preco:1100},
+    {id:'rx5600xt',nome:'AMD RX 5600 XT',tdp:150,tier:4,comprimento:230,preco:1300},
+    {id:'rtx2060',nome:'NVIDIA RTX 2060',tdp:160,tier:4,comprimento:200,preco:1400},
+    {id:'rtx3060',nome:'NVIDIA RTX 3060',tdp:170,tier:5,comprimento:240,preco:1700},
+    {id:'rx6600',nome:'AMD RX 6600',tdp:132,tier:5,comprimento:220,preco:1500},
+    {id:'rtx5060',nome:'NVIDIA RTX 5060',tdp:145,tier:5,comprimento:242,preco:2300},
+    {id:'rtx3060ti',nome:'NVIDIA RTX 3060 Ti',tdp:200,tier:6,comprimento:242,preco:2000},
+    {id:'rx6700xt',nome:'AMD RX 6700 XT',tdp:230,tier:6,comprimento:267,preco:2200},
+    {id:'rtx3070',nome:'NVIDIA RTX 3070',tdp:220,tier:6,comprimento:242,preco:2400},
+    {id:'rtx5060ti',nome:'NVIDIA RTX 5060 Ti',tdp:180,tier:6,comprimento:268,preco:3000},
+    {id:'rx6800xt',nome:'AMD RX 6800 XT',tdp:300,tier:7,comprimento:267,preco:3200},
+    {id:'rtx3080',nome:'NVIDIA RTX 3080',tdp:320,tier:7,comprimento:285,preco:3600},
+    {id:'rx9070',nome:'AMD RX 9070',tdp:220,tier:7,comprimento:280,preco:3800},
+    {id:'rtx5070',nome:'NVIDIA RTX 5070',tdp:250,tier:7,comprimento:280,preco:4200},
+    {id:'rx9070xt',nome:'AMD RX 9070 XT',tdp:304,tier:8,comprimento:300,preco:4600},
+    {id:'rtx5070ti',nome:'NVIDIA RTX 5070 Ti',tdp:300,tier:8,comprimento:305,preco:5800},
+    {id:'rtx5080',nome:'NVIDIA RTX 5080',tdp:360,tier:9,comprimento:310,preco:8500},
+    {id:'rtx5090',nome:'NVIDIA RTX 5090',tdp:575,tier:10,comprimento:336,preco:14000},
+  ];
+  const STORAGES=[
+    {id:'sata-480',nome:'SSD SATA 480GB',preco:200},
+    {id:'nvme-1tb',nome:'SSD NVMe 1TB',preco:350},
+    {id:'nvme-2tb',nome:'SSD NVMe 2TB',preco:650},
+    {id:'hdd-2tb',nome:'HD 2TB (HDD)',preco:350,extraW:8},
+  ];
+  const PSUS=[
+    {id:'400-white',nome:'400W 80+ White',watt:400,preco:180},
+    {id:'450-bronze',nome:'450W 80+ Bronze',watt:450,preco:250},
+    {id:'550-bronze',nome:'550W 80+ Bronze',watt:550,preco:320},
+    {id:'650-bronze',nome:'650W 80+ Bronze',watt:650,preco:400},
+    {id:'750-gold',nome:'750W 80+ Gold',watt:750,preco:550},
+    {id:'850-gold',nome:'850W 80+ Gold',watt:850,preco:700},
+    {id:'1000-gold',nome:'1000W 80+ Gold',watt:1000,preco:900},
+    {id:'1200-platinum',nome:'1200W 80+ Platinum',watt:1200,preco:1400},
+  ];
+  const CASES=[
+    {id:'itx-compact',nome:'Gabinete Mini-ITX Compacto',formFactors:['ITX'],maxGpu:280,preco:450},
+    {id:'matx-mid',nome:'Gabinete Micro-ATX',formFactors:['ITX','mATX'],maxGpu:330,preco:350},
+    {id:'atx-mid',nome:'Gabinete ATX Mid Tower',formFactors:['ITX','mATX','ATX'],maxGpu:360,preco:450},
+    {id:'atx-full',nome:'Gabinete ATX Full Tower',formFactors:['ITX','mATX','ATX'],maxGpu:400,preco:800},
+  ];
+  const COOLERS=[
+    {id:'stock',nome:'Cooler Box (que acompanha o processador)',capacidadeW:65,preco:0},
+    {id:'ar-basico',nome:'Cooler de Ar Básico (torre única)',capacidadeW:95,preco:120},
+    {id:'ar-duplo',nome:'Cooler de Ar Duplo Torre',capacidadeW:150,preco:280},
+    {id:'aio-240',nome:'Water Cooler AIO 240mm',capacidadeW:180,preco:450},
+    {id:'aio-360',nome:'Water Cooler AIO 360mm',capacidadeW:250,preco:650},
+  ];
+
+  const DATA={cpu:CPUS,cooler:COOLERS,board:BOARDS,ram:RAMS,gpu:GPUS,storage:STORAGES,psu:PSUS,case:CASES};
   const LABELS={cpu:'Processador',cooler:'Refrigeração',board:'Placa-mãe',ram:'Memória RAM',gpu:'Placa de vídeo',storage:'Armazenamento',psu:'Fonte de alimentação',case:'Gabinete'};
   const ORDER=['cpu','cooler','board','ram','gpu','storage','psu','case'];
-  const DEFAULT_SEL={cpu:'r7-7800x3d',cooler:'aio-240',board:'b650-atx',ram:'ddr5-32',gpu:'rtx4070super',storage:'nvme-1tb',psu:'750-gold',case:'atx-mid'};
+
+  const DEFAULT_SEL={cpu:'r7-9700x',cooler:'ar-basico',board:'b650-atx',ram:'ddr5-32',gpu:'rtx5070',storage:'nvme-1tb',psu:'750-gold',case:'atx-mid'};
+
+  const PRESETS=[
+    {id:'entrada',nome:'Entrada / uso geral',desc:'Navegar, estudar, trabalho e jogos leves em 1080p baixo.',sel:{cpu:'r3-3200g',cooler:'stock',board:'a320m',ram:'ddr4-8',gpu:'none',storage:'sata-480',psu:'400-white',case:'matx-mid'}},
+    {id:'am4-custo',nome:'Custo-benefício AM4',desc:'A combinação mais comum de quem monta ou faz upgrade gastando pouco.',sel:{cpu:'r5-5600x',cooler:'ar-basico',board:'b550m',ram:'ddr4-16',gpu:'rtx3060',storage:'nvme-1tb',psu:'550-bronze',case:'matx-mid'}},
+    {id:'criador',nome:'Criador / streaming',desc:'Muitos núcleos pra codificar vídeo e rodar jogo com live ao mesmo tempo.',sel:{cpu:'r9-5950x',cooler:'aio-240',board:'x570-atx',ram:'ddr4-32',gpu:'rtx3070',storage:'nvme-2tb',psu:'750-gold',case:'atx-mid'}},
+    {id:'1440p',nome:'1440p atual',desc:'Plataforma nova, bom equilíbrio pra jogar em 1440p com tudo no alto.',sel:{cpu:'r7-9700x',cooler:'ar-duplo',board:'b650-atx',ram:'ddr5-32',gpu:'rtx5070',storage:'nvme-1tb',psu:'750-gold',case:'atx-mid'}},
+    {id:'sem-limites',nome:'Sem limites',desc:'O topo do catálogo, pra quem não quer pensar em upgrade tão cedo.',sel:{cpu:'r9-9950x',cooler:'aio-360',board:'b650-atx',ram:'ddr5-64',gpu:'rtx5090',storage:'nvme-2tb',psu:'1200-platinum',case:'atx-full'}},
+  ];
+
+  const statRow=document.getElementById('stat-row');
+  const gpuCount=GPUS.filter(function(g){return g.id!=='none';}).length;
+  const sockets=Array.from(new Set(CPUS.map(function(c){return c.socket;})));
+  [
+    [CPUS.length,'processadores'],
+    [gpuCount,'placas de vídeo'],
+    [sockets.length,'soquetes diferentes'],
+    [CASES.length,'gabinetes']
+  ].forEach(function(pair){
+    const d=document.createElement('div');
+    d.innerHTML='<div class="stat-num">'+pair[0]+'</div><div class="stat-label">'+pair[1]+'</div>';
+    statRow.appendChild(d);
+  });
+
+  function fmtBRL(n){
+    try{ return 'R$ ' + n.toLocaleString('pt-BR'); }
+    catch(e){ return 'R$ ' + n; }
+  }
+
+  function specLine(cat,item){
+    if(!item) return 'Nada selecionado';
+    switch(cat){
+      case 'cpu': return item.socket+' · TDP '+item.tdp+'W · '+fmtBRL(item.preco);
+      case 'board': return item.socket+' · '+item.formFactor+' · memória '+item.ramType+' · '+fmtBRL(item.preco);
+      case 'ram': return item.tipo+' · '+item.capacidade+'GB · '+fmtBRL(item.preco);
+      case 'gpu': return item.id==='none' ? 'Sem placa dedicada' : ('TDP '+item.tdp+'W · '+item.comprimento+'mm de comprimento · '+fmtBRL(item.preco));
+      case 'storage': return (item.extraW ? 'HDD' : 'SSD')+' · '+fmtBRL(item.preco);
+      case 'psu': return item.watt+'W · '+fmtBRL(item.preco);
+      case 'cooler': return 'suporta até '+item.capacidadeW+'W · '+fmtBRL(item.preco);
+      case 'case': return 'Suporta '+item.formFactors.join(', ')+' · até '+item.maxGpu+'mm de placa de vídeo · '+fmtBRL(item.preco);
+    }
+  }
+
+  function optionLabel(cat,item){
+    if(cat==='gpu' && item.id==='none') return item.nome;
+    return item.nome+' — '+fmtBRL(item.preco);
+  }
+
   let sel=Object.assign({}, DEFAULT_SEL);
 
-  // FUNÇÃO QUE BUSCA O JSON NO GITHUB E INICIA TUDO
-  async function carregarDados() {
-    try {
-      if (URL_DO_GITHUB === "SUA_URL_RAW_DO_GITHUB_AQUI" || URL_DO_GITHUB === "") {
-        console.warn("URL do GitHub não configurada. Carregando banco de dados local.");
-        carregarDadosLocais();
-      } else {
-        const resposta = await fetch(URL_DO_GITHUB);
-        if (!resposta.ok) throw new Error("Erro na rede ao buscar o JSON");
-        DATA = await resposta.json();
-      }
-      
-      // Esconde a tela de carregamento e inicia o site
-      document.getElementById('loader-overlay').style.opacity = '0';
-      setTimeout(() => { document.getElementById('loader-overlay').style.display = 'none'; }, 500);
-      
-      iniciarCalculadora();
-
-    } catch (erro) {
-      console.error("Falha ao puxar os dados remotos, ativando fallback local:", erro);
-      carregarDadosLocais();
-      document.getElementById('loader-overlay').style.opacity = '0';
-      setTimeout(() => { document.getElementById('loader-overlay').style.display = 'none'; }, 500);
-      iniciarCalculadora();
+  (function restoreSel(){
+    const h=window.location.hash;
+    if(h && h.indexOf('#build=')===0){
+      const parts=h.slice(7).split(',');
+      ORDER.forEach(function(cat,idx){
+        const val=parts[idx];
+        if(val && DATA[cat].some(function(i){return i.id===val;})) sel[cat]=val;
+      });
+      return;
     }
-  }
-
-  // FALLBACK SE O GITHUB CAIR OU A URL NÃO ESTIVER CONFIGURADA
-  function carregarDadosLocais() {
-    DATA = {
-      cpu: [
-        {id:'r3-3200g',nome:'AMD Ryzen 3 3200G',socket:'AM4',tdp:65,tier:1,preco:550},
-        {id:'i3-10100f',nome:'Intel Core i3-10100F',socket:'LGA1200',tdp:65,tier:2,preco:500},
-        {id:'r5-3600',nome:'AMD Ryzen 5 3600',socket:'AM4',tdp:65,tier:3,preco:650},
-        {id:'i5-10400f',nome:'Intel Core i5-10400F',socket:'LGA1200',tdp:65,tier:3,preco:650},
-        {id:'r5-5600',nome:'AMD Ryzen 5 5600',socket:'AM4',tdp:65,tier:4,preco:700},
-        {id:'i5-12400f',nome:'Intel Core i5-12400F',socket:'LGA1700',tdp:65,tier:5,preco:900},
-        {id:'r5-5600x',nome:'AMD Ryzen 5 5600X',socket:'AM4',tdp:65,tier:5,preco:850},
-        {id:'i5-13400f',nome:'Intel Core i5-13400F',socket:'LGA1700',tdp:65,tier:6,preco:1200},
-        {id:'r5-7600',nome:'AMD Ryzen 5 7600',socket:'AM5',tdp:65,tier:6,preco:1350},
-        {id:'r5-8600g',nome:'AMD Ryzen 5 8600G',socket:'AM5',tdp:65,tier:6,preco:1450},
-        {id:'r7-5700x',nome:'AMD Ryzen 7 5700X',socket:'AM4',tdp:65,tier:6,preco:1100},
-        {id:'i5-13600k',nome:'Intel Core i5-13600K',socket:'LGA1700',tdp:125,tier:7,preco:2100},
-        {id:'r7-7700x',nome:'AMD Ryzen 7 7700X',socket:'AM5',tdp:105,tier:7,preco:2100},
-        {id:'r7-9700x',nome:'AMD Ryzen 7 9700X',socket:'AM5',tdp:65,tier:7,preco:2600},
-        {id:'r7-5800x3d',nome:'AMD Ryzen 7 5800X3D',socket:'AM4',tdp:105,tier:8,preco:2100},
-        {id:'i7-14700k',nome:'Intel Core i7-14700K',socket:'LGA1700',tdp:125,tier:8,preco:2800},
-        {id:'r7-7800x3d',nome:'AMD Ryzen 7 7800X3D',socket:'AM5',tdp:120,tier:9,preco:2800},
-        {id:'i9-13900k',nome:'Intel Core i9-13900K',socket:'LGA1700',tdp:125,tier:9,preco:3400},
-        {id:'i9-14900k',nome:'Intel Core i9-14900K',socket:'LGA1700',tdp:125,tier:10,preco:3800},
-        {id:'r9-7950x',nome:'AMD Ryzen 9 7950X',socket:'AM5',tdp:170,tier:10,preco:3900},
-        {id:'r9-9950x',nome:'AMD Ryzen 9 9950X',socket:'AM5',tdp:170,tier:10,preco:5200}
-      ],
-      board: [
-        {id:'a320m',nome:'ASRock A320M-HDV',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:350},
-        {id:'a520m',nome:'MSI A520M-A PRO',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:400},
-        {id:'h510m',nome:'Gigabyte H510M H',socket:'LGA1200',formFactor:'mATX',ramType:'DDR4',preco:420},
-        {id:'b450m',nome:'Gigabyte B450M S2H',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:480},
-        {id:'b550m',nome:'MSI B550M Pro-VDH',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:600},
-        {id:'b550-atx',nome:'Gigabyte B550 Gaming X',socket:'AM4',formFactor:'ATX',ramType:'DDR4',preco:800},
-        {id:'h610m',nome:'ASUS Prime H610M-E',socket:'LGA1700',formFactor:'mATX',ramType:'DDR4',preco:550},
-        {id:'b660m',nome:'Gigabyte B660M DS3H',socket:'LGA1700',formFactor:'mATX',ramType:'DDR4',preco:800},
-        {id:'b760m',nome:'ASRock B760M Pro RS',socket:'LGA1700',formFactor:'mATX',ramType:'DDR5',preco:950},
-        {id:'z690-atx',nome:'MSI PRO Z690-A',socket:'LGA1700',formFactor:'ATX',ramType:'DDR5',preco:1400},
-        {id:'x570-atx',nome:'ASUS TUF Gaming X570-Plus',socket:'AM4',formFactor:'ATX',ramType:'DDR4',preco:1300},
-        {id:'b650m',nome:'Gigabyte B650M K',socket:'AM5',formFactor:'mATX',ramType:'DDR5',preco:900},
-        {id:'b650-atx',nome:'ASUS TUF Gaming B650-Plus',socket:'AM5',formFactor:'ATX',ramType:'DDR5',preco:1400},
-        {id:'x670e-atx',nome:'ASUS ROG Strix X670E-F',socket:'AM5',formFactor:'ATX',ramType:'DDR5',preco:2400},
-        {id:'z790-atx',nome:'ASUS Prime Z790-A',socket:'LGA1700',formFactor:'ATX',ramType:'DDR5',preco:1800}
-      ],
-      ram: [
-        {id:'ddr4-8',nome:'Kit 8GB (2x4) DDR4 2666MHz',tipo:'DDR4',capacidade:8,preco:150},
-        {id:'ddr4-16',nome:'Kit 16GB (2x8) DDR4 3200MHz',tipo:'DDR4',capacidade:16,preco:250},
-        {id:'ddr4-32',nome:'Kit 32GB (2x16) DDR4 3200MHz',tipo:'DDR4',capacidade:32,preco:450},
-        {id:'ddr5-16',nome:'Kit 16GB (2x8) DDR5 5200MHz',tipo:'DDR5',capacidade:16,preco:380},
-        {id:'ddr5-32',nome:'Kit 32GB (2x16) DDR5 6000MHz',tipo:'DDR5',capacidade:32,preco:750},
-        {id:'ddr5-64',nome:'Kit 64GB (2x32) DDR5 6000MHz',tipo:'DDR5',capacidade:64,preco:1600},
-      ],
-      gpu: [
-        {id:'none',nome:'Nenhuma — usar vídeo integrado',tdp:0,tier:2,comprimento:0,preco:0},
-        {id:'gtx1650',nome:'NVIDIA GTX 1650',tdp:75,tier:2,comprimento:170,preco:900},
-        {id:'rx6600',nome:'AMD RX 6600',tdp:132,tier:5,comprimento:220,preco:1400},
-        {id:'rtx3060',nome:'NVIDIA RTX 3060 12GB',tdp:170,tier:5,comprimento:240,preco:1700},
-        {id:'rx7600',nome:'AMD RX 7600',tdp:165,tier:6,comprimento:240,preco:1800},
-        {id:'rtx4060',nome:'NVIDIA RTX 4060',tdp:115,tier:6,comprimento:242,preco:1900},
-        {id:'rx6700xt',nome:'AMD RX 6700 XT',tdp:230,tier:6,comprimento:267,preco:2200},
-        {id:'rtx4060ti',nome:'NVIDIA RTX 4060 Ti',tdp:160,tier:6,comprimento:242,preco:2500},
-        {id:'rx7700xt',nome:'AMD RX 7700 XT',tdp:245,tier:7,comprimento:280,preco:3100},
-        {id:'rtx4070',nome:'NVIDIA RTX 4070',tdp:200,tier:7,comprimento:242,preco:3800},
-        {id:'rx7800xt',nome:'AMD RX 7800 XT',tdp:263,tier:8,comprimento:280,preco:3700},
-        {id:'rtx4070super',nome:'NVIDIA RTX 4070 Super',tdp:220,tier:8,comprimento:242,preco:4300},
-        {id:'rx7900xt',nome:'AMD RX 7900 XT',tdp:315,tier:9,comprimento:287,preco:5500},
-        {id:'rtx4080super',nome:'NVIDIA RTX 4080 Super',tdp:320,tier:9,comprimento:310,preco:6800},
-        {id:'rx7900xtx',nome:'AMD RX 7900 XTX',tdp:355,tier:10,comprimento:287,preco:7200},
-        {id:'rtx4090',nome:'NVIDIA RTX 4090',tdp:450,tier:10,comprimento:336,preco:13500},
-        {id:'rtx5070',nome:'NVIDIA RTX 5070',tdp:250,tier:7,comprimento:280,preco:4200},
-        {id:'rtx5090',nome:'NVIDIA RTX 5090',tdp:575,tier:10,comprimento:336,preco:14000},
-      ],
-      storage: [
-        {id:'sata-480',nome:'SSD SATA 480GB',preco:200},
-        {id:'nvme-1tb',nome:'SSD NVMe 1TB',preco:350},
-        {id:'nvme-2tb',nome:'SSD NVMe 2TB',preco:650},
-        {id:'hdd-2tb',nome:'HD 2TB (HDD)',preco:350,extraW:8},
-      ],
-      psu: [
-        {id:'400-white',nome:'400W 80+ White',watt:400,preco:180},
-        {id:'450-bronze',nome:'450W 80+ Bronze',watt:450,preco:250},
-        {id:'550-bronze',nome:'550W 80+ Bronze',watt:550,preco:320},
-        {id:'650-bronze',nome:'650W 80+ Bronze',watt:650,preco:400},
-        {id:'750-gold',nome:'750W 80+ Gold',watt:750,preco:550},
-        {id:'850-gold',nome:'850W 80+ Gold',watt:850,preco:700},
-        {id:'1000-gold',nome:'1000W 80+ Gold',watt:1000,preco:900},
-        {id:'1200-platinum',nome:'1200W 80+ Platinum',watt:1200,preco:1400},
-      ],
-      case: [
-        {id:'itx-compact',nome:'Gabinete Mini-ITX Compacto',formFactors:['ITX'],maxGpu:280,preco:450},
-        {id:'matx-mid',nome:'Gabinete Micro-ATX',formFactors:['ITX','mATX'],maxGpu:330,preco:350},
-        {id:'atx-mid',nome:'Gabinete ATX Mid Tower',formFactors:['ITX','mATX','ATX'],maxGpu:360,preco:450},
-        {id:'atx-full',nome:'Gabinete ATX Full Tower',formFactors:['ITX','mATX','ATX'],maxGpu:400,preco:800},
-      ],
-      cooler: [
-        {id:'stock',nome:'Cooler Box (que acompanha o processador)',capacidadeW:65,preco:0},
-        {id:'ar-basico',nome:'Cooler de Ar Básico (torre única)',capacidadeW:95,preco:120},
-        {id:'ar-duplo',nome:'Cooler de Ar Duplo Torre',capacidadeW:150,preco:280},
-        {id:'aio-240',nome:'Water Cooler AIO 240mm',capacidadeW:180,preco:450},
-        {id:'aio-360',nome:'Water Cooler AIO 360mm',capacidadeW:250,preco:650},
-      ]
-    };
-  }
-
-  // INICIA A LÓGICA DA TELA SÓ QUANDO OS DADOS CHEGAM
-  function iniciarCalculadora() {
-    
-    const PRESETS=[
-      {id:'entrada',nome:'Entrada / uso geral',desc:'Navegar, estudar e jogos em 1080p baixo.',sel:{cpu:'r5-5600g',cooler:'stock',board:'a320m',ram:'ddr4-16',gpu:'none',storage:'sata-480',psu:'400-white',case:'matx-mid'}},
-      {id:'am4-custo',nome:'Custo-benefício 1080p',desc:'A combinação clássica para rodar qualquer jogo Full HD.',sel:{cpu:'r5-5600',cooler:'ar-basico',board:'b550m',ram:'ddr4-16',gpu:'rtx4060',storage:'nvme-1tb',psu:'550-bronze',case:'matx-mid'}},
-      {id:'1440p',nome:'Gamer 1440p AM5',desc:'Para rodar tudo no alto/ultra em monitores QuadHD.',sel:{cpu:'r7-7800x3d',cooler:'aio-240',board:'b650-atx',ram:'ddr5-32',gpu:'rtx4070super',storage:'nvme-1tb',psu:'750-gold',case:'atx-mid'}},
-      {id:'sem-limites',nome:'Sem limites (4K)',desc:'O topo do catálogo atual, pra quem não quer pensar em upgrade.',sel:{cpu:'i9-14900k',cooler:'aio-360',board:'z790-atx',ram:'ddr5-64',gpu:'rtx4090',storage:'nvme-2tb',psu:'1200-platinum',case:'atx-full'}},
-    ];
-
-    const statRow=document.getElementById('stat-row');
-    const gpuCount=DATA.gpu.filter(function(g){return g.id!=='none';}).length;
-    const sockets=Array.from(new Set(DATA.cpu.map(function(c){return c.socket;})));
-    [
-      [DATA.cpu.length,'processadores'],
-      [gpuCount,'placas de vídeo'],
-      [sockets.length,'soquetes diferentes'],
-      [DATA.case.length,'gabinetes']
-    ].forEach(function(pair){
-      const d=document.createElement('div');
-      d.innerHTML='<div class="stat-num">'+pair[0]+'</div><div class="stat-label">'+pair[1]+'</div>';
-      statRow.appendChild(d);
-    });
-
-    function fmtBRL(n){
-      try{ return 'R$ ' + n.toLocaleString('pt-BR'); }
-      catch(e){ return 'R$ ' + n; }
-    }
-
-    function specLine(cat,item){
-      if(!item) return 'Nada selecionado';
-      switch(cat){
-        case 'cpu': return item.socket+' · TDP '+item.tdp+'W · '+fmtBRL(item.preco);
-        case 'board': return item.socket+' · '+item.formFactor+' · memória '+item.ramType+' · '+fmtBRL(item.preco);
-        case 'ram': return item.tipo+' · '+item.capacidade+'GB · '+fmtBRL(item.preco);
-        case 'gpu': return item.id==='none' ? 'Sem placa dedicada' : ('TDP '+item.tdp+'W · '+item.comprimento+'mm de comprimento · '+fmtBRL(item.preco));
-        case 'storage': return (item.extraW ? 'HDD' : 'SSD')+' · '+fmtBRL(item.preco);
-        case 'psu': return item.watt+'W · '+fmtBRL(item.preco);
-        case 'cooler': return 'suporta até '+item.capacidadeW+'W · '+fmtBRL(item.preco);
-        case 'case': return 'Suporta '+item.formFactors.join(', ')+' · até '+item.maxGpu+'mm de placa de vídeo · '+fmtBRL(item.preco);
-      }
-    }
-
-    function optionLabel(cat,item){
-      if(cat==='gpu' && item.id==='none') return item.nome;
-      return item.nome+' — '+fmtBRL(item.preco);
-    }
-
-    (function restoreSel(){
-      const h=window.location.hash;
-      if(h && h.indexOf('#build=')===0){
-        const parts=h.slice(7).split(',');
-        ORDER.forEach(function(cat,idx){
-          const val=parts[idx];
-          if(val && DATA[cat].some(function(i){return i.id===val;})) sel[cat]=val;
+    try{
+      const saved=JSON.parse(localStorage.getItem('montador-pc-sel'));
+      if(saved && typeof saved==='object'){
+        ORDER.forEach(function(cat){
+          if(saved[cat] && DATA[cat].some(function(i){return i.id===saved[cat];})) sel[cat]=saved[cat];
         });
-        return;
       }
-      try{
-        const saved=JSON.parse(localStorage.getItem('montador-pc-sel'));
-        if(saved && typeof saved==='object'){
-          ORDER.forEach(function(cat){
-            if(saved[cat] && DATA[cat].some(function(i){return i.id===saved[cat];})) sel[cat]=saved[cat];
-          });
-        }
-      }catch(e){ /* ignora */ }
-    })();
+    }catch(e){ /* ignora, mantém padrão */ }
+  })();
 
-    function saveSel(){
-      try{ localStorage.setItem('montador-pc-sel', JSON.stringify(sel)); }
-      catch(e){ /* armazenamento indisponível */ }
+  function saveSel(){
+    try{ localStorage.setItem('montador-pc-sel', JSON.stringify(sel)); }
+    catch(e){ /* armazenamento indisponível, segue sem salvar */ }
+  }
+
+  let extras={fans:0, drives:0, oc:false};
+  try{
+    const savedExtras=JSON.parse(localStorage.getItem('montador-pc-extras'));
+    if(savedExtras && typeof savedExtras==='object'){
+      if(Number.isFinite(savedExtras.fans)) extras.fans=Math.max(0,Math.min(8,savedExtras.fans));
+      if(Number.isFinite(savedExtras.drives)) extras.drives=Math.max(0,Math.min(4,savedExtras.drives));
+      extras.oc=!!savedExtras.oc;
     }
+  }catch(e){ /* ignora, mantém padrão */ }
 
-    function cpuBrand(cpu){ return cpu.socket.indexOf('AM')===0 ? 'AMD' : 'Intel'; }
+  function saveExtras(){
+    try{ localStorage.setItem('montador-pc-extras', JSON.stringify(extras)); }
+    catch(e){ /* armazenamento indisponível, segue sem salvar */ }
+  }
 
-    function getFilteredOptions(cat){
-      if(cat==='board'){
-        const cpu=DATA.cpu.find(function(i){return i.id===sel.cpu;});
-        return DATA.board.filter(function(b){return b.socket===cpu.socket;});
-      }
-      if(cat==='ram'){
-        const board=DATA.board.find(function(i){return i.id===sel.board;});
-        return DATA.ram.filter(function(r){return r.tipo===board.ramType;});
-      }
-      if(cat==='case'){
-        const board=DATA.board.find(function(i){return i.id===sel.board;});
-        return DATA.case.filter(function(cs){return cs.formFactors.indexOf(board.formFactor)!==-1;});
-      }
-      return DATA[cat];
+  function cpuBrand(cpu){ return cpu.socket.indexOf('AM')===0 ? 'AMD' : 'Intel'; }
+
+  function getFilteredOptions(cat){
+    if(cat==='board'){
+      const cpu=DATA.cpu.find(function(i){return i.id===sel.cpu;});
+      return DATA.board.filter(function(b){return b.socket===cpu.socket;});
     }
+    if(cat==='ram'){
+      const board=DATA.board.find(function(i){return i.id===sel.board;});
+      return DATA.ram.filter(function(r){return r.tipo===board.ramType;});
+    }
+    if(cat==='case'){
+      const board=DATA.board.find(function(i){return i.id===sel.board;});
+      return DATA['case'].filter(function(cs){return cs.formFactors.indexOf(board.formFactor)!==-1;});
+    }
+    return DATA[cat];
+  }
 
-    function refreshSelect(cat){
-      const options=getFilteredOptions(cat);
-      const selectEl=document.getElementById('sel-'+cat);
-      selectEl.innerHTML='';
-      options.forEach(function(item){
+  function refreshSelect(cat){
+    const options=getFilteredOptions(cat);
+    const selectEl=document.getElementById('sel-'+cat);
+    selectEl.innerHTML='';
+    options.forEach(function(item){
+      const opt=document.createElement('option');
+      opt.value=item.id;
+      opt.textContent=optionLabel(cat,item);
+      selectEl.appendChild(opt);
+    });
+    const stillValid=options.some(function(i){return i.id===sel[cat];});
+    if(!stillValid){
+      sel[cat]=options.slice().sort(function(a,b){return a.preco-b.preco;})[0].id;
+    }
+    selectEl.value=sel[cat];
+  }
+
+  function refreshDependents(){
+    refreshSelect('board');
+    refreshSelect('ram');
+    refreshSelect('case');
+    saveSel();
+    render();
+  }
+
+  function applySelToUI(){
+    ['cpu','cooler','gpu','storage','psu'].forEach(function(cat){
+      document.getElementById('sel-'+cat).value=sel[cat];
+    });
+    refreshSelect('board');
+    refreshSelect('ram');
+    refreshSelect('case');
+    saveSel();
+    render();
+  }
+
+  const slotsEl=document.getElementById('slots');
+  ORDER.forEach(function(cat){
+    const slot=document.createElement('div');
+    slot.className='slot';
+    slot.dataset.cat=cat;
+    slot.innerHTML=
+      '<div class="dot" data-role="dot"></div>'+
+      '<div class="slot-top"><label for="sel-'+cat+'">'+LABELS[cat]+'</label></div>'+
+      '<select id="sel-'+cat+'"></select>'+
+      '<div class="specs" data-role="specs"></div>';
+    slotsEl.appendChild(slot);
+
+    const selectEl=slot.querySelector('select');
+    if(cat==='cpu'){
+      const groups={AMD:document.createElement('optgroup'), Intel:document.createElement('optgroup')};
+      groups.AMD.label='AMD'; groups.Intel.label='Intel';
+      CPUS.forEach(function(item){
+        const opt=document.createElement('option');
+        opt.value=item.id;
+        opt.textContent=optionLabel(cat,item);
+        groups[cpuBrand(item)].appendChild(opt);
+      });
+      selectEl.appendChild(groups.AMD);
+      selectEl.appendChild(groups.Intel);
+      selectEl.value=sel[cat];
+    } else if(cat==='board' || cat==='ram' || cat==='case'){
+      /* preenchido depois via refreshSelect, conforme cpu/placa-mãe escolhidos */
+    } else {
+      DATA[cat].forEach(function(item){
         const opt=document.createElement('option');
         opt.value=item.id;
         opt.textContent=optionLabel(cat,item);
         selectEl.appendChild(opt);
       });
-      const stillValid=options.some(function(i){return i.id===sel[cat];});
-      if(!stillValid){
-        sel[cat]=options.slice().sort(function(a,b){return a.preco-b.preco;})[0].id;
-      }
       selectEl.value=sel[cat];
     }
 
-    function refreshDependents(){
-      refreshSelect('board');
-      refreshSelect('ram');
-      refreshSelect('case');
-      saveSel();
-      render();
-    }
-
-    function applySelToUI(){
-      ['cpu','cooler','gpu','storage','psu'].forEach(function(cat){
-        document.getElementById('sel-'+cat).value=sel[cat];
-      });
-      refreshSelect('board');
-      refreshSelect('ram');
-      refreshSelect('case');
-      saveSel();
-      render();
-    }
-
-    const slotsEl=document.getElementById('slots');
-    ORDER.forEach(function(cat){
-      const slot=document.createElement('div');
-      slot.className='slot';
-      slot.dataset.cat=cat;
-      slot.innerHTML=
-        '<div class="dot" data-role="dot"></div>'+
-        '<div class="slot-top"><label for="sel-'+cat+'">'+LABELS[cat]+'</label></div>'+
-        '<select id="sel-'+cat+'"></select>'+
-        '<div class="specs" data-role="specs"></div>';
-      slotsEl.appendChild(slot);
-
-      const selectEl=slot.querySelector('select');
-      if(cat==='cpu'){
-        const groups={AMD:document.createElement('optgroup'), Intel:document.createElement('optgroup')};
-        groups.AMD.label='AMD'; groups.Intel.label='Intel';
-        DATA.cpu.forEach(function(item){
-          const opt=document.createElement('option');
-          opt.value=item.id;
-          opt.textContent=optionLabel(cat,item);
-          groups[cpuBrand(item)].appendChild(opt);
-        });
-        selectEl.appendChild(groups.AMD);
-        selectEl.appendChild(groups.Intel);
-        selectEl.value=sel[cat];
-      } else if(cat==='board' || cat==='ram' || cat==='case'){
-        /* preenchido depois via refreshSelect */
-      } else {
-        DATA[cat].forEach(function(item){
-          const opt=document.createElement('option');
-          opt.value=item.id;
-          opt.textContent=optionLabel(cat,item);
-          selectEl.appendChild(opt);
-        });
-        selectEl.value=sel[cat];
-      }
-
-      selectEl.addEventListener('change', function(){
-        sel[cat]=selectEl.value;
-        refreshDependents();
-      });
+    selectEl.addEventListener('change', function(){
+      sel[cat]=selectEl.value;
+      refreshDependents();
     });
+  });
 
-    refreshSelect('board');
-    refreshSelect('ram');
-    refreshSelect('case');
+  refreshSelect('board');
+  refreshSelect('ram');
+  refreshSelect('case');
 
-    function findItem(selObj,cat){ return DATA[cat].find(function(i){return i.id===selObj[cat];}); }
+  function findItem(selObj,cat){ return DATA[cat].find(function(i){return i.id===selObj[cat];}); }
 
-    function worse(a,b){
-      const order={neutral:0, ok:1, warn:2, bad:3};
-      if(a===undefined) return b;
-      if(b===undefined) return a;
-      return order[b]>order[a] ? b : a;
-    }
-
-    function renderCheckRow(container, status, title, text){
-      const row=document.createElement('div');
-      row.className='check-row';
-      row.innerHTML='<div class="check-dot '+(status==='na'?'':status)+'"></div>'+
-        '<div class="check-text"><b>'+title+'</b><span>'+text+'</span></div>';
-      container.appendChild(row);
-    }
-
-    function resolutionAdvice(gpu, gpuHasCard, bottleneckLevel){
-      if(!gpuHasCard){
-        return 'Sem placa dedicada: bom pra tarefas do dia a dia e jogos leves em 1080p baixo.';
-      }
-      let base;
-      if(gpu.tier<=3) base='1080p com gráficos médios, 60fps na maioria dos jogos.';
-      else if(gpu.tier<=5) base='1080p no talo ou 1440p em ajustes médios, 60fps ou mais.';
-      else if(gpu.tier<=7) base='1440p com gráficos altos, 60 a 100fps em jogos atuais.';
-      else if(gpu.tier<=9) base='1440p ultra ou 4K a 60fps, dependendo do jogo.';
-      else base='4K com gráficos ultra, 100fps ou mais com upscaling ligado.';
-      if(bottleneckLevel==='cpu') base+=' O processador pode não deixar aproveitar isso 100% em jogos pesados de CPU.';
-      return base;
-    }
-
-    function compute(selObj){
-      const cpu=findItem(selObj,'cpu'), cooler=findItem(selObj,'cooler'), board=findItem(selObj,'board'), ram=findItem(selObj,'ram'),
-            gpu=findItem(selObj,'gpu'), storage=findItem(selObj,'storage'), psu=findItem(selObj,'psu'), pcCase=findItem(selObj,'case');
-
-      const socketOk = cpu.socket===board.socket;
-      const ramOk = board.ramType===ram.tipo;
-      const formOk = pcCase.formFactors.indexOf(board.formFactor)!==-1;
-      const gpuHasCard = gpu.id!=='none';
-      const gpuFitOk = !gpuHasCard ? null : gpu.comprimento<=pcCase.maxGpu;
-
-      const cpuBoost = cpu.tdp > 100 ? (cpu.tdp * 1.5) : (cpu.tdp * 1.25);
-      const moboBase = 45;
-      const ramPower = (ram.capacidade / 8) * 4;
-      const storagePower = storage.extraW ? 15 : 7;
-      const coolerPower = cooler.id.indexOf('aio') !== -1 ? 18 : 5;
-
-      let totalW = Math.round(cpuBoost + gpu.tdp + moboBase + ramPower + storagePower + coolerPower);
-      const recommendedMin = Math.ceil((totalW * 1.25) / 50) * 50; 
-      const recommendedIdeal = Math.ceil((totalW * 1.50) / 50) * 50;
-
-      let psuStatus;
-      if(psu.watt>=recommendedIdeal) psuStatus='ok';
-      else if(psu.watt>=recommendedMin) psuStatus='warn';
-      else psuStatus='bad';
-
-      let coolerStatus;
-      if(cpu.tdp<=cooler.capacidadeW) coolerStatus='ok';
-      else if(cpu.tdp<=cooler.capacidadeW*1.15) coolerStatus='warn';
-      else coolerStatus='bad';
-
-      const dots={
-        cpu: socketOk?'ok':'bad',
-        cooler: coolerStatus,
-        board: worse(worse(socketOk?'ok':'bad', ramOk?'ok':'bad'), formOk?'ok':'bad'),
-        ram: ramOk?'ok':'bad',
-        gpu: gpuHasCard ? (gpuFitOk?'ok':'bad') : 'neutral',
-        storage: 'ok',
-        psu: psuStatus,
-        case: worse(formOk?'ok':'bad', gpuHasCard ? (gpuFitOk?'ok':'bad') : 'neutral')
-      };
-
-      let bottleneck;
-      if(!gpuHasCard){
-        bottleneck={level:'none', text:'Selecione uma placa de vídeo dedicada para estimar o equilíbrio entre CPU e GPU.'};
-      } else {
-        const diff=gpu.tier-cpu.tier;
-        if(diff>=3){
-          const pct=Math.min(35, diff*6);
-          bottleneck={level:'cpu', text:'O processador tende a segurar essa placa de vídeo em jogos mais dependentes de CPU (perda estimada de até '+pct+'%). Um processador mais forte aproveitaria melhor a GPU.'};
-        } else if(diff<=-3){
-          const pct=Math.min(35, -diff*6);
-          bottleneck={level:'gpu', text:'A placa de vídeo é o fator limitante aqui — o processador tem folga de sobra (~'+pct+'% de margem). Normal, e dá espaço para trocar de GPU sem trocar o resto.'};
-        } else {
-          bottleneck={level:'balanced', text:'Processador e placa de vídeo estão numa faixa parecida de desempenho — bom equilíbrio para a maioria dos jogos.'};
-        }
-      }
-
-      const totalPrice = cpu.preco+cooler.preco+board.preco+ram.preco+gpu.preco+storage.preco+psu.preco+pcCase.preco;
-      const allOk = Object.keys(dots).every(function(k){ return dots[k]!=='bad'; });
-      const resolution = resolutionAdvice(gpu, gpuHasCard, bottleneck.level);
-
-      return {cpu,cooler,board,ram,gpu,storage,psu,pcCase,socketOk,ramOk,formOk,gpuHasCard,gpuFitOk,coolerStatus,
-        totalW,recommendedMin,recommendedIdeal,psuStatus,dots,bottleneck,totalPrice,allOk,resolution};
-    }
-
-    const CASE_HEIGHT={'itx-compact':200,'matx-mid':255,'atx-mid':320,'atx-full':375};
-    const BOARD_WIDTH={'ITX':90,'mATX':135,'ATX':175};
-    const GPU_SCALE=0.42;
-
-    function statusClass(st){
-      if(st==='ok') return 'fx-ok';
-      if(st==='warn') return 'fx-warn';
-      if(st==='bad') return 'fx-bad';
-      return 'fx-neutral';
-    }
-
-    function setRect(id,x,y,w,h,cls){
-      const el=document.getElementById(id);
-      el.setAttribute('x',x); el.setAttribute('y',y);
-      el.setAttribute('width',Math.max(w,0)); el.setAttribute('height',Math.max(h,0));
-      if(cls) el.setAttribute('class','fx-part '+cls);
-    }
-
-    function renderIllustration(s){
-      const caseW=210, caseX=25, baselineY=430;
-      const caseH=CASE_HEIGHT[s.pcCase.id]||300;
-      const caseY=baselineY-caseH;
-      setRect('ill-case',caseX,caseY,caseW,caseH,statusClass(s.dots.case));
-
-      const boardW=BOARD_WIDTH[s.board.formFactor]||135;
-      const boardH=boardW*0.6;
-      const boardX=caseX+(caseW-boardW)/2;
-      const boardY=caseY+20;
-      setRect('ill-board',boardX,boardY,boardW,boardH,statusClass(s.dots.board));
-
-      const cpuSize=18;
-      const cpuX=boardX+12, cpuY=boardY+12;
-      setRect('ill-cpu',cpuX,cpuY,cpuSize,cpuSize,statusClass(s.dots.cpu));
-
-      const coolerCls=statusClass(s.dots.cooler);
-      const coolerG=document.getElementById('ill-cooler');
-      const isAio=s.cooler.id.indexOf('aio')===0;
-      if(isAio){
-        const radW = s.cooler.id==='aio-360' ? 130 : 95;
-        const radX = caseX+(caseW-radW)/2;
-        const radY = caseY+8;
-        const pumpX = cpuX+cpuSize/2, pumpY = cpuY+cpuSize/2;
-        coolerG.innerHTML =
-          '<rect x="'+radX+'" y="'+radY+'" width="'+radW+'" height="12" rx="2" class="fx-part '+coolerCls+'"></rect>'+
-          '<path d="M '+pumpX+' '+pumpY+' C '+pumpX+' '+(radY+30)+', '+(radX+12)+' '+(radY+30)+', '+(radX+12)+' '+(radY+12)+'" fill="none" class="fx-part '+coolerCls+'"></path>'+
-          '<path d="M '+pumpX+' '+pumpY+' C '+pumpX+' '+(radY+38)+', '+(radX+radW-12)+' '+(radY+38)+', '+(radX+radW-12)+' '+(radY+12)+'" fill="none" class="fx-part '+coolerCls+'"></path>'+
-          '<circle cx="'+pumpX+'" cy="'+pumpY+'" r="6" class="fx-part '+coolerCls+'"></circle>'+
-          '<text x="'+(radX+radW/2)+'" y="'+(radY+26)+'" text-anchor="middle" class="fx-label">radiador</text>';
-      } else {
-        const h = s.cooler.capacidadeW<=65 ? 12 : s.cooler.capacidadeW<=95 ? 20 : 30;
-        const w = 18;
-        const cx = cpuX+cpuSize/2-w/2, cy = cpuY-h;
-        coolerG.innerHTML = '<rect x="'+cx+'" y="'+cy+'" width="'+w+'" height="'+h+'" rx="2" class="fx-part '+coolerCls+'"></rect>';
-      }
-
-      const ramX=cpuX+cpuSize+12;
-      ['ill-ram1','ill-ram2'].forEach(function(id,i){
-        setRect(id, ramX+i*9, cpuY-5, 6, cpuSize+10, statusClass(s.dots.ram));
-      });
-
-      const gpuY=boardY+boardH+14;
-      const maxLine=document.getElementById('ill-maxgpu-line');
-      const maxX2=Math.min(caseX+14+(s.pcCase.maxGpu*GPU_SCALE), caseX+caseW-6);
-      maxLine.setAttribute('x1',caseX+14); maxLine.setAttribute('x2',maxX2);
-      maxLine.setAttribute('y1',gpuY-6); maxLine.setAttribute('y2',gpuY-6);
-
-      const gpuLabel=document.getElementById('ill-gpu-label');
-      if(!s.gpuHasCard){
-        setRect('ill-gpu',caseX+14,gpuY,0,0,'fx-neutral');
-        gpuLabel.textContent='sem GPU dedicada';
-        gpuLabel.setAttribute('x',caseX+14); gpuLabel.setAttribute('y',gpuY+14);
-      } else {
-        const gpuW=Math.min(s.gpu.comprimento*GPU_SCALE, caseW-24);
-        setRect('ill-gpu',caseX+14,gpuY,gpuW,20,statusClass(s.dots.gpu));
-        gpuLabel.textContent = s.gpu.comprimento+'mm'+(s.gpuFitOk===false ? ' ⚠ não cabe' : '');
-        gpuLabel.setAttribute('x',caseX+14); gpuLabel.setAttribute('y',gpuY+34);
-      }
-
-      setRect('ill-psu', caseX+14, caseY+caseH-34, 60, 22, statusClass(s.dots.psu));
-      setRect('ill-storage', caseX+90, caseY+caseH-30, 30, 16, 'fx-ok');
-    }
-
-    function buildOpinionPrompt(s){
-      const gpuTxt = s.gpuHasCard ? s.gpu.nome : 'sem placa de vídeo dedicada';
-      return 'Estou montando um PC com estas peças: '+s.cpu.nome+', cooler '+s.cooler.nome+', placa-mãe '+s.board.nome+', '+
-        s.ram.nome+', '+gpuTxt+', '+s.storage.nome+', fonte '+s.psu.nome+' e gabinete '+s.pcCase.nome+'. Consumo estimado de '+
-        s.totalW+'W. O que você acha dessa combinação? Tem algum gargalo, incompatibilidade ou ponto fraco que eu deveria revisar?';
-    }
-
-    function render(){
-      const s=compute(sel);
-
-      ORDER.forEach(function(cat){
-        const slot=slotsEl.querySelector('.slot[data-cat="'+cat+'"]');
-        const item=findItem(sel,cat);
-        slot.querySelector('[data-role="specs"]').textContent=specLine(cat,item);
-        const dotEl=slot.querySelector('[data-role="dot"]');
-        dotEl.className='dot '+(s.dots[cat]==='neutral'?'':s.dots[cat]);
-      });
-
-      document.getElementById('all-ok-banner').className='all-ok-banner'+(s.allOk?' show':'');
-
-      const checks=document.getElementById('checks');
-      checks.innerHTML='';
-      renderCheckRow(checks, s.socketOk?'ok':'bad', 'Soquete do processador × placa-mãe',
-        s.socketOk ? (s.cpu.socket+' compatível com a placa selecionada.') : (s.cpu.nome+' usa soquete '+s.cpu.socket+', mas a placa-mãe é '+s.board.socket+'.'));
-      renderCheckRow(checks, s.coolerStatus, 'Refrigeração × processador',
-        s.coolerStatus==='ok' ? (s.cooler.nome+' dá conta dos '+s.cpu.tdp+'W do processador.') :
-        s.coolerStatus==='warn' ? (s.cooler.nome+' fica no limite pra segurar '+s.cpu.tdp+'W — vai esquentar mais que o ideal.') :
-        (s.cooler.nome+' não é suficiente pra '+s.cpu.tdp+'W — o processador vai esquentar demais.'));
-      renderCheckRow(checks, s.ramOk?'ok':'bad', 'Tipo de memória × placa-mãe',
-        s.ramOk ? ('Placa e kit de memória usam '+s.board.ramType+'.') : ('A placa aceita '+s.board.ramType+', mas o kit escolhido é '+s.ram.tipo+'.'));
-      renderCheckRow(checks, s.formOk?'ok':'bad', 'Formato da placa-mãe × gabinete',
-        s.formOk ? ('O gabinete suporta placas '+s.board.formFactor+'.') : ('O gabinete não suporta o formato '+s.board.formFactor+' — só '+s.pcCase.formFactors.join(', ')+'.'));
-      if(!s.gpuHasCard){
-        renderCheckRow(checks, 'na', 'Placa de vídeo × gabinete', 'Sem placa dedicada selecionada, nada para conferir aqui.');
-      } else {
-        renderCheckRow(checks, s.gpuFitOk?'ok':'bad', 'Placa de vídeo × gabinete',
-          s.gpuFitOk ? (s.gpu.comprimento+'mm cabe nesse gabinete (até '+s.pcCase.maxGpu+'mm).') : (s.gpu.comprimento+'mm é maior que o limite do gabinete ('+s.pcCase.maxGpu+'mm).'));
-      }
-      renderCheckRow(checks, s.psuStatus, 'Fonte × consumo estimado',
-        s.psuStatus==='ok' ? (s.psu.watt+'W cobre os '+s.totalW+'W estimados no pico com boa margem.') :
-        s.psuStatus==='warn' ? (s.psu.watt+'W é justo para '+s.totalW+'W estimados — funciona, mas sem muita folga para upgrades.') :
-        (s.psu.watt+'W não é suficiente para os '+s.totalW+'W (pico de energia). Recomendado a partir de '+s.recommendedMin+'W.'));
-
-      const powerStatusEl=document.getElementById('power-status');
-      powerStatusEl.innerHTML='<span class="status-pill '+s.psuStatus+'">'+
-        (s.psuStatus==='ok'?'Fonte adequada':s.psuStatus==='warn'?'Fonte no limite':'Fonte insuficiente')+'</span>';
-      document.getElementById('power-number').innerHTML='<small>Consumo máximo estimado</small>'+s.totalW+' W';
-
-      const scale=Math.max(s.totalW*1.5, s.psu.watt, 300);
-      document.getElementById('power-scale-a').textContent=s.totalW+' W';
-      document.getElementById('power-scale-b').textContent=s.psu.watt+' W';
-      const barDraw=document.getElementById('bar-draw');
-      barDraw.style.width=Math.min(100,(s.totalW/scale)*100)+'%';
-      barDraw.className='bar-fill neutral';
-      const barPsu=document.getElementById('bar-psu');
-      barPsu.style.width=Math.min(100,(s.psu.watt/scale)*100)+'%';
-      barPsu.className='bar-fill '+s.psuStatus;
-      document.getElementById('power-note').textContent='Margem de segurança recomendada: entre '+s.recommendedMin+'W e '+s.recommendedIdeal+'W.';
-      document.getElementById('btn-fix-psu').style.display = s.psuStatus==='ok' ? 'none' : 'inline-flex';
-
-      document.getElementById('marker-cpu').style.left=(s.cpu.tier/10*100)+'%';
-      document.getElementById('marker-gpu').style.left=(s.gpu.tier/10*100)+'%';
-      document.getElementById('bottleneck-text').textContent=s.bottleneck.text;
-
-      document.getElementById('total-price').textContent=fmtBRL(s.totalPrice);
-      document.getElementById('resolution-text').textContent=s.resolution;
-      renderIllustration(s);
-
-      const opinionEncoded=encodeURIComponent(buildOpinionPrompt(s));
-      document.getElementById('ai-chatgpt').href='https://chatgpt.com/?q='+opinionEncoded;
-      document.getElementById('ai-perplexity').href='https://www.perplexity.ai/search?q='+opinionEncoded;
-      document.getElementById('ai-claude').href='https://claude.ai/new?q='+opinionEncoded;
-    }
-
-    document.getElementById('btn-random').addEventListener('click', function(){
-      const cpu=DATA.cpu[Math.floor(Math.random()*DATA.cpu.length)];
-      sel.cpu=cpu.id;
-      const boardOptions=DATA.board.filter(function(b){return b.socket===cpu.socket;});
-      const board=boardOptions[Math.floor(Math.random()*boardOptions.length)];
-      sel.board=board.id;
-      const ramOptions=DATA.ram.filter(function(r){return r.tipo===board.ramType;});
-      sel.ram=ramOptions[Math.floor(Math.random()*ramOptions.length)].id;
-      const caseOptions=DATA.case.filter(function(cs){return cs.formFactors.indexOf(board.formFactor)!==-1;});
-      sel.case=caseOptions[Math.floor(Math.random()*caseOptions.length)].id;
-      ['cooler','gpu','storage','psu'].forEach(function(cat){
-        const options=DATA[cat];
-        sel[cat]=options[Math.floor(Math.random()*options.length)].id;
-      });
-      applySelToUI();
-    });
-
-    document.getElementById('btn-reset').addEventListener('click', function(){
-      sel=Object.assign({}, DEFAULT_SEL);
-      applySelToUI();
-    });
-
-    document.getElementById('btn-fix-psu').addEventListener('click', function(){
-      const s=compute(sel);
-      const candidates=DATA.psu.filter(function(p){return p.watt>=s.recommendedIdeal;}).sort(function(a,b){return a.preco-b.preco;});
-      const pick=candidates[0] || DATA.psu.slice().sort(function(a,b){return b.watt-a.watt;})[0];
-      sel.psu=pick.id;
-      document.getElementById('sel-psu').value=pick.id;
-      saveSel();
-      render();
-    });
-
-    document.getElementById('btn-share').addEventListener('click', function(){
-      const url=location.origin+location.pathname+'#build='+ORDER.map(function(c){return sel[c];}).join(',');
-      const btn=document.getElementById('btn-share');
-      const original=btn.textContent;
-      function done(msg){ btn.textContent=msg; setTimeout(function(){btn.textContent=original;},1800); }
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(url).then(function(){done('Link copiado ✓');}).catch(function(){ window.prompt('Copie o link da sua build:', url); });
-      } else {
-        window.prompt('Copie o link da sua build:', url);
-      }
-    });
-
-    const presetGrid=document.getElementById('preset-grid');
-    presetGrid.innerHTML = '';
-    PRESETS.forEach(function(preset){
-      const info=compute(preset.sel);
-      const card=document.createElement('div');
-      card.className='preset-card';
-      card.innerHTML=
-        '<h3>'+preset.nome+'</h3>'+
-        '<p>'+preset.desc+'</p>'+
-        '<div class="preset-meta"><span class="preset-price">'+fmtBRL(info.totalPrice)+'</span>'+
-        '<span class="preset-badge '+(info.allOk?'ok':'warn')+'">'+(info.allOk?'compatível':'conferir')+'</span></div>'+
-        '<button class="primary" data-preset="'+preset.id+'">Usar essa build</button>';
-      presetGrid.appendChild(card);
-      card.querySelector('button').addEventListener('click', function(){
-        sel=Object.assign({}, preset.sel);
-        applySelToUI();
-        document.getElementById('montador').scrollIntoView({behavior:'smooth'});
-      });
-    });
-
-    render();
+  function worse(a,b){
+    const order={neutral:0, ok:1, warn:2, bad:3};
+    if(a===undefined) return b;
+    if(b===undefined) return a;
+    return order[b]>order[a] ? b : a;
   }
 
-  // DISPARA O FLUXO INICIAL
-  carregarDados();
+  function renderCheckRow(container, status, title, text){
+    const row=document.createElement('div');
+    row.className='check-row';
+    row.innerHTML='<div class="check-dot '+(status==='na'?'':status)+'"></div>'+
+      '<div class="check-text"><b>'+title+'</b><span>'+text+'</span></div>';
+    container.appendChild(row);
+  }
 
+  function resolutionAdvice(gpu, gpuHasCard, bottleneckLevel){
+    if(!gpuHasCard){
+      return 'Sem placa dedicada: bom pra tarefas do dia a dia e jogos leves em 1080p baixo.';
+    }
+    let base;
+    if(gpu.tier<=3) base='1080p com gráficos médios, 60fps na maioria dos jogos.';
+    else if(gpu.tier<=5) base='1080p no talo ou 1440p em ajustes médios, 60fps ou mais.';
+    else if(gpu.tier<=7) base='1440p com gráficos altos, 60 a 100fps em jogos atuais.';
+    else if(gpu.tier<=9) base='1440p ultra ou 4K a 60fps, dependendo do jogo.';
+    else base='4K com gráficos ultra, 100fps ou mais com upscaling ligado.';
+    if(bottleneckLevel==='cpu') base+=' O processador pode não deixar aproveitar isso 100% em jogos pesados de CPU.';
+    return base;
+  }
+
+  function compute(selObj, extraObj){
+    extraObj = extraObj || {fans:0, drives:0, oc:false};
+    const cpu=findItem(selObj,'cpu'), cooler=findItem(selObj,'cooler'), board=findItem(selObj,'board'), ram=findItem(selObj,'ram'),
+          gpu=findItem(selObj,'gpu'), storage=findItem(selObj,'storage'), psu=findItem(selObj,'psu'), pcCase=findItem(selObj,'case');
+
+    const socketOk = cpu.socket===board.socket;
+    const ramOk = board.ramType===ram.tipo;
+    const formOk = pcCase.formFactors.indexOf(board.formFactor)!==-1;
+    const gpuHasCard = gpu.id!=='none';
+    const gpuFitOk = !gpuHasCard ? null : gpu.comprimento<=pcCase.maxGpu;
+
+    let coreW = cpu.tdp + gpu.tdp;
+    if(extraObj.oc) coreW = Math.round(coreW*1.15);
+    let totalW = coreW + 40;
+    if(storage.extraW) totalW += storage.extraW;
+    totalW += extraObj.fans*3 + extraObj.drives*6;
+    const recommendedMin = Math.ceil((totalW*1.15)/50)*50;
+    const recommendedIdeal = Math.ceil((totalW*1.35)/50)*50;
+
+    let psuStatus;
+    if(psu.watt>=recommendedIdeal) psuStatus='ok';
+    else if(psu.watt>=recommendedMin) psuStatus='warn';
+    else psuStatus='bad';
+
+    let coolerStatus;
+    if(cpu.tdp<=cooler.capacidadeW) coolerStatus='ok';
+    else if(cpu.tdp<=cooler.capacidadeW*1.15) coolerStatus='warn';
+    else coolerStatus='bad';
+
+    const dots={
+      cpu: socketOk?'ok':'bad',
+      cooler: coolerStatus,
+      board: worse(worse(socketOk?'ok':'bad', ramOk?'ok':'bad'), formOk?'ok':'bad'),
+      ram: ramOk?'ok':'bad',
+      gpu: gpuHasCard ? (gpuFitOk?'ok':'bad') : 'neutral',
+      storage: 'ok',
+      psu: psuStatus,
+      case: worse(formOk?'ok':'bad', gpuHasCard ? (gpuFitOk?'ok':'bad') : 'neutral')
+    };
+
+    let bottleneck;
+    if(!gpuHasCard){
+      bottleneck={level:'none', text:'Selecione uma placa de vídeo dedicada para estimar o equilíbrio entre CPU e GPU.'};
+    } else {
+      const diff=gpu.tier-cpu.tier;
+      if(diff>=3){
+        const pct=Math.min(35, diff*6);
+        bottleneck={level:'cpu', text:'O processador tende a segurar essa placa de vídeo em jogos mais dependentes de CPU (perda estimada de até '+pct+'%). Um processador mais forte aproveitaria melhor a GPU.'};
+      } else if(diff<=-3){
+        const pct=Math.min(35, -diff*6);
+        bottleneck={level:'gpu', text:'A placa de vídeo é o fator limitante aqui — o processador tem folga de sobra (~'+pct+'% de margem). Normal, e dá espaço para trocar de GPU sem trocar o resto.'};
+      } else {
+        bottleneck={level:'balanced', text:'Processador e placa de vídeo estão numa faixa parecida de desempenho — bom equilíbrio para a maioria dos jogos.'};
+      }
+    }
+
+    const totalPrice = cpu.preco+cooler.preco+board.preco+ram.preco+gpu.preco+storage.preco+psu.preco+pcCase.preco;
+    const allOk = Object.keys(dots).every(function(k){ return dots[k]!=='bad'; });
+    const resolution = resolutionAdvice(gpu, gpuHasCard, bottleneck.level);
+
+    return {cpu,cooler,board,ram,gpu,storage,psu,pcCase,socketOk,ramOk,formOk,gpuHasCard,gpuFitOk,coolerStatus,
+      totalW,recommendedMin,recommendedIdeal,psuStatus,dots,bottleneck,totalPrice,allOk,resolution};
+  }
+
+  const CASE_HEIGHT={'itx-compact':200,'matx-mid':255,'atx-mid':320,'atx-full':375};
+  const BOARD_WIDTH={'ITX':90,'mATX':135,'ATX':175};
+  const GPU_SCALE=0.42;
+
+  function statusClass(st){
+    if(st==='ok') return 'fx-ok';
+    if(st==='warn') return 'fx-warn';
+    if(st==='bad') return 'fx-bad';
+    return 'fx-neutral';
+  }
+
+  function setRect(id,x,y,w,h,cls){
+    const el=document.getElementById(id);
+    el.setAttribute('x',x); el.setAttribute('y',y);
+    el.setAttribute('width',Math.max(w,0)); el.setAttribute('height',Math.max(h,0));
+    if(cls) el.setAttribute('class','fx-part '+cls);
+  }
+
+  function gaugePoint(cx,cy,r,frac){
+    const clamped=Math.max(0,Math.min(1,frac));
+    const angleDeg=180-clamped*180;
+    const rad=angleDeg*Math.PI/180;
+    return {x:cx+r*Math.cos(rad), y:cy-r*Math.sin(rad)};
+  }
+
+  function renderGauge(s){
+    const cx=100, cy=100, r=80;
+    const scale=Math.ceil(Math.max(s.totalW*1.5, s.psu.watt, 300)/50)*50;
+
+    const tip=gaugePoint(cx,cy,r-16, s.totalW/scale);
+    const needle=document.getElementById('gauge-needle');
+    needle.setAttribute('x1',cx); needle.setAttribute('y1',cy);
+    needle.setAttribute('x2',tip.x); needle.setAttribute('y2',tip.y);
+    needle.setAttribute('class','fx-part '+statusClass(s.psuStatus));
+
+    const tickIn=gaugePoint(cx,cy,r-9, s.psu.watt/scale);
+    const tickOut=gaugePoint(cx,cy,r+9, s.psu.watt/scale);
+    const tick=document.getElementById('gauge-capacity-tick');
+    tick.setAttribute('x1',tickIn.x); tick.setAttribute('y1',tickIn.y);
+    tick.setAttribute('x2',tickOut.x); tick.setAttribute('y2',tickOut.y);
+
+    document.getElementById('gauge-scale-min').textContent='0W';
+    document.getElementById('gauge-scale-max').textContent=scale+'W';
+    document.getElementById('gauge-value-text').textContent=s.totalW+'W de '+s.psu.watt+'W';
+  }
+
+  function renderIllustration(s){
+    const caseW=210, caseX=25, baselineY=430;
+    const caseH=CASE_HEIGHT[s.pcCase.id]||300;
+    const caseY=baselineY-caseH;
+    setRect('ill-case',caseX,caseY,caseW,caseH,statusClass(s.dots.case));
+
+    const boardW=BOARD_WIDTH[s.board.formFactor]||135;
+    const boardH=boardW*0.6;
+    const boardX=caseX+(caseW-boardW)/2;
+    const boardY=caseY+20;
+    setRect('ill-board',boardX,boardY,boardW,boardH,statusClass(s.dots.board));
+
+    const cpuSize=18;
+    const cpuX=boardX+12, cpuY=boardY+12;
+    setRect('ill-cpu',cpuX,cpuY,cpuSize,cpuSize,statusClass(s.dots.cpu));
+
+    const coolerCls=statusClass(s.dots.cooler);
+    const coolerG=document.getElementById('ill-cooler');
+    const isAio=s.cooler.id.indexOf('aio')===0;
+    if(isAio){
+      const radW = s.cooler.id==='aio-360' ? 130 : 95;
+      const radX = caseX+(caseW-radW)/2;
+      const radY = caseY+8;
+      const pumpX = cpuX+cpuSize/2, pumpY = cpuY+cpuSize/2;
+      coolerG.innerHTML =
+        '<rect x="'+radX+'" y="'+radY+'" width="'+radW+'" height="12" rx="2" class="fx-part '+coolerCls+'"></rect>'+
+        '<path d="M '+pumpX+' '+pumpY+' C '+pumpX+' '+(radY+30)+', '+(radX+12)+' '+(radY+30)+', '+(radX+12)+' '+(radY+12)+'" fill="none" class="fx-part '+coolerCls+'"></path>'+
+        '<path d="M '+pumpX+' '+pumpY+' C '+pumpX+' '+(radY+38)+', '+(radX+radW-12)+' '+(radY+38)+', '+(radX+radW-12)+' '+(radY+12)+'" fill="none" class="fx-part '+coolerCls+'"></path>'+
+        '<circle cx="'+pumpX+'" cy="'+pumpY+'" r="6" class="fx-part '+coolerCls+'"></circle>'+
+        '<text x="'+(radX+radW/2)+'" y="'+(radY+26)+'" text-anchor="middle" class="fx-label">radiador</text>';
+    } else {
+      const h = s.cooler.capacidadeW<=65 ? 12 : s.cooler.capacidadeW<=95 ? 20 : 30;
+      const w = 18;
+      const cx = cpuX+cpuSize/2-w/2, cy = cpuY-h;
+      coolerG.innerHTML = '<rect x="'+cx+'" y="'+cy+'" width="'+w+'" height="'+h+'" rx="2" class="fx-part '+coolerCls+'"></rect>';
+    }
+
+    const ramX=cpuX+cpuSize+12;
+    ['ill-ram1','ill-ram2'].forEach(function(id,i){
+      setRect(id, ramX+i*9, cpuY-5, 6, cpuSize+10, statusClass(s.dots.ram));
+    });
+
+    const gpuY=boardY+boardH+14;
+    const maxLine=document.getElementById('ill-maxgpu-line');
+    const maxX2=Math.min(caseX+14+(s.pcCase.maxGpu*GPU_SCALE), caseX+caseW-6);
+    maxLine.setAttribute('x1',caseX+14); maxLine.setAttribute('x2',maxX2);
+    maxLine.setAttribute('y1',gpuY-6); maxLine.setAttribute('y2',gpuY-6);
+
+    const gpuLabel=document.getElementById('ill-gpu-label');
+    if(!s.gpuHasCard){
+      setRect('ill-gpu',caseX+14,gpuY,0,0,'fx-neutral');
+      gpuLabel.textContent='sem GPU dedicada';
+      gpuLabel.setAttribute('x',caseX+14); gpuLabel.setAttribute('y',gpuY+14);
+    } else {
+      const gpuW=Math.min(s.gpu.comprimento*GPU_SCALE, caseW-24);
+      setRect('ill-gpu',caseX+14,gpuY,gpuW,20,statusClass(s.dots.gpu));
+      gpuLabel.textContent = s.gpu.comprimento+'mm'+(s.gpuFitOk===false ? ' ⚠ não cabe' : '');
+      gpuLabel.setAttribute('x',caseX+14); gpuLabel.setAttribute('y',gpuY+34);
+    }
+
+    setRect('ill-psu', caseX+14, caseY+caseH-34, 60, 22, statusClass(s.dots.psu));
+    setRect('ill-storage', caseX+90, caseY+caseH-30, 30, 16, 'fx-ok');
+  }
+
+  function buildOpinionPrompt(s){
+    const gpuTxt = s.gpuHasCard ? s.gpu.nome : 'sem placa de vídeo dedicada';
+    return 'Estou montando um PC com estas peças: '+s.cpu.nome+', cooler '+s.cooler.nome+', placa-mãe '+s.board.nome+', '+
+      s.ram.nome+', '+gpuTxt+', '+s.storage.nome+', fonte '+s.psu.nome+' e gabinete '+s.pcCase.nome+'. Consumo estimado de '+
+      s.totalW+'W. O que você acha dessa combinação? Tem algum gargalo, incompatibilidade ou ponto fraco que eu deveria revisar?';
+  }
+
+  function render(){
+    const s=compute(sel, extras);
+    renderGauge(s);
+
+    ORDER.forEach(function(cat){
+      const slot=slotsEl.querySelector('.slot[data-cat="'+cat+'"]');
+      const item=findItem(sel,cat);
+      slot.querySelector('[data-role="specs"]').textContent=specLine(cat,item);
+      const dotEl=slot.querySelector('[data-role="dot"]');
+      dotEl.className='dot '+(s.dots[cat]==='neutral'?'':s.dots[cat]);
+    });
+
+    document.getElementById('all-ok-banner').className='all-ok-banner'+(s.allOk?' show':'');
+
+    const checks=document.getElementById('checks');
+    checks.innerHTML='';
+    renderCheckRow(checks, s.socketOk?'ok':'bad', 'Soquete do processador × placa-mãe',
+      s.socketOk ? (s.cpu.socket+' compatível com a placa selecionada.') : (s.cpu.nome+' usa soquete '+s.cpu.socket+', mas a placa-mãe é '+s.board.socket+'.'));
+    renderCheckRow(checks, s.coolerStatus, 'Refrigeração × processador',
+      s.coolerStatus==='ok' ? (s.cooler.nome+' dá conta dos '+s.cpu.tdp+'W do processador.') :
+      s.coolerStatus==='warn' ? (s.cooler.nome+' fica no limite pra segurar '+s.cpu.tdp+'W — vai esquentar mais que o ideal.') :
+      (s.cooler.nome+' não é suficiente pra '+s.cpu.tdp+'W — o processador vai esquentar demais.'));
+    renderCheckRow(checks, s.ramOk?'ok':'bad', 'Tipo de memória × placa-mãe',
+      s.ramOk ? ('Placa e kit de memória usam '+s.board.ramType+'.') : ('A placa aceita '+s.board.ramType+', mas o kit escolhido é '+s.ram.tipo+'.'));
+    renderCheckRow(checks, s.formOk?'ok':'bad', 'Formato da placa-mãe × gabinete',
+      s.formOk ? ('O gabinete suporta placas '+s.board.formFactor+'.') : ('O gabinete não suporta o formato '+s.board.formFactor+' — só '+s.pcCase.formFactors.join(', ')+'.'));
+    if(!s.gpuHasCard){
+      renderCheckRow(checks, 'na', 'Placa de vídeo × gabinete', 'Sem placa dedicada selecionada, nada para conferir aqui.');
+    } else {
+      renderCheckRow(checks, s.gpuFitOk?'ok':'bad', 'Placa de vídeo × gabinete',
+        s.gpuFitOk ? (s.gpu.comprimento+'mm cabe nesse gabinete (até '+s.pcCase.maxGpu+'mm).') : (s.gpu.comprimento+'mm é maior que o limite do gabinete ('+s.pcCase.maxGpu+'mm).'));
+    }
+    renderCheckRow(checks, s.psuStatus, 'Fonte × consumo estimado',
+      s.psuStatus==='ok' ? (s.psu.watt+'W cobre os '+s.totalW+'W estimados com boa margem.') :
+      s.psuStatus==='warn' ? (s.psu.watt+'W é justo para '+s.totalW+'W estimados — funciona, mas sem muita folga.') :
+      (s.psu.watt+'W não é suficiente para os '+s.totalW+'W estimados. Recomendado a partir de '+s.recommendedMin+'W.'));
+
+    const powerStatusEl=document.getElementById('power-status');
+    powerStatusEl.innerHTML='<span class="status-pill '+s.psuStatus+'">'+
+      (s.psuStatus==='ok'?'Fonte adequada':s.psuStatus==='warn'?'Fonte no limite':'Fonte insuficiente')+'</span>';
+    document.getElementById('power-number').innerHTML='<small>Consumo estimado</small>'+s.totalW+' W';
+
+    const scale=Math.max(s.totalW*1.5, s.psu.watt, 300);
+    document.getElementById('power-scale-a').textContent=s.totalW+' W';
+    document.getElementById('power-scale-b').textContent=s.psu.watt+' W';
+    const barDraw=document.getElementById('bar-draw');
+    barDraw.style.width=Math.min(100,(s.totalW/scale)*100)+'%';
+    barDraw.className='bar-fill neutral';
+    const barPsu=document.getElementById('bar-psu');
+    barPsu.style.width=Math.min(100,(s.psu.watt/scale)*100)+'%';
+    barPsu.className='bar-fill '+s.psuStatus;
+    document.getElementById('power-note').textContent='Faixa recomendada para essa combinação: '+s.recommendedMin+'W a '+s.recommendedIdeal+'W ou mais.';
+    document.getElementById('btn-fix-psu').style.display = s.psuStatus==='ok' ? 'none' : 'inline-flex';
+
+    document.getElementById('marker-cpu').style.left=(s.cpu.tier/10*100)+'%';
+    document.getElementById('marker-gpu').style.left=(s.gpu.tier/10*100)+'%';
+    document.getElementById('bottleneck-text').textContent=s.bottleneck.text;
+
+    document.getElementById('total-price').textContent=fmtBRL(s.totalPrice);
+    document.getElementById('resolution-text').textContent=s.resolution;
+    renderIllustration(s);
+
+    const opinionEncoded=encodeURIComponent(buildOpinionPrompt(s));
+    document.getElementById('ai-chatgpt').href='https://chatgpt.com/?q='+opinionEncoded;
+    document.getElementById('ai-perplexity').href='https://www.perplexity.ai/search?q='+opinionEncoded;
+    document.getElementById('ai-claude').href='https://claude.ai/new?q='+opinionEncoded;
+  }
+
+  document.getElementById('extra-fans').value=extras.fans;
+  document.getElementById('extra-drives').value=extras.drives;
+  document.getElementById('extra-oc').checked=extras.oc;
+
+  document.getElementById('extra-fans').addEventListener('input', function(e){
+    extras.fans=Math.max(0,Math.min(8, parseInt(e.target.value,10)||0));
+    saveExtras();
+    render();
+  });
+  document.getElementById('extra-drives').addEventListener('input', function(e){
+    extras.drives=Math.max(0,Math.min(4, parseInt(e.target.value,10)||0));
+    saveExtras();
+    render();
+  });
+  document.getElementById('extra-oc').addEventListener('change', function(e){
+    extras.oc=e.target.checked;
+    saveExtras();
+    render();
+  });
+
+  document.getElementById('btn-random').addEventListener('click', function(){
+    const cpu=CPUS[Math.floor(Math.random()*CPUS.length)];
+    sel.cpu=cpu.id;
+    const boardOptions=DATA.board.filter(function(b){return b.socket===cpu.socket;});
+    const board=boardOptions[Math.floor(Math.random()*boardOptions.length)];
+    sel.board=board.id;
+    const ramOptions=DATA.ram.filter(function(r){return r.tipo===board.ramType;});
+    sel.ram=ramOptions[Math.floor(Math.random()*ramOptions.length)].id;
+    const caseOptions=DATA['case'].filter(function(cs){return cs.formFactors.indexOf(board.formFactor)!==-1;});
+    sel.case=caseOptions[Math.floor(Math.random()*caseOptions.length)].id;
+    ['cooler','gpu','storage','psu'].forEach(function(cat){
+      const options=DATA[cat];
+      sel[cat]=options[Math.floor(Math.random()*options.length)].id;
+    });
+    applySelToUI();
+  });
+
+  document.getElementById('btn-reset').addEventListener('click', function(){
+    sel=Object.assign({}, DEFAULT_SEL);
+    applySelToUI();
+  });
+
+  document.getElementById('btn-fix-psu').addEventListener('click', function(){
+    const s=compute(sel, extras);
+    const candidates=PSUS.filter(function(p){return p.watt>=s.recommendedIdeal;}).sort(function(a,b){return a.preco-b.preco;});
+    const pick=candidates[0] || PSUS.slice().sort(function(a,b){return b.watt-a.watt;})[0];
+    sel.psu=pick.id;
+    document.getElementById('sel-psu').value=pick.id;
+    saveSel();
+    render();
+  });
+
+  document.getElementById('btn-share').addEventListener('click', function(){
+    const url=location.origin+location.pathname+'#build='+ORDER.map(function(c){return sel[c];}).join(',');
+    const btn=document.getElementById('btn-share');
+    const original=btn.textContent;
+    function done(msg){ btn.textContent=msg; setTimeout(function(){btn.textContent=original;},1800); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){done('Link copiado ✓');}).catch(function(){ window.prompt('Copie o link da sua build:', url); });
+    } else {
+      window.prompt('Copie o link da sua build:', url);
+    }
+  });
+
+  const presetGrid=document.getElementById('preset-grid');
+  PRESETS.forEach(function(preset){
+    const info=compute(preset.sel, {fans:0,drives:0,oc:false});
+    const card=document.createElement('div');
+    card.className='preset-card';
+    card.innerHTML=
+      '<h3>'+preset.nome+'</h3>'+
+      '<p>'+preset.desc+'</p>'+
+      '<div class="preset-meta"><span class="preset-price">'+fmtBRL(info.totalPrice)+'</span>'+
+      '<span class="preset-badge '+(info.allOk?'ok':'warn')+'">'+(info.allOk?'compatível':'conferir')+'</span></div>'+
+      '<button class="primary" data-preset="'+preset.id+'">Usar essa build</button>';
+    presetGrid.appendChild(card);
+    card.querySelector('button').addEventListener('click', function(){
+      sel=Object.assign({}, preset.sel);
+      applySelToUI();
+      document.getElementById('montador').scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  render();
 })();
 </script>
 </body>
