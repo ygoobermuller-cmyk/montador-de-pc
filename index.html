@@ -38,33 +38,95 @@
   }
 
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
   body{
     margin:0; background:var(--bg); color:var(--text);
     font-family:var(--font-head); line-height:1.45;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:1180px; margin:0 auto; padding:28px 20px 64px;}
-  header{margin-bottom:28px;}
-  header h1{
-    font-size:clamp(1.6rem, 2.4vw + 1rem, 2.3rem);
-    margin:0 0 6px; font-weight:600; letter-spacing:-0.01em;
-  }
-  header p{margin:0; color:var(--text-dim); max-width:56ch;}
-  .toolbar{display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;}
-  button{
-    font-family:var(--font-head); font-size:0.92rem; font-weight:500;
-    padding:9px 16px; border-radius:8px; border:1px solid var(--border);
-    background:var(--panel); color:var(--text); cursor:pointer;
-  }
-  button:hover{border-color:var(--accent);}
-  button.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
-  button.primary:hover{background:var(--accent-strong); border-color:var(--accent-strong);}
-  button:focus-visible, select:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 20px;}
+  a{color:inherit;}
 
+  /* ---------- nav ---------- */
+  nav.topnav{
+    position:sticky; top:0; z-index:20; backdrop-filter:blur(6px);
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    border-bottom:1px solid var(--border);
+  }
+  .topnav-inner{
+    max-width:1180px; margin:0 auto; padding:14px 20px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brand{font-weight:600; font-size:1.05rem; display:flex; align-items:center; gap:8px; text-decoration:none;}
+  .brand-mark{width:10px; height:10px; border-radius:3px; background:var(--accent); display:inline-block; transform:rotate(45deg);}
+  .navlinks{display:flex; gap:22px; font-size:0.92rem;}
+  .navlinks a{text-decoration:none; color:var(--text-dim);}
+  .navlinks a:hover{color:var(--accent);}
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 48px; position:relative; overflow:hidden;}
+  .hero::before{
+    content:''; position:absolute; right:-120px; top:-160px; width:420px; height:420px;
+    background:radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative; animation:heroIn 0.6s ease-out both;}
+  @keyframes heroIn{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion: reduce){ .hero-inner{animation:none;} }
+  .eyebrow-free{color:var(--accent); font-family:var(--font-mono); font-size:0.82rem; margin:0 0 10px;}
+  .hero h1{
+    font-size:clamp(2.1rem, 3.2vw + 1rem, 3.1rem);
+    margin:0 0 14px; font-weight:600; letter-spacing:-0.015em; max-width:18ch;
+  }
+  .hero p{margin:0 0 24px; color:var(--text-dim); max-width:56ch; font-size:1.05rem;}
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:36px;}
+  .stat-row{display:flex; gap:28px; flex-wrap:wrap;}
+  .stat-row div{font-family:var(--font-mono);}
+  .stat-num{font-size:1.5rem; font-weight:600; color:var(--accent);}
+  .stat-label{font-size:0.76rem; color:var(--text-dim); font-family:var(--font-head);}
+
+  button, .btn{
+    font-family:var(--font-head); font-size:0.92rem; font-weight:500;
+    padding:11px 20px; border-radius:8px; border:1px solid var(--border);
+    background:var(--panel); color:var(--text); cursor:pointer; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  button:hover, .btn:hover{border-color:var(--accent);}
+  button.primary, .btn.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
+  button.primary:hover, .btn.primary:hover{background:var(--accent-strong); border-color:var(--accent-strong);}
+  button:focus-visible, select:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  section{padding:56px 0;}
+  section.alt{background:var(--panel-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+  .section-head{margin-bottom:28px; max-width:62ch;}
+  .section-head h2{font-size:1.6rem; margin:0 0 8px; font-weight:600;}
+  .section-head p{margin:0; color:var(--text-dim);}
+
+  /* ---------- ofertas / lojas ---------- */
+  .store-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px; margin-bottom:22px;}
+  .store-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    padding:18px; border-left:3px solid var(--store-color, var(--accent));
+    display:flex; flex-direction:column; gap:10px; text-decoration:none; color:var(--text);
+  }
+  .store-card:hover{border-color:var(--store-color, var(--accent));}
+  .store-card h3{margin:0; font-size:1.05rem; font-weight:600;}
+  .store-card p{margin:0; font-size:0.85rem; color:var(--text-dim); flex-grow:1;}
+  .store-card span.go{font-size:0.82rem; font-family:var(--font-mono); color:var(--store-color, var(--accent));}
+  .quicklinks{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-size:0.82rem; padding:6px 12px; border-radius:20px; border:1px solid var(--border);
+    text-decoration:none; color:var(--text); background:var(--panel);
+  }
+  .chip:hover{border-color:var(--accent); color:var(--accent);}
+  .note-block{font-size:0.82rem; color:var(--text-dim); margin-top:18px; max-width:66ch;}
+
+  /* ---------- montador (builder) ---------- */
   .layout{display:grid; grid-template-columns:1fr; gap:22px;}
   @media (min-width:900px){
     .layout{grid-template-columns:1.55fr 1fr; align-items:start;}
-    .summary{position:sticky; top:20px;}
+    .summary{position:sticky; top:76px;}
   }
 
   .rail{position:relative; padding-left:26px;}
@@ -98,6 +160,11 @@
     background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px;
   }
   .card h2{margin:0 0 12px; font-size:1rem; font-weight:600;}
+  .all-ok-banner{
+    display:none; background:var(--ok-bg); color:var(--ok); border-radius:8px;
+    padding:8px 12px; font-size:0.85rem; font-weight:600; margin-bottom:12px;
+  }
+  .all-ok-banner.show{display:block;}
   .check-row{display:flex; align-items:flex-start; gap:9px; padding:6px 0; font-size:0.87rem;}
   .check-row + .check-row{border-top:1px solid var(--border);}
   .check-dot{width:9px; height:9px; border-radius:50%; margin-top:5px; flex-shrink:0; background:var(--border);}
@@ -147,61 +214,135 @@
   .total-row{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;}
   .total-row .amount{font-family:var(--font-mono); font-size:1.3rem; font-weight:600;}
   .note{font-size:0.76rem; color:var(--text-dim); margin-top:6px;}
+
+  footer{padding:28px 0 48px; text-align:center; color:var(--text-dim); font-size:0.8rem;}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>Montador de PC</h1>
-    <p>Escolha as peças em cada slot e acompanhe ao lado se tudo combina, quanto o sistema consome e onde pode nascer um gargalo.</p>
-    <div class="toolbar">
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="brand" href="#inicio"><span class="brand-mark"></span>Montador de PC</a>
+    <div class="navlinks">
+      <a href="#inicio">Início</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#montador">Montador</a>
+    </div>
+  </div>
+</nav>
+
+<section id="inicio" class="hero">
+  <div class="wrap hero-inner">
+    <p class="eyebrow-free">brincadeira séria de montar PC</p>
+    <h1>Monte, confira a compatibilidade e não estoure a fonte.</h1>
+    <p>Escolha as peças, veja na hora o que combina, quanto o sistema consome e onde pode nascer um gargalo. Sem cadastro, sem enrolação — e com atalhos pras lojas que realmente vendem a peça.</p>
+    <div class="hero-ctas">
+      <a class="btn primary" href="#montador">Montar meu PC</a>
+      <a class="btn" href="#ofertas">Ver onde comprar</a>
+    </div>
+    <div class="stat-row" id="stat-row"></div>
+  </div>
+</section>
+
+<section id="ofertas" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Onde comprar</h2>
+      <p>Preço de hardware muda de hora em hora, então em vez de fingir que sei o preço de agora, aqui vão os atalhos pras lojas que mais vendem peça de PC no Brasil — clique e veja o valor de verdade, ao vivo.</p>
+    </div>
+    <div class="store-grid">
+      <a class="store-card" style="--store-color:#C98A4E" href="https://www.kabum.com.br" target="_blank" rel="noopener">
+        <h3>KaBuM!</h3>
+        <p>Um dos maiores catálogos de hardware do país, com promoções relâmpago quase todo dia.</p>
+        <span class="go">kabum.com.br →</span>
+      </a>
+      <a class="store-card" style="--store-color:#5B7C99" href="https://www.pichau.com.br" target="_blank" rel="noopener">
+        <h3>Pichau</h3>
+        <p>Forte em placas de vídeo e kits completos, com combos de processador + placa-mãe.</p>
+        <span class="go">pichau.com.br →</span>
+      </a>
+      <a class="store-card" style="--store-color:#8B6FB3" href="https://www.terabyteshop.com.br" target="_blank" rel="noopener">
+        <h3>Terabyte Shop</h3>
+        <p>Boa pedida pra SSD, fonte e gabinete, com preço à vista costumando ser o mais agressivo.</p>
+        <span class="go">terabyteshop.com.br →</span>
+      </a>
+      <a class="store-card" style="--store-color:#2F8F86" href="https://www.amazon.com.br/s?k=placa+de+video" target="_blank" rel="noopener">
+        <h3>Amazon</h3>
+        <p>Entrega rápida e fácil de comparar com histórico de preço em extensões de terceiros.</p>
+        <span class="go">amazon.com.br →</span>
+      </a>
+    </div>
+    <div class="quicklinks">
+      <a class="chip" href="https://www.amazon.com.br/s?k=placa+de+v%C3%ADdeo" target="_blank" rel="noopener">Placas de vídeo</a>
+      <a class="chip" href="https://www.amazon.com.br/s?k=processador+amd+intel" target="_blank" rel="noopener">Processadores</a>
+      <a class="chip" href="https://www.amazon.com.br/s?k=ssd+nvme" target="_blank" rel="noopener">SSDs</a>
+      <a class="chip" href="https://www.amazon.com.br/s?k=fonte+atx+80+plus" target="_blank" rel="noopener">Fontes</a>
+      <a class="chip" href="https://www.amazon.com.br/s?k=memoria+ram+ddr5" target="_blank" rel="noopener">Memória RAM</a>
+      <a class="chip" href="https://www.amazon.com.br/s?k=gabinete+gamer+atx" target="_blank" rel="noopener">Gabinetes</a>
+    </div>
+    <p class="note-block">Os cliques abrem essas lojas em outra aba — nenhum preço aqui é puxado ao vivo delas, é só o caminho mais curto até a página de busca de cada categoria.</p>
+  </div>
+</section>
+
+<section id="montador">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Monte sua build</h2>
+      <p>Escolha uma peça em cada slot. O painel ao lado atualiza na hora.</p>
+    </div>
+    <div class="hero-ctas" style="margin-bottom:28px;">
       <button class="primary" id="btn-random">🎲 Sortear peças</button>
       <button id="btn-reset">↺ Build recomendada</button>
     </div>
-  </header>
 
-  <div class="layout">
-    <div class="rail" id="slots"></div>
+    <div class="layout">
+      <div class="rail" id="slots"></div>
 
-    <aside class="summary">
-      <div class="card">
-        <h2>Compatibilidade</h2>
-        <div id="checks"></div>
-      </div>
-
-      <div class="card">
-        <h2>Consumo de energia</h2>
-        <div id="power-status"></div>
-        <div class="power-readout" id="power-number"><small>Consumo estimado</small>0 W</div>
-        <div class="bar-label"><span>Consumo</span><span id="power-scale-a"></span></div>
-        <div class="bar-track"><div class="bar-fill neutral" id="bar-draw" style="width:0%"></div></div>
-        <div class="bar-label"><span>Fonte selecionada</span><span id="power-scale-b"></span></div>
-        <div class="bar-track"><div class="bar-fill neutral" id="bar-psu" style="width:0%"></div></div>
-        <p class="note" id="power-note"></p>
-      </div>
-
-      <div class="card">
-        <h2>Equilíbrio CPU × GPU</h2>
-        <div class="bottleneck-legend">
-          <span><i class="swatch cpu"></i>Processador</span>
-          <span><i class="swatch gpu"></i>Placa de vídeo</span>
+      <aside class="summary">
+        <div class="card">
+          <h2>Compatibilidade</h2>
+          <div class="all-ok-banner" id="all-ok-banner">🎉 Tudo compatível — pode fechar o carrinho.</div>
+          <div id="checks"></div>
         </div>
-        <div class="bottleneck-track">
-          <div class="bottleneck-line"></div>
-          <div class="marker cpu" id="marker-cpu">CPU</div>
-          <div class="marker gpu" id="marker-gpu">GPU</div>
-        </div>
-        <p class="bottleneck-text" id="bottleneck-text"></p>
-      </div>
 
-      <div class="card">
-        <h2>Resumo</h2>
-        <div class="total-row"><span>Total estimado</span><span class="amount" id="total-price">R$ 0</span></div>
-        <p class="note">Preços e especificações são valores de referência aproximados, para simular a montagem — confira sempre no fornecedor antes de comprar de verdade.</p>
-      </div>
-    </aside>
+        <div class="card">
+          <h2>Consumo de energia</h2>
+          <div id="power-status"></div>
+          <div class="power-readout" id="power-number"><small>Consumo estimado</small>0 W</div>
+          <div class="bar-label"><span>Consumo</span><span id="power-scale-a"></span></div>
+          <div class="bar-track"><div class="bar-fill neutral" id="bar-draw" style="width:0%"></div></div>
+          <div class="bar-label"><span>Fonte selecionada</span><span id="power-scale-b"></span></div>
+          <div class="bar-track"><div class="bar-fill neutral" id="bar-psu" style="width:0%"></div></div>
+          <p class="note" id="power-note"></p>
+        </div>
+
+        <div class="card">
+          <h2>Equilíbrio CPU × GPU</h2>
+          <div class="bottleneck-legend">
+            <span><i class="swatch cpu"></i>Processador</span>
+            <span><i class="swatch gpu"></i>Placa de vídeo</span>
+          </div>
+          <div class="bottleneck-track">
+            <div class="bottleneck-line"></div>
+            <div class="marker cpu" id="marker-cpu">CPU</div>
+            <div class="marker gpu" id="marker-gpu">GPU</div>
+          </div>
+          <p class="bottleneck-text" id="bottleneck-text"></p>
+        </div>
+
+        <div class="card">
+          <h2>Resumo</h2>
+          <div class="total-row"><span>Total estimado</span><span class="amount" id="total-price">R$ 0</span></div>
+          <p class="note">Preços e especificações são valores de referência aproximados, para simular a montagem — confira sempre no fornecedor antes de comprar de verdade.</p>
+        </div>
+      </aside>
+    </div>
   </div>
-</div>
+</section>
+
+<footer>
+  Feito pra brincar e testar combinações de PC · dados de referência, não em tempo real
+</footer>
 
 <script>
 (function(){
@@ -273,6 +414,20 @@
   const ORDER=['cpu','board','ram','gpu','storage','psu','case'];
 
   const DEFAULT_SEL={cpu:'r7-9700x',board:'b650-atx',ram:'ddr5-32',gpu:'rtx5070',storage:'nvme-1tb',psu:'750-gold',case:'atx-mid'};
+
+  const statRow=document.getElementById('stat-row');
+  const gpuCount=GPUS.filter(function(g){return g.id!=='none';}).length;
+  const sockets=Array.from(new Set(CPUS.map(function(c){return c.socket;})));
+  [
+    [CPUS.length,'processadores'],
+    [gpuCount,'placas de vídeo'],
+    [sockets.length,'soquetes diferentes'],
+    [CASES.length,'gabinetes']
+  ].forEach(function(pair){
+    const d=document.createElement('div');
+    d.innerHTML='<div class="stat-num">'+pair[0]+'</div><div class="stat-label">'+pair[1]+'</div>';
+    statRow.appendChild(d);
+  });
 
   function fmtBRL(n){
     try{ return 'R$ ' + n.toLocaleString('pt-BR'); }
@@ -404,9 +559,10 @@
     }
 
     const totalPrice = cpu.preco+board.preco+ram.preco+gpu.preco+storage.preco+psu.preco+pcCase.preco;
+    const allOk = Object.keys(dots).every(function(k){ return dots[k]!=='bad'; });
 
     return {cpu,board,ram,gpu,storage,psu,pcCase,socketOk,ramOk,formOk,gpuHasCard,gpuFitOk,
-      totalW,recommendedMin,recommendedIdeal,psuStatus,dots,bottleneck,totalPrice};
+      totalW,recommendedMin,recommendedIdeal,psuStatus,dots,bottleneck,totalPrice,allOk};
   }
 
   function render(){
@@ -419,6 +575,8 @@
       const dotEl=slot.querySelector('[data-role="dot"]');
       dotEl.className='dot '+(s.dots[cat]==='neutral'?'':s.dots[cat]);
     });
+
+    document.getElementById('all-ok-banner').className='all-ok-banner'+(s.allOk?' show':'');
 
     const checks=document.getElementById('checks');
     checks.innerHTML='';
