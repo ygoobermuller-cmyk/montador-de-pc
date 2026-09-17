@@ -216,6 +216,23 @@
   .note{font-size:0.76rem; color:var(--text-dim); margin-top:6px;}
 
   footer{padding:28px 0 48px; text-align:center; color:var(--text-dim); font-size:0.8rem;}
+
+  /* ---------- builds prontas ---------- */
+  .preset-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px;}
+  .preset-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    padding:18px; display:flex; flex-direction:column; gap:10px;
+  }
+  .preset-card h3{margin:0; font-size:1.02rem; font-weight:600;}
+  .preset-card p{margin:0; font-size:0.85rem; color:var(--text-dim); flex-grow:1;}
+  .preset-meta{display:flex; align-items:center; justify-content:space-between;}
+  .preset-price{font-family:var(--font-mono); font-weight:600;}
+  .preset-badge{font-size:0.72rem; font-family:var(--font-mono); padding:2px 8px; border-radius:20px;}
+  .preset-badge.ok{background:var(--ok-bg); color:var(--ok);}
+  .preset-badge.warn{background:var(--warn-bg); color:var(--warn);}
+  .preset-card button{width:100%; justify-content:center;}
+  .btn.small, button.small{padding:7px 14px; font-size:0.82rem;}
+  .share-row{margin-top:12px;}
 </style>
 </head>
 <body>
@@ -225,6 +242,7 @@
     <a class="brand" href="#inicio"><span class="brand-mark"></span>Montador de PC</a>
     <div class="navlinks">
       <a href="#inicio">Início</a>
+      <a href="#builds">Builds</a>
       <a href="#ofertas">Ofertas</a>
       <a href="#montador">Montador</a>
     </div>
@@ -241,6 +259,16 @@
       <a class="btn" href="#ofertas">Ver onde comprar</a>
     </div>
     <div class="stat-row" id="stat-row"></div>
+  </div>
+</section>
+
+<section id="builds">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Builds prontas</h2>
+      <p>Se não quiser escolher peça por peça, comece de uma dessas combinações já pensadas e ajuste o que quiser depois lá embaixo.</p>
+    </div>
+    <div class="preset-grid" id="preset-grid"></div>
   </div>
 </section>
 
@@ -314,6 +342,12 @@
           <div class="bar-label"><span>Fonte selecionada</span><span id="power-scale-b"></span></div>
           <div class="bar-track"><div class="bar-fill neutral" id="bar-psu" style="width:0%"></div></div>
           <p class="note" id="power-note"></p>
+          <button id="btn-fix-psu" class="btn small" style="display:none;">⚡ Trocar por fonte adequada</button>
+        </div>
+
+        <div class="card">
+          <h2>Resolução recomendada</h2>
+          <p class="bottleneck-text" id="resolution-text"></p>
         </div>
 
         <div class="card">
@@ -334,6 +368,7 @@
           <h2>Resumo</h2>
           <div class="total-row"><span>Total estimado</span><span class="amount" id="total-price">R$ 0</span></div>
           <p class="note">Preços e especificações são valores de referência aproximados, para simular a montagem — confira sempre no fornecedor antes de comprar de verdade.</p>
+          <div class="share-row"><button id="btn-share" class="btn small">🔗 Compartilhar build</button></div>
         </div>
       </aside>
     </div>
@@ -349,27 +384,49 @@
   "use strict";
 
   const CPUS=[
-    {id:'r5-9600x',nome:'AMD Ryzen 5 9600X',socket:'AM5',tdp:65,tier:5,preco:1800},
-    {id:'r7-9700x',nome:'AMD Ryzen 7 9700X',socket:'AM5',tdp:65,tier:7,preco:2600},
-    {id:'r7-9800x3d',nome:'AMD Ryzen 7 9800X3D',socket:'AM5',tdp:120,tier:9,preco:3800},
-    {id:'r9-9950x',nome:'AMD Ryzen 9 9950X',socket:'AM5',tdp:170,tier:10,preco:5200},
+    {id:'r3-3200g',nome:'AMD Ryzen 3 3200G',socket:'AM4',tdp:65,tier:1,preco:550},
+    {id:'i3-10100f',nome:'Intel Core i3-10100F',socket:'LGA1200',tdp:65,tier:2,preco:500},
+    {id:'i5-9400f',nome:'Intel Core i5-9400F',socket:'LGA1151',tdp:65,tier:2,preco:550},
+    {id:'r5-3600',nome:'AMD Ryzen 5 3600',socket:'AM4',tdp:65,tier:3,preco:650},
+    {id:'i5-10400f',nome:'Intel Core i5-10400F',socket:'LGA1200',tdp:65,tier:3,preco:650},
     {id:'r5-5600',nome:'AMD Ryzen 5 5600',socket:'AM4',tdp:65,tier:4,preco:700},
+    {id:'i5-11400f',nome:'Intel Core i5-11400F',socket:'LGA1200',tdp:65,tier:4,preco:750},
+    {id:'i7-9700k',nome:'Intel Core i7-9700K',socket:'LGA1151',tdp:95,tier:5,preco:900},
     {id:'i5-12400f',nome:'Intel Core i5-12400F',socket:'LGA1700',tdp:65,tier:5,preco:900},
-    {id:'i7-14700k',nome:'Intel Core i7-14700K',socket:'LGA1700',tdp:125,tier:8,preco:2800},
+    {id:'r5-9600x',nome:'AMD Ryzen 5 9600X',socket:'AM5',tdp:65,tier:5,preco:1800},
+    {id:'r5-5600x',nome:'AMD Ryzen 5 5600X',socket:'AM4',tdp:65,tier:5,preco:850},
+    {id:'i7-11700k',nome:'Intel Core i7-11700K',socket:'LGA1200',tdp:125,tier:6,preco:1400},
+    {id:'r7-5700x',nome:'AMD Ryzen 7 5700X',socket:'AM4',tdp:65,tier:6,preco:1100},
+    {id:'r7-9700x',nome:'AMD Ryzen 7 9700X',socket:'AM5',tdp:65,tier:7,preco:2600},
     {id:'ultra5-245k',nome:'Intel Core Ultra 5 245K',socket:'LGA1851',tdp:125,tier:7,preco:2000},
+    {id:'r9-5900x',nome:'AMD Ryzen 9 5900X',socket:'AM4',tdp:105,tier:7,preco:1900},
+    {id:'r7-5800x3d',nome:'AMD Ryzen 7 5800X3D',socket:'AM4',tdp:105,tier:8,preco:2100},
+    {id:'r9-5950x',nome:'AMD Ryzen 9 5950X',socket:'AM4',tdp:105,tier:8,preco:2600},
+    {id:'i7-14700k',nome:'Intel Core i7-14700K',socket:'LGA1700',tdp:125,tier:8,preco:2800},
+    {id:'r7-9800x3d',nome:'AMD Ryzen 7 9800X3D',socket:'AM5',tdp:120,tier:9,preco:3800},
     {id:'ultra9-285k',nome:'Intel Core Ultra 9 285K',socket:'LGA1851',tdp:125,tier:9,preco:4500},
+    {id:'r9-9950x',nome:'AMD Ryzen 9 9950X',socket:'AM5',tdp:170,tier:10,preco:5200},
   ];
   const BOARDS=[
+    {id:'a320m',nome:'ASRock A320M-HDV',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:350},
+    {id:'b365m',nome:'ASRock B365M Pro4',socket:'LGA1151',formFactor:'mATX',ramType:'DDR4',preco:450},
+    {id:'h510m',nome:'Gigabyte H510M H',socket:'LGA1200',formFactor:'mATX',ramType:'DDR4',preco:420},
+    {id:'b450m',nome:'Gigabyte B450M S2H',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:480},
+    {id:'z390-atx',nome:'ASUS Prime Z390-A',socket:'LGA1151',formFactor:'ATX',ramType:'DDR4',preco:900},
+    {id:'b550m',nome:'MSI B550M Pro-VDH',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:600},
+    {id:'z490-atx',nome:'ASUS TUF Gaming Z490-Plus',socket:'LGA1200',formFactor:'ATX',ramType:'DDR4',preco:1100},
+    {id:'b550-atx',nome:'Gigabyte B550 Gaming X',socket:'AM4',formFactor:'ATX',ramType:'DDR4',preco:800},
+    {id:'b760m',nome:'ASRock B760M Pro RS',socket:'LGA1700',formFactor:'mATX',ramType:'DDR4',preco:700},
+    {id:'x570-atx',nome:'ASUS TUF Gaming X570-Plus',socket:'AM4',formFactor:'ATX',ramType:'DDR4',preco:1300},
     {id:'b650-atx',nome:'ASUS TUF Gaming B650-Plus',socket:'AM5',formFactor:'ATX',ramType:'DDR5',preco:1400},
     {id:'b650m',nome:'Gigabyte B650M K',socket:'AM5',formFactor:'mATX',ramType:'DDR5',preco:900},
     {id:'a620i',nome:'ASRock A620I Lightning',socket:'AM5',formFactor:'ITX',ramType:'DDR5',preco:1100},
-    {id:'b550m',nome:'MSI B550M Pro-VDH',socket:'AM4',formFactor:'mATX',ramType:'DDR4',preco:600},
-    {id:'b760m',nome:'ASRock B760M Pro RS',socket:'LGA1700',formFactor:'mATX',ramType:'DDR4',preco:700},
     {id:'z790-atx',nome:'ASUS Prime Z790-A',socket:'LGA1700',formFactor:'ATX',ramType:'DDR5',preco:1800},
     {id:'b860m',nome:'MSI PRO B860M-A',socket:'LGA1851',formFactor:'mATX',ramType:'DDR5',preco:1100},
     {id:'z890-atx',nome:'Gigabyte Z890 Aorus Elite',socket:'LGA1851',formFactor:'ATX',ramType:'DDR5',preco:2200},
   ];
   const RAMS=[
+    {id:'ddr4-8',nome:'Kit 8GB (2x4) DDR4 2666MHz',tipo:'DDR4',capacidade:8,preco:150},
     {id:'ddr4-16',nome:'Kit 16GB (2x8) DDR4 3200MHz',tipo:'DDR4',capacidade:16,preco:250},
     {id:'ddr4-32',nome:'Kit 32GB (2x16) DDR4 3200MHz',tipo:'DDR4',capacidade:32,preco:450},
     {id:'ddr5-16',nome:'Kit 16GB (2x8) DDR5 6000MHz',tipo:'DDR5',capacidade:16,preco:400},
@@ -378,8 +435,20 @@
   ];
   const GPUS=[
     {id:'none',nome:'Nenhuma — usar vídeo integrado',tdp:0,tier:2,comprimento:0,preco:0},
+    {id:'gtx1650',nome:'NVIDIA GTX 1650',tdp:75,tier:2,comprimento:170,preco:900},
+    {id:'rx580',nome:'AMD RX 580 8GB',tdp:185,tier:3,comprimento:240,preco:750},
+    {id:'gtx1660super',nome:'NVIDIA GTX 1660 Super',tdp:125,tier:3,comprimento:210,preco:1100},
+    {id:'rx5600xt',nome:'AMD RX 5600 XT',tdp:150,tier:4,comprimento:230,preco:1300},
+    {id:'rtx2060',nome:'NVIDIA RTX 2060',tdp:160,tier:4,comprimento:200,preco:1400},
+    {id:'rtx3060',nome:'NVIDIA RTX 3060',tdp:170,tier:5,comprimento:240,preco:1700},
+    {id:'rx6600',nome:'AMD RX 6600',tdp:132,tier:5,comprimento:220,preco:1500},
     {id:'rtx5060',nome:'NVIDIA RTX 5060',tdp:145,tier:5,comprimento:242,preco:2300},
+    {id:'rtx3060ti',nome:'NVIDIA RTX 3060 Ti',tdp:200,tier:6,comprimento:242,preco:2000},
+    {id:'rx6700xt',nome:'AMD RX 6700 XT',tdp:230,tier:6,comprimento:267,preco:2200},
+    {id:'rtx3070',nome:'NVIDIA RTX 3070',tdp:220,tier:6,comprimento:242,preco:2400},
     {id:'rtx5060ti',nome:'NVIDIA RTX 5060 Ti',tdp:180,tier:6,comprimento:268,preco:3000},
+    {id:'rx6800xt',nome:'AMD RX 6800 XT',tdp:300,tier:7,comprimento:267,preco:3200},
+    {id:'rtx3080',nome:'NVIDIA RTX 3080',tdp:320,tier:7,comprimento:285,preco:3600},
     {id:'rx9070',nome:'AMD RX 9070',tdp:220,tier:7,comprimento:280,preco:3800},
     {id:'rtx5070',nome:'NVIDIA RTX 5070',tdp:250,tier:7,comprimento:280,preco:4200},
     {id:'rx9070xt',nome:'AMD RX 9070 XT',tdp:304,tier:8,comprimento:300,preco:4600},
@@ -394,6 +463,7 @@
     {id:'hdd-2tb',nome:'HD 2TB (HDD)',preco:350,extraW:8},
   ];
   const PSUS=[
+    {id:'400-white',nome:'400W 80+ White',watt:400,preco:180},
     {id:'450-bronze',nome:'450W 80+ Bronze',watt:450,preco:250},
     {id:'550-bronze',nome:'550W 80+ Bronze',watt:550,preco:320},
     {id:'650-bronze',nome:'650W 80+ Bronze',watt:650,preco:400},
@@ -408,12 +478,27 @@
     {id:'atx-mid',nome:'Gabinete ATX Mid Tower',formFactors:['ITX','mATX','ATX'],maxGpu:360,preco:450},
     {id:'atx-full',nome:'Gabinete ATX Full Tower',formFactors:['ITX','mATX','ATX'],maxGpu:400,preco:800},
   ];
+  const COOLERS=[
+    {id:'stock',nome:'Cooler Box (que acompanha o processador)',capacidadeW:65,preco:0},
+    {id:'ar-basico',nome:'Cooler de Ar Básico (torre única)',capacidadeW:95,preco:120},
+    {id:'ar-duplo',nome:'Cooler de Ar Duplo Torre',capacidadeW:150,preco:280},
+    {id:'aio-240',nome:'Water Cooler AIO 240mm',capacidadeW:180,preco:450},
+    {id:'aio-360',nome:'Water Cooler AIO 360mm',capacidadeW:250,preco:650},
+  ];
 
-  const DATA={cpu:CPUS,board:BOARDS,ram:RAMS,gpu:GPUS,storage:STORAGES,psu:PSUS,case:CASES};
-  const LABELS={cpu:'Processador',board:'Placa-mãe',ram:'Memória RAM',gpu:'Placa de vídeo',storage:'Armazenamento',psu:'Fonte de alimentação',case:'Gabinete'};
-  const ORDER=['cpu','board','ram','gpu','storage','psu','case'];
+  const DATA={cpu:CPUS,cooler:COOLERS,board:BOARDS,ram:RAMS,gpu:GPUS,storage:STORAGES,psu:PSUS,case:CASES};
+  const LABELS={cpu:'Processador',cooler:'Refrigeração',board:'Placa-mãe',ram:'Memória RAM',gpu:'Placa de vídeo',storage:'Armazenamento',psu:'Fonte de alimentação',case:'Gabinete'};
+  const ORDER=['cpu','cooler','board','ram','gpu','storage','psu','case'];
 
-  const DEFAULT_SEL={cpu:'r7-9700x',board:'b650-atx',ram:'ddr5-32',gpu:'rtx5070',storage:'nvme-1tb',psu:'750-gold',case:'atx-mid'};
+  const DEFAULT_SEL={cpu:'r7-9700x',cooler:'ar-basico',board:'b650-atx',ram:'ddr5-32',gpu:'rtx5070',storage:'nvme-1tb',psu:'750-gold',case:'atx-mid'};
+
+  const PRESETS=[
+    {id:'entrada',nome:'Entrada / uso geral',desc:'Navegar, estudar, trabalho e jogos leves em 1080p baixo.',sel:{cpu:'r3-3200g',cooler:'stock',board:'a320m',ram:'ddr4-8',gpu:'none',storage:'sata-480',psu:'400-white',case:'matx-mid'}},
+    {id:'am4-custo',nome:'Custo-benefício AM4',desc:'A combinação mais comum de quem monta ou faz upgrade gastando pouco.',sel:{cpu:'r5-5600x',cooler:'ar-basico',board:'b550m',ram:'ddr4-16',gpu:'rtx3060',storage:'nvme-1tb',psu:'550-bronze',case:'matx-mid'}},
+    {id:'criador',nome:'Criador / streaming',desc:'Muitos núcleos pra codificar vídeo e rodar jogo com live ao mesmo tempo.',sel:{cpu:'r9-5950x',cooler:'aio-240',board:'x570-atx',ram:'ddr4-32',gpu:'rtx3070',storage:'nvme-2tb',psu:'750-gold',case:'atx-mid'}},
+    {id:'1440p',nome:'1440p atual',desc:'Plataforma nova, bom equilíbrio pra jogar em 1440p com tudo no alto.',sel:{cpu:'r7-9700x',cooler:'ar-duplo',board:'b650-atx',ram:'ddr5-32',gpu:'rtx5070',storage:'nvme-1tb',psu:'750-gold',case:'atx-mid'}},
+    {id:'sem-limites',nome:'Sem limites',desc:'O topo do catálogo, pra quem não quer pensar em upgrade tão cedo.',sel:{cpu:'r9-9950x',cooler:'aio-360',board:'b650-atx',ram:'ddr5-64',gpu:'rtx5090',storage:'nvme-2tb',psu:'1200-platinum',case:'atx-full'}},
+  ];
 
   const statRow=document.getElementById('stat-row');
   const gpuCount=GPUS.filter(function(g){return g.id!=='none';}).length;
@@ -443,6 +528,7 @@
       case 'gpu': return item.id==='none' ? 'Sem placa dedicada' : ('TDP '+item.tdp+'W · '+item.comprimento+'mm de comprimento · '+fmtBRL(item.preco));
       case 'storage': return (item.extraW ? 'HDD' : 'SSD')+' · '+fmtBRL(item.preco);
       case 'psu': return item.watt+'W · '+fmtBRL(item.preco);
+      case 'cooler': return 'suporta até '+item.capacidadeW+'W · '+fmtBRL(item.preco);
       case 'case': return 'Suporta '+item.formFactors.join(', ')+' · até '+item.maxGpu+'mm de placa de vídeo · '+fmtBRL(item.preco);
     }
   }
@@ -454,14 +540,25 @@
 
   let sel=Object.assign({}, DEFAULT_SEL);
 
-  try{
-    const saved=JSON.parse(localStorage.getItem('montador-pc-sel'));
-    if(saved && typeof saved==='object'){
-      ORDER.forEach(function(cat){
-        if(saved[cat] && DATA[cat].some(function(i){return i.id===saved[cat];})) sel[cat]=saved[cat];
+  (function restoreSel(){
+    const h=window.location.hash;
+    if(h && h.indexOf('#build=')===0){
+      const parts=h.slice(7).split(',');
+      ORDER.forEach(function(cat,idx){
+        const val=parts[idx];
+        if(val && DATA[cat].some(function(i){return i.id===val;})) sel[cat]=val;
       });
+      return;
     }
-  }catch(e){ /* ignora, mantém padrão */ }
+    try{
+      const saved=JSON.parse(localStorage.getItem('montador-pc-sel'));
+      if(saved && typeof saved==='object'){
+        ORDER.forEach(function(cat){
+          if(saved[cat] && DATA[cat].some(function(i){return i.id===saved[cat];})) sel[cat]=saved[cat];
+        });
+      }
+    }catch(e){ /* ignora, mantém padrão */ }
+  })();
 
   function saveSel(){
     try{ localStorage.setItem('montador-pc-sel', JSON.stringify(sel)); }
@@ -495,7 +592,7 @@
     });
   });
 
-  function findItem(cat){ return DATA[cat].find(function(i){return i.id===sel[cat];}); }
+  function findItem(selObj,cat){ return DATA[cat].find(function(i){return i.id===selObj[cat];}); }
 
   function worse(a,b){
     const order={neutral:0, ok:1, warn:2, bad:3};
@@ -512,9 +609,23 @@
     container.appendChild(row);
   }
 
-  function compute(){
-    const cpu=findItem('cpu'), board=findItem('board'), ram=findItem('ram'),
-          gpu=findItem('gpu'), storage=findItem('storage'), psu=findItem('psu'), pcCase=findItem('case');
+  function resolutionAdvice(gpu, gpuHasCard, bottleneckLevel){
+    if(!gpuHasCard){
+      return 'Sem placa dedicada: bom pra tarefas do dia a dia e jogos leves em 1080p baixo.';
+    }
+    let base;
+    if(gpu.tier<=3) base='1080p com gráficos médios, 60fps na maioria dos jogos.';
+    else if(gpu.tier<=5) base='1080p no talo ou 1440p em ajustes médios, 60fps ou mais.';
+    else if(gpu.tier<=7) base='1440p com gráficos altos, 60 a 100fps em jogos atuais.';
+    else if(gpu.tier<=9) base='1440p ultra ou 4K a 60fps, dependendo do jogo.';
+    else base='4K com gráficos ultra, 100fps ou mais com upscaling ligado.';
+    if(bottleneckLevel==='cpu') base+=' O processador pode não deixar aproveitar isso 100% em jogos pesados de CPU.';
+    return base;
+  }
+
+  function compute(selObj){
+    const cpu=findItem(selObj,'cpu'), cooler=findItem(selObj,'cooler'), board=findItem(selObj,'board'), ram=findItem(selObj,'ram'),
+          gpu=findItem(selObj,'gpu'), storage=findItem(selObj,'storage'), psu=findItem(selObj,'psu'), pcCase=findItem(selObj,'case');
 
     const socketOk = cpu.socket===board.socket;
     const ramOk = board.ramType===ram.tipo;
@@ -532,8 +643,14 @@
     else if(psu.watt>=recommendedMin) psuStatus='warn';
     else psuStatus='bad';
 
+    let coolerStatus;
+    if(cpu.tdp<=cooler.capacidadeW) coolerStatus='ok';
+    else if(cpu.tdp<=cooler.capacidadeW*1.15) coolerStatus='warn';
+    else coolerStatus='bad';
+
     const dots={
       cpu: socketOk?'ok':'bad',
+      cooler: coolerStatus,
       board: worse(worse(socketOk?'ok':'bad', ramOk?'ok':'bad'), formOk?'ok':'bad'),
       ram: ramOk?'ok':'bad',
       gpu: gpuHasCard ? (gpuFitOk?'ok':'bad') : 'neutral',
@@ -558,19 +675,20 @@
       }
     }
 
-    const totalPrice = cpu.preco+board.preco+ram.preco+gpu.preco+storage.preco+psu.preco+pcCase.preco;
+    const totalPrice = cpu.preco+cooler.preco+board.preco+ram.preco+gpu.preco+storage.preco+psu.preco+pcCase.preco;
     const allOk = Object.keys(dots).every(function(k){ return dots[k]!=='bad'; });
+    const resolution = resolutionAdvice(gpu, gpuHasCard, bottleneck.level);
 
-    return {cpu,board,ram,gpu,storage,psu,pcCase,socketOk,ramOk,formOk,gpuHasCard,gpuFitOk,
-      totalW,recommendedMin,recommendedIdeal,psuStatus,dots,bottleneck,totalPrice,allOk};
+    return {cpu,cooler,board,ram,gpu,storage,psu,pcCase,socketOk,ramOk,formOk,gpuHasCard,gpuFitOk,coolerStatus,
+      totalW,recommendedMin,recommendedIdeal,psuStatus,dots,bottleneck,totalPrice,allOk,resolution};
   }
 
   function render(){
-    const s=compute();
+    const s=compute(sel);
 
     ORDER.forEach(function(cat){
       const slot=slotsEl.querySelector('.slot[data-cat="'+cat+'"]');
-      const item=findItem(cat);
+      const item=findItem(sel,cat);
       slot.querySelector('[data-role="specs"]').textContent=specLine(cat,item);
       const dotEl=slot.querySelector('[data-role="dot"]');
       dotEl.className='dot '+(s.dots[cat]==='neutral'?'':s.dots[cat]);
@@ -582,6 +700,10 @@
     checks.innerHTML='';
     renderCheckRow(checks, s.socketOk?'ok':'bad', 'Soquete do processador × placa-mãe',
       s.socketOk ? (s.cpu.socket+' compatível com a placa selecionada.') : (s.cpu.nome+' usa soquete '+s.cpu.socket+', mas a placa-mãe é '+s.board.socket+'.'));
+    renderCheckRow(checks, s.coolerStatus, 'Refrigeração × processador',
+      s.coolerStatus==='ok' ? (s.cooler.nome+' dá conta dos '+s.cpu.tdp+'W do processador.') :
+      s.coolerStatus==='warn' ? (s.cooler.nome+' fica no limite pra segurar '+s.cpu.tdp+'W — vai esquentar mais que o ideal.') :
+      (s.cooler.nome+' não é suficiente pra '+s.cpu.tdp+'W — o processador vai esquentar demais.'));
     renderCheckRow(checks, s.ramOk?'ok':'bad', 'Tipo de memória × placa-mãe',
       s.ramOk ? ('Placa e kit de memória usam '+s.board.ramType+'.') : ('A placa aceita '+s.board.ramType+', mas o kit escolhido é '+s.ram.tipo+'.'));
     renderCheckRow(checks, s.formOk?'ok':'bad', 'Formato da placa-mãe × gabinete',
@@ -612,12 +734,14 @@
     barPsu.style.width=Math.min(100,(s.psu.watt/scale)*100)+'%';
     barPsu.className='bar-fill '+s.psuStatus;
     document.getElementById('power-note').textContent='Faixa recomendada para essa combinação: '+s.recommendedMin+'W a '+s.recommendedIdeal+'W ou mais.';
+    document.getElementById('btn-fix-psu').style.display = s.psuStatus==='ok' ? 'none' : 'inline-flex';
 
     document.getElementById('marker-cpu').style.left=(s.cpu.tier/10*100)+'%';
     document.getElementById('marker-gpu').style.left=(s.gpu.tier/10*100)+'%';
     document.getElementById('bottleneck-text').textContent=s.bottleneck.text;
 
     document.getElementById('total-price').textContent=fmtBRL(s.totalPrice);
+    document.getElementById('resolution-text').textContent=s.resolution;
   }
 
   document.getElementById('btn-random').addEventListener('click', function(){
@@ -636,6 +760,49 @@
     ORDER.forEach(function(cat){ document.getElementById('sel-'+cat).value=sel[cat]; });
     saveSel();
     render();
+  });
+
+  document.getElementById('btn-fix-psu').addEventListener('click', function(){
+    const s=compute(sel);
+    const candidates=PSUS.filter(function(p){return p.watt>=s.recommendedIdeal;}).sort(function(a,b){return a.preco-b.preco;});
+    const pick=candidates[0] || PSUS.slice().sort(function(a,b){return b.watt-a.watt;})[0];
+    sel.psu=pick.id;
+    document.getElementById('sel-psu').value=pick.id;
+    saveSel();
+    render();
+  });
+
+  document.getElementById('btn-share').addEventListener('click', function(){
+    const url=location.origin+location.pathname+'#build='+ORDER.map(function(c){return sel[c];}).join(',');
+    const btn=document.getElementById('btn-share');
+    const original=btn.textContent;
+    function done(msg){ btn.textContent=msg; setTimeout(function(){btn.textContent=original;},1800); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){done('Link copiado ✓');}).catch(function(){ window.prompt('Copie o link da sua build:', url); });
+    } else {
+      window.prompt('Copie o link da sua build:', url);
+    }
+  });
+
+  const presetGrid=document.getElementById('preset-grid');
+  PRESETS.forEach(function(preset){
+    const info=compute(preset.sel);
+    const card=document.createElement('div');
+    card.className='preset-card';
+    card.innerHTML=
+      '<h3>'+preset.nome+'</h3>'+
+      '<p>'+preset.desc+'</p>'+
+      '<div class="preset-meta"><span class="preset-price">'+fmtBRL(info.totalPrice)+'</span>'+
+      '<span class="preset-badge '+(info.allOk?'ok':'warn')+'">'+(info.allOk?'compatível':'conferir')+'</span></div>'+
+      '<button class="primary" data-preset="'+preset.id+'">Usar essa build</button>';
+    presetGrid.appendChild(card);
+    card.querySelector('button').addEventListener('click', function(){
+      sel=Object.assign({}, preset.sel);
+      ORDER.forEach(function(cat){ document.getElementById('sel-'+cat).value=sel[cat]; });
+      saveSel();
+      render();
+      document.getElementById('montador').scrollIntoView({behavior:'smooth'});
+    });
   });
 
   render();
