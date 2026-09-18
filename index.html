@@ -347,6 +347,23 @@
   /* ---------- navegação por "páginas" (uma seção visível por vez) ---------- */
   #orcamento-auto, #builds, #ofertas, #novidades, #montador{ display:none; }
   .navlinks a.active{ color:var(--accent); font-weight:600; }
+
+  .how-steps{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:20px; margin:24px 0 40px;}
+  .how-step{display:flex; gap:14px; align-items:flex-start;}
+  .how-num{
+    flex-shrink:0; width:32px; height:32px; border-radius:50%; background:var(--accent); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-weight:600; font-size:0.95rem;
+  }
+  .how-step b{display:block; margin-bottom:4px; font-size:0.98rem;}
+  .how-step p{margin:0; color:var(--text-dim); font-size:0.86rem;}
+  .home-tiles{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px; margin:0 0 36px;}
+  .home-tile{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:20px;
+    text-decoration:none; color:var(--text); display:flex; flex-direction:column; gap:8px;
+  }
+  .home-tile:hover{border-color:var(--accent);}
+  .home-tile h3{margin:0; font-size:1.05rem; font-weight:600;}
+  .home-tile p{margin:0; font-size:0.86rem; color:var(--text-dim);}
 </style>
 </head>
 <body>
@@ -376,6 +393,43 @@
       <a class="btn" href="#ofertas">Ver onde comprar</a>
     </div>
     <div class="stat-row" id="stat-row"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="section-head" style="margin-top:16px;">
+      <h2>Como funciona</h2>
+    </div>
+    <div class="how-steps">
+      <div class="how-step"><span class="how-num">1</span><div><b>Diga o que precisa</b><p>Seu orçamento, uma build pronta, ou escolha peça por peça no montador completo.</p></div></div>
+      <div class="how-step"><span class="how-num">2</span><div><b>Confira antes de comprar</b><p>Compatibilidade, consumo de energia e desempenho estimado, tudo calculado na hora.</p></div></div>
+      <div class="how-step"><span class="how-num">3</span><div><b>Feche o negócio</b><p>Link direto pras lojas certas, ou gere um orçamento em PDF pra levar ou mandar pro cliente.</p></div></div>
+    </div>
+
+    <div class="section-head">
+      <h2>Para onde você quer ir?</h2>
+    </div>
+    <div class="home-tiles">
+      <a class="home-tile" href="#orcamento-auto">
+        <h3>🎯 Orçamento automático</h3>
+        <p>Diz quanto você tem pra gastar e a gente monta uma combinação compatível sozinho.</p>
+      </a>
+      <a class="home-tile" href="#builds">
+        <h3>⚡ Builds prontas</h3>
+        <p>Combinações já pensadas, do básico ao topo de linha, prontas pra usar.</p>
+      </a>
+      <a class="home-tile" href="#montador">
+        <h3>🛠️ Montador completo</h3>
+        <p>Escolha peça por peça e veja compatibilidade, consumo e desempenho em jogos na hora.</p>
+      </a>
+      <a class="home-tile" href="#ofertas">
+        <h3>🛒 Onde comprar</h3>
+        <p>Atalhos pras lojas que mais vendem hardware no Brasil.</p>
+      </a>
+      <a class="home-tile" href="#novidades">
+        <h3>📺 Vídeos e novidades</h3>
+        <p>Tutoriais de montagem, notícias de hardware e um glossário pra quem tá começando.</p>
+      </a>
+    </div>
   </div>
 </section>
 
