@@ -343,6 +343,10 @@
   .glossary dl{margin:14px 0 0;}
   .glossary dt{font-weight:600; margin-top:12px;}
   .glossary dd{margin:2px 0 0; color:var(--text-dim); font-size:0.88rem;}
+
+  /* ---------- navegação por "páginas" (uma seção visível por vez) ---------- */
+  #orcamento-auto, #builds, #ofertas, #novidades, #montador{ display:none; }
+  .navlinks a.active{ color:var(--accent); font-weight:600; }
 </style>
 </head>
 <body>
@@ -351,12 +355,12 @@
   <div class="topnav-inner">
     <a class="brand" href="#inicio"><span class="brand-mark"></span>Montador de PC</a>
     <div class="navlinks">
-      <a href="#inicio">Início</a>
-      <a href="#orcamento-auto">Orçamento</a>
-      <a href="#builds">Builds</a>
-      <a href="#ofertas">Ofertas</a>
-      <a href="#novidades">Novidades</a>
-      <a href="#montador">Montador</a>
+      <a href="#inicio" id="nav-inicio">Início</a>
+      <a href="#orcamento-auto" id="nav-orcamento-auto">Orçamento</a>
+      <a href="#builds" id="nav-builds">Builds</a>
+      <a href="#ofertas" id="nav-ofertas">Ofertas</a>
+      <a href="#novidades" id="nav-novidades">Novidades</a>
+      <a href="#montador" id="nav-montador">Montador</a>
     </div>
     <button id="theme-toggle" class="btn small" aria-label="Alternar tema claro/escuro">🌙</button>
   </div>
@@ -708,6 +712,31 @@
       if(cat==='gpu' && item.id==='none') return item.nome;
       return item.nome+' — '+fmtBRL(item.preco);
     }
+
+    const PAGES=['inicio','orcamento-auto','builds','ofertas','novidades','montador'];
+
+    function showPage(pageId, skipScrollTop){
+      if(PAGES.indexOf(pageId)===-1) pageId='inicio';
+      PAGES.forEach(function(id){
+        const sec=document.getElementById(id);
+        if(sec) sec.style.display=(id===pageId) ? '' : 'none';
+        const link=document.getElementById('nav-'+id);
+        if(link) link.className=(id===pageId) ? 'active' : '';
+      });
+      try{ history.replaceState(null, '', '#'+pageId); }catch(e){ /* ambiente sem history, segue sem atualizar a url */ }
+      if(!skipScrollTop) window.scrollTo(0,0);
+    }
+
+    function initialPage(){
+      const h=window.location.hash.replace('#','');
+      if(h.indexOf('build=')===0) return 'montador';
+      if(PAGES.indexOf(h)!==-1) return h;
+      return 'inicio';
+    }
+
+    window.addEventListener('hashchange', function(){
+      showPage(window.location.hash.replace('#',''));
+    });
 
     let sel=Object.assign({}, DEFAULT_SEL);
 
@@ -1476,7 +1505,7 @@
           saveQuoteSettings();
           saveExtras();
           applySelToUI();
-          document.getElementById('montador').scrollIntoView({behavior:'smooth'});
+          showPage('montador');
         }
       } else if(delIdx!==null){
         quotes.splice(parseInt(delIdx,10),1);
@@ -1508,7 +1537,7 @@
         '<p>'+(s.allOk ? '✅ Tudo compatível.' : '⚠️ Uma combinação ficou apertada — confira o painel de compatibilidade no Montador.')+'</p>'+
         '<a class="btn small" href="#montador">Ver e ajustar no Montador</a>'+
         '</div>';
-      document.getElementById('montador').scrollIntoView({behavior:'smooth'});
+      showPage('montador');
     });
 
     const presetGrid=document.getElementById('preset-grid');
@@ -1526,12 +1555,13 @@
       card.querySelector('button').addEventListener('click', function(){
         sel=Object.assign({}, preset.sel);
         applySelToUI();
-        document.getElementById('montador').scrollIntoView({behavior:'smooth'});
+        showPage('montador');
       });
     });
 
 
   render();
+  showPage(initialPage(), true);
   }
 
   fetch('hardware-data.json')
