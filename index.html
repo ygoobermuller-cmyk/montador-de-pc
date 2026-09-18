@@ -300,6 +300,14 @@
     #print-summary .quote-meta{color:#555; margin-bottom:16px;}
     #print-summary .quote-foot p{margin:4px 0;}
   }
+
+  .quote-row{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.85rem;}
+  .quote-row-info b{display:block;}
+  .quote-row-info span{color:var(--text-dim); font-size:0.78rem;}
+  .quote-row-actions{display:flex; gap:6px; flex-shrink:0;}
+  .quote-row-actions button{padding:4px 10px; font-size:0.76rem;}
+  .total-row.sub{font-size:0.86rem; color:var(--text-dim);}
+  .total-row.final{border-top:1px solid var(--border); padding-top:8px; margin-top:6px;}
 </style>
 </head>
 <body>
@@ -516,12 +524,23 @@
 
         <div class="card">
           <h2>Resumo</h2>
-          <div class="total-row"><span>Total estimado</span><span class="amount" id="total-price">R$ 0</span></div>
+          <div class="total-row sub"><span>Subtotal peças</span><span id="total-price">R$ 0</span></div>
+          <div class="total-row sub" id="row-margin" style="display:none;"><span>Margem</span><span id="margin-amount">R$ 0</span></div>
+          <div class="total-row sub" id="row-fee" style="display:none;"><span>Montagem</span><span id="fee-amount">R$ 0</span></div>
+          <div class="total-row final"><span><strong>Total do orçamento</strong></span><span class="amount" id="final-price">R$ 0</span></div>
           <p class="note">Preços e especificações são valores de referência aproximados, para simular a montagem — confira sempre no fornecedor antes de comprar de verdade.</p>
+          <div class="extras-row">
+            <label>Margem (%) <input type="number" id="quote-margin" min="0" max="500" step="1" value="0"></label>
+            <label>Montagem (R$) <input type="number" id="quote-fee" min="0" step="10" value="0"></label>
+          </div>
           <input type="text" id="client-name" placeholder="Nome do cliente (opcional, aparece no orçamento em PDF)">
           <div class="share-row">
             <button id="btn-share" class="btn small">🔗 Compartilhar build</button>
             <button id="btn-shoplist" class="btn small">🛒 Ir às compras</button>
+            <button id="btn-whatsapp" class="btn small">📱 Enviar no WhatsApp</button>
+          </div>
+          <div class="share-row">
+            <button id="btn-save-quote" class="btn small">💾 Salvar este orçamento</button>
           </div>
           <div class="shop-list" id="shop-list"></div>
           <div class="share-row">
@@ -533,6 +552,10 @@
             </div>
           </div>
         </div>
+      <div class="card">
+        <h2>Meus orçamentos</h2>
+        <div id="quotes-list"></div>
+      </div>
       </aside>
     </div>
   </div>
@@ -638,6 +661,34 @@
 
     function saveExtras(){
       try{ localStorage.setItem('montador-pc-extras', JSON.stringify(extras)); }
+      catch(e){ /* armazenamento indisponível, segue sem salvar */ }
+    }
+
+    let quoteMargin=0, quoteFee=0;
+    try{
+      const qs=JSON.parse(localStorage.getItem('montador-pc-quotesettings'));
+      if(qs){ quoteMargin=Number(qs.margin)||0; quoteFee=Number(qs.fee)||0; }
+    }catch(e){ /* ignora, mantém padrão */ }
+
+    function saveQuoteSettings(){
+      try{ localStorage.setItem('montador-pc-quotesettings', JSON.stringify({margin:quoteMargin, fee:quoteFee})); }
+      catch(e){ /* armazenamento indisponível, segue sem salvar */ }
+    }
+
+    function computeQuoteTotals(s){
+      const marginAmount=s.totalPrice*(quoteMargin/100);
+      const feeAmount=quoteFee;
+      return {marginAmount:marginAmount, feeAmount:feeAmount, finalTotal:s.totalPrice+marginAmount+feeAmount};
+    }
+
+    let quotes=[];
+    try{
+      const savedQuotes=JSON.parse(localStorage.getItem('montador-pc-orcamentos'));
+      if(Array.isArray(savedQuotes)) quotes=savedQuotes;
+    }catch(e){ /* ignora, mantém padrão */ }
+
+    function saveQuotesToStorage(){
+      try{ localStorage.setItem('montador-pc-orcamentos', JSON.stringify(quotes)); }
       catch(e){ /* armazenamento indisponível, segue sem salvar */ }
     }
 
@@ -1015,6 +1066,12 @@
       document.getElementById('bottleneck-text').textContent=s.bottleneck.text;
 
       document.getElementById('total-price').textContent=fmtBRL(s.totalPrice);
+      const quoteTotals=computeQuoteTotals(s);
+      document.getElementById('row-margin').style.display=quoteMargin>0 ? 'flex' : 'none';
+      document.getElementById('margin-amount').textContent=fmtBRL(quoteTotals.marginAmount);
+      document.getElementById('row-fee').style.display=quoteFee>0 ? 'flex' : 'none';
+      document.getElementById('fee-amount').textContent=fmtBRL(quoteTotals.feeAmount);
+      document.getElementById('final-price').textContent=fmtBRL(quoteTotals.finalTotal);
       document.getElementById('resolution-text').textContent=s.resolution;
       renderIllustration(s);
 
@@ -1121,10 +1178,20 @@
       '<p class="note">Os links abrem a busca por esse produto exato na loja — confira preço, estoque e vendedor antes de comprar.</p>';
   }
 
+  function renderQuotesList(){
+    const el=document.getElementById('quotes-list');
+    if(quotes.length===0){ el.innerHTML='<p class="note">Nenhum orçamento salvo ainda.</p>'; return; }
+    el.innerHTML=quotes.map(function(q,idx){
+      return '<div class="quote-row"><div class="quote-row-info"><b>'+(q.nome||'Sem nome')+'</b><span>'+q.data+' · '+fmtBRL(q.total)+'</span></div>'+
+        '<div class="quote-row-actions"><button class="btn small" data-open="'+idx+'">Abrir</button><button class="btn small" data-del="'+idx+'">Excluir</button></div></div>';
+    }).join('');
+  }
+
   function buildPrintSummary(s){
       const clientEl=document.getElementById('client-name');
       const clientName=clientEl ? clientEl.value.trim() : '';
       const today=new Date().toLocaleDateString('pt-BR');
+      const totals=computeQuoteTotals(s);
       const rows=ORDER.map(function(cat){
         const item=findItem(sel,cat);
         const links=storeSearchLinks(item.nome).map(function(l){
@@ -1132,11 +1199,17 @@
         }).join(' · ');
         return '<tr><td>'+LABELS[cat]+'</td><td>'+item.nome+'</td><td>'+fmtBRL(item.preco)+'</td><td>'+links+'</td></tr>';
       }).join('');
+      const extraLines=(quoteMargin>0 ? '<tr><td colspan="2">Margem ('+quoteMargin+'%)</td><td colspan="2">'+fmtBRL(totals.marginAmount)+'</td></tr>' : '')+
+        (quoteFee>0 ? '<tr><td colspan="2">Montagem</td><td colspan="2">'+fmtBRL(totals.feeAmount)+'</td></tr>' : '');
       return '<h1>Orçamento de PC</h1>'+
         '<p class="quote-meta">Data: '+today+(clientName ? ' · Cliente: '+clientName : '')+'</p>'+
         '<table><thead><tr><th>Categoria</th><th>Peça</th><th>Preço</th><th>Comprar</th></tr></thead>'+
         '<tbody>'+rows+'</tbody>'+
-        '<tfoot><tr><td colspan="2"><strong>Total</strong></td><td colspan="2"><strong>'+fmtBRL(s.totalPrice)+'</strong></td></tr></tfoot></table>'+
+        '<tfoot>'+
+        '<tr><td colspan="2">Subtotal peças</td><td colspan="2">'+fmtBRL(s.totalPrice)+'</td></tr>'+
+        extraLines+
+        '<tr><td colspan="2"><strong>Total do orçamento</strong></td><td colspan="2"><strong>'+fmtBRL(totals.finalTotal)+'</strong></td></tr>'+
+        '</tfoot></table>'+
         '<div class="quote-foot">'+
         '<p>Consumo estimado: '+s.totalW+'W · fonte recomendada a partir de '+s.recommendedMin+'W.</p>'+
         '<p>'+(s.allOk ? 'Compatibilidade conferida: todas as peças combinam entre si.' : 'Atenção: revisar compatibilidade de alguma peça no site antes de fechar.')+'</p>'+
@@ -1169,6 +1242,80 @@
         window.prompt('Copie o link da sua build:', url);
       }
     });
+
+    document.getElementById('quote-margin').value=quoteMargin;
+    document.getElementById('quote-fee').value=quoteFee;
+    document.getElementById('quote-margin').addEventListener('input', function(e){
+      quoteMargin=Math.max(0, parseFloat(e.target.value)||0);
+      saveQuoteSettings();
+      render();
+    });
+    document.getElementById('quote-fee').addEventListener('input', function(e){
+      quoteFee=Math.max(0, parseFloat(e.target.value)||0);
+      saveQuoteSettings();
+      render();
+    });
+
+    document.getElementById('btn-whatsapp').addEventListener('click', function(){
+      const s=compute(sel, extras);
+      const totals=computeQuoteTotals(s);
+      const clientName=document.getElementById('client-name').value.trim();
+      let msg=(clientName ? 'Orçamento de PC para '+clientName+':\\n\\n' : 'Orçamento de PC:\\n\\n');
+      ORDER.forEach(function(cat){
+        const item=findItem(sel,cat);
+        msg+=LABELS[cat]+': '+item.nome+' ('+fmtBRL(item.preco)+')\\n';
+      });
+      msg+='\\nTotal do orçamento: '+fmtBRL(totals.finalTotal);
+      window.open('https://wa.me/?text='+encodeURIComponent(msg), '_blank');
+    });
+
+    document.getElementById('btn-save-quote').addEventListener('click', function(){
+      const s=compute(sel, extras);
+      const totals=computeQuoteTotals(s);
+      const clientName=document.getElementById('client-name').value.trim();
+      quotes.unshift({
+        nome: clientName,
+        data: new Date().toLocaleDateString('pt-BR'),
+        sel: Object.assign({}, sel),
+        extras: Object.assign({}, extras),
+        margin: quoteMargin,
+        fee: quoteFee,
+        total: totals.finalTotal
+      });
+      if(quotes.length>20) quotes.length=20;
+      saveQuotesToStorage();
+      renderQuotesList();
+    });
+
+    document.getElementById('quotes-list').addEventListener('click', function(e){
+      const openIdx=e.target.getAttribute('data-open');
+      const delIdx=e.target.getAttribute('data-del');
+      if(openIdx!==null){
+        const q=quotes[parseInt(openIdx,10)];
+        if(q){
+          sel=Object.assign({}, DEFAULT_SEL, q.sel);
+          extras=Object.assign({fans:0,drives:0,oc:false}, q.extras||{});
+          quoteMargin=q.margin||0;
+          quoteFee=q.fee||0;
+          document.getElementById('client-name').value=q.nome||'';
+          document.getElementById('quote-margin').value=quoteMargin;
+          document.getElementById('quote-fee').value=quoteFee;
+          document.getElementById('extra-fans').value=extras.fans;
+          document.getElementById('extra-drives').value=extras.drives;
+          document.getElementById('extra-oc').checked=extras.oc;
+          saveQuoteSettings();
+          saveExtras();
+          applySelToUI();
+          document.getElementById('montador').scrollIntoView({behavior:'smooth'});
+        }
+      } else if(delIdx!==null){
+        quotes.splice(parseInt(delIdx,10),1);
+        saveQuotesToStorage();
+        renderQuotesList();
+      }
+    });
+
+    renderQuotesList();
 
     const presetGrid=document.getElementById('preset-grid');
     PRESETS.forEach(function(preset){
