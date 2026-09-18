@@ -6,7 +6,7 @@
       "socket": "AM4",
       "tdp": 65,
       "tier": 1,
-      "preco": 450,
+      "preco": 350,
       "igpu": true
     },
     {
@@ -15,7 +15,7 @@
       "socket": "AM4",
       "tdp": 65,
       "tier": 3,
-      "preco": 700,
+      "preco": 550,
       "igpu": false
     },
     {
@@ -24,7 +24,7 @@
       "socket": "AM4",
       "tdp": 65,
       "tier": 2,
-      "preco": 480,
+      "preco": 400,
       "igpu": false
     },
     {
@@ -33,7 +33,7 @@
       "socket": "AM4",
       "tdp": 65,
       "tier": 3,
-      "preco": 600,
+      "preco": 500,
       "igpu": true
     },
     {
@@ -42,7 +42,7 @@
       "socket": "AM4",
       "tdp": 65,
       "tier": 4,
-      "preco": 550,
+      "preco": 450,
       "igpu": false
     },
     {
@@ -51,7 +51,7 @@
       "socket": "AM4",
       "tdp": 65,
       "tier": 4,
-      "preco": 800,
+      "preco": 650,
       "igpu": true
     },
     {
@@ -60,7 +60,7 @@
       "socket": "AM4",
       "tdp": 65,
       "tier": 5,
-      "preco": 850,
+      "preco": 700,
       "igpu": false
     },
     {
@@ -69,7 +69,7 @@
       "socket": "AM4",
       "tdp": 65,
       "tier": 5,
-      "preco": 950,
+      "preco": 750,
       "igpu": false
     },
     {
@@ -78,7 +78,7 @@
       "socket": "AM4",
       "tdp": 65,
       "tier": 6,
-      "preco": 1250,
+      "preco": 1000,
       "igpu": true
     },
     {
@@ -87,7 +87,7 @@
       "socket": "AM4",
       "tdp": 65,
       "tier": 6,
-      "preco": 1150,
+      "preco": 900,
       "igpu": false
     },
     {
@@ -96,7 +96,7 @@
       "socket": "AM4",
       "tdp": 105,
       "tier": 8,
-      "preco": 2200,
+      "preco": 1750,
       "igpu": false
     },
     {
@@ -105,7 +105,7 @@
       "socket": "AM4",
       "tdp": 105,
       "tier": 8,
-      "preco": 2100,
+      "preco": 1700,
       "igpu": false
     },
     {
@@ -114,7 +114,7 @@
       "socket": "AM4",
       "tdp": 105,
       "tier": 8,
-      "preco": 2600,
+      "preco": 2100,
       "igpu": false
     },
     {
@@ -123,7 +123,7 @@
       "socket": "AM5",
       "tdp": 65,
       "tier": 7,
-      "preco": 1400,
+      "preco": 1100,
       "igpu": true
     },
     {
@@ -132,7 +132,7 @@
       "socket": "AM5",
       "tdp": 105,
       "tier": 7,
-      "preco": 1500,
+      "preco": 1200,
       "igpu": true
     },
     {
@@ -141,7 +141,7 @@
       "socket": "AM5",
       "tdp": 65,
       "tier": 8,
-      "preco": 1900,
+      "preco": 1500,
       "igpu": true
     },
     {
@@ -150,7 +150,7 @@
       "socket": "AM5",
       "tdp": 120,
       "tier": 10,
-      "preco": 2800,
+      "preco": 2200,
       "igpu": true
     },
     {
@@ -159,7 +159,7 @@
       "socket": "AM5",
       "tdp": 120,
       "tier": 10,
-      "preco": 4200,
+      "preco": 3400,
       "igpu": true
     },
     {
@@ -168,7 +168,7 @@
       "socket": "AM5",
       "tdp": 65,
       "tier": 8,
-      "preco": 2000,
+      "preco": 1600,
       "igpu": true
     },
     {
@@ -177,7 +177,7 @@
       "socket": "AM5",
       "tdp": 65,
       "tier": 9,
-      "preco": 2600,
+      "preco": 2100,
       "igpu": true
     },
     {
@@ -186,7 +186,7 @@
       "socket": "AM5",
       "tdp": 120,
       "tier": 10,
-      "preco": 3800,
+      "preco": 3000,
       "igpu": true
     },
     {
@@ -195,7 +195,7 @@
       "socket": "AM5",
       "tdp": 170,
       "tier": 10,
-      "preco": 5200,
+      "preco": 4200,
       "igpu": true
     },
     {
@@ -204,7 +204,7 @@
       "socket": "LGA1151",
       "tdp": 65,
       "tier": 2,
-      "preco": 550,
+      "preco": 450,
       "igpu": false
     },
     {
@@ -213,7 +213,7 @@
       "socket": "LGA1151",
       "tdp": 95,
       "tier": 5,
-      "preco": 900,
+      "preco": 700,
       "igpu": true
     },
     {
@@ -222,7 +222,7 @@
       "socket": "LGA1200",
       "tdp": 65,
       "tier": 2,
-      "preco": 450,
+      "preco": 350,
       "igpu": false
     },
     {
@@ -231,7 +231,7 @@
       "socket": "LGA1200",
       "tdp": 65,
       "tier": 3,
-      "preco": 600,
+      "preco": 500,
       "igpu": false
     },
     {
@@ -240,7 +240,7 @@
       "socket": "LGA1200",
       "tdp": 65,
       "tier": 4,
-      "preco": 750,
+      "preco": 600,
       "igpu": false
     },
     {
@@ -249,7 +249,7 @@
       "socket": "LGA1200",
       "tdp": 125,
       "tier": 6,
-      "preco": 1400,
+      "preco": 1100,
       "igpu": true
     },
     {
@@ -258,7 +258,7 @@
       "socket": "LGA1700",
       "tdp": 58,
       "tier": 3,
-      "preco": 600,
+      "preco": 500,
       "igpu": false
     },
     {
@@ -267,7 +267,7 @@
       "socket": "LGA1700",
       "tdp": 58,
       "tier": 4,
-      "preco": 750,
+      "preco": 600,
       "igpu": false
     },
     {
@@ -276,7 +276,7 @@
       "socket": "LGA1700",
       "tdp": 65,
       "tier": 5,
-      "preco": 850,
+      "preco": 700,
       "igpu": false
     },
     {
@@ -285,7 +285,7 @@
       "socket": "LGA1700",
       "tdp": 65,
       "tier": 6,
-      "preco": 1300,
+      "preco": 1050,
       "igpu": false
     },
     {
@@ -294,7 +294,7 @@
       "socket": "LGA1700",
       "tdp": 125,
       "tier": 7,
-      "preco": 2000,
+      "preco": 1600,
       "igpu": true
     },
     {
@@ -303,7 +303,7 @@
       "socket": "LGA1700",
       "tdp": 125,
       "tier": 8,
-      "preco": 2200,
+      "preco": 1750,
       "igpu": true
     },
     {
@@ -312,7 +312,7 @@
       "socket": "LGA1700",
       "tdp": 125,
       "tier": 7,
-      "preco": 1900,
+      "preco": 1500,
       "igpu": true
     },
     {
@@ -321,7 +321,7 @@
       "socket": "LGA1700",
       "tdp": 125,
       "tier": 8,
-      "preco": 2600,
+      "preco": 2100,
       "igpu": true
     },
     {
@@ -330,7 +330,7 @@
       "socket": "LGA1700",
       "tdp": 125,
       "tier": 9,
-      "preco": 2800,
+      "preco": 2200,
       "igpu": true
     },
     {
@@ -339,7 +339,7 @@
       "socket": "LGA1700",
       "tdp": 125,
       "tier": 10,
-      "preco": 3800,
+      "preco": 3000,
       "igpu": true
     },
     {
@@ -348,7 +348,7 @@
       "socket": "LGA1700",
       "tdp": 125,
       "tier": 10,
-      "preco": 4200,
+      "preco": 3400,
       "igpu": true
     },
     {
@@ -357,7 +357,7 @@
       "socket": "LGA1851",
       "tdp": 125,
       "tier": 7,
-      "preco": 2000,
+      "preco": 1600,
       "igpu": true
     },
     {
@@ -366,7 +366,7 @@
       "socket": "LGA1851",
       "tdp": 125,
       "tier": 10,
-      "preco": 4500,
+      "preco": 3600,
       "igpu": true
     }
   ],
@@ -570,63 +570,63 @@
       "nome": "8GB Kingston FURY DDR4 2666MHz",
       "tipo": "DDR4",
       "capacidade": 8,
-      "preco": 140
+      "preco": 180
     },
     {
       "id": "ddr4-8-3200",
       "nome": "8GB Kingston FURY Beast DDR4 3200MHz",
       "tipo": "DDR4",
       "capacidade": 8,
-      "preco": 160
+      "preco": 200
     },
     {
       "id": "ddr4-16",
       "nome": "Kit 16GB (2x8) Kingston FURY Beast DDR4 3200MHz",
       "tipo": "DDR4",
       "capacidade": 16,
-      "preco": 300
+      "preco": 400
     },
     {
       "id": "ddr4-32",
       "nome": "Kit 32GB (2x16) Corsair Vengeance DDR4 3600MHz",
       "tipo": "DDR4",
       "capacidade": 32,
-      "preco": 550
+      "preco": 700
     },
     {
       "id": "ddr4-64",
       "nome": "Kit 64GB (2x32) Kingston FURY Beast DDR4 3200MHz",
       "tipo": "DDR4",
       "capacidade": 64,
-      "preco": 1000
+      "preco": 1300
     },
     {
       "id": "ddr5-16",
       "nome": "Kit 16GB (2x8) Kingston FURY Beast DDR5 5200MHz",
       "tipo": "DDR5",
       "capacidade": 16,
-      "preco": 420
+      "preco": 550
     },
     {
       "id": "ddr5-32-5600",
       "nome": "Kit 32GB (2x16) Corsair Vengeance DDR5 5600MHz",
       "tipo": "DDR5",
       "capacidade": 32,
-      "preco": 750
+      "preco": 1000
     },
     {
       "id": "ddr5-32-6000",
       "nome": "Kit 32GB (2x16) Kingston FURY Beast DDR5 6000MHz",
       "tipo": "DDR5",
       "capacidade": 32,
-      "preco": 850
+      "preco": 1100
     },
     {
       "id": "ddr5-64",
       "nome": "Kit 64GB (2x32) Kingston FURY Renegade DDR5 6400MHz",
       "tipo": "DDR5",
       "capacidade": 64,
-      "preco": 1700
+      "preco": 2200
     }
   ],
   "gpu": [
@@ -644,7 +644,7 @@
       "tdp": 75,
       "tier": 2,
       "comprimento": 170,
-      "preco": 900
+      "preco": 1250
     },
     {
       "id": "rx6500xt",
@@ -652,7 +652,7 @@
       "tdp": 107,
       "tier": 2,
       "comprimento": 200,
-      "preco": 1000
+      "preco": 1400
     },
     {
       "id": "rx580",
@@ -660,7 +660,7 @@
       "tdp": 185,
       "tier": 3,
       "comprimento": 240,
-      "preco": 750
+      "preco": 1050
     },
     {
       "id": "gtx1660super",
@@ -668,7 +668,7 @@
       "tdp": 125,
       "tier": 3,
       "comprimento": 210,
-      "preco": 1100
+      "preco": 1550
     },
     {
       "id": "rtx3050",
@@ -676,7 +676,7 @@
       "tdp": 130,
       "tier": 3,
       "comprimento": 242,
-      "preco": 1300
+      "preco": 1800
     },
     {
       "id": "rx5600xt",
@@ -684,7 +684,7 @@
       "tdp": 150,
       "tier": 4,
       "comprimento": 230,
-      "preco": 1300
+      "preco": 1800
     },
     {
       "id": "rtx2060",
@@ -692,7 +692,7 @@
       "tdp": 160,
       "tier": 4,
       "comprimento": 200,
-      "preco": 1400
+      "preco": 1950
     },
     {
       "id": "intel-a750",
@@ -700,7 +700,7 @@
       "tdp": 225,
       "tier": 4,
       "comprimento": 280,
-      "preco": 1450
+      "preco": 2000
     },
     {
       "id": "rtx3060",
@@ -708,7 +708,7 @@
       "tdp": 170,
       "tier": 5,
       "comprimento": 242,
-      "preco": 1700
+      "preco": 2400
     },
     {
       "id": "rx6600",
@@ -716,7 +716,7 @@
       "tdp": 132,
       "tier": 5,
       "comprimento": 220,
-      "preco": 1400
+      "preco": 1950
     },
     {
       "id": "rtx4060",
@@ -724,7 +724,7 @@
       "tdp": 115,
       "tier": 5,
       "comprimento": 242,
-      "preco": 1900
+      "preco": 2700
     },
     {
       "id": "rx7600",
@@ -732,7 +732,7 @@
       "tdp": 165,
       "tier": 6,
       "comprimento": 240,
-      "preco": 1800
+      "preco": 2500
     },
     {
       "id": "rtx3060ti",
@@ -740,7 +740,7 @@
       "tdp": 200,
       "tier": 6,
       "comprimento": 242,
-      "preco": 2000
+      "preco": 2800
     },
     {
       "id": "rtx4060ti",
@@ -748,7 +748,7 @@
       "tdp": 160,
       "tier": 6,
       "comprimento": 242,
-      "preco": 2500
+      "preco": 3500
     },
     {
       "id": "rtx5060",
@@ -756,7 +756,7 @@
       "tdp": 145,
       "tier": 6,
       "comprimento": 242,
-      "preco": 2300
+      "preco": 3200
     },
     {
       "id": "rx6700xt",
@@ -764,7 +764,7 @@
       "tdp": 230,
       "tier": 7,
       "comprimento": 267,
-      "preco": 2200
+      "preco": 3100
     },
     {
       "id": "rtx3070",
@@ -772,7 +772,7 @@
       "tdp": 220,
       "tier": 7,
       "comprimento": 242,
-      "preco": 2400
+      "preco": 3400
     },
     {
       "id": "rtx3070ti",
@@ -780,7 +780,7 @@
       "tdp": 290,
       "tier": 7,
       "comprimento": 267,
-      "preco": 2800
+      "preco": 3900
     },
     {
       "id": "rtx5060ti",
@@ -788,7 +788,7 @@
       "tdp": 180,
       "tier": 7,
       "comprimento": 268,
-      "preco": 3000
+      "preco": 4200
     },
     {
       "id": "rx7700xt",
@@ -796,7 +796,7 @@
       "tdp": 245,
       "tier": 8,
       "comprimento": 280,
-      "preco": 3100
+      "preco": 4300
     },
     {
       "id": "rx7800xt",
@@ -804,7 +804,7 @@
       "tdp": 263,
       "tier": 8,
       "comprimento": 280,
-      "preco": 3700
+      "preco": 5200
     },
     {
       "id": "rtx4070",
@@ -812,7 +812,7 @@
       "tdp": 200,
       "tier": 8,
       "comprimento": 242,
-      "preco": 3800
+      "preco": 5300
     },
     {
       "id": "rx6800xt",
@@ -820,7 +820,7 @@
       "tdp": 300,
       "tier": 8,
       "comprimento": 267,
-      "preco": 3200
+      "preco": 4500
     },
     {
       "id": "rtx3080",
@@ -828,7 +828,7 @@
       "tdp": 320,
       "tier": 8,
       "comprimento": 285,
-      "preco": 3600
+      "preco": 5000
     },
     {
       "id": "rtx5070",
@@ -836,7 +836,7 @@
       "tdp": 250,
       "tier": 8,
       "comprimento": 280,
-      "preco": 4200
+      "preco": 5900
     },
     {
       "id": "rx9070",
@@ -844,7 +844,7 @@
       "tdp": 220,
       "tier": 8,
       "comprimento": 280,
-      "preco": 3800
+      "preco": 5300
     },
     {
       "id": "rtx4070super",
@@ -852,7 +852,7 @@
       "tdp": 220,
       "tier": 9,
       "comprimento": 242,
-      "preco": 4300
+      "preco": 6000
     },
     {
       "id": "rtx4070ti",
@@ -860,7 +860,7 @@
       "tdp": 285,
       "tier": 9,
       "comprimento": 285,
-      "preco": 4800
+      "preco": 6700
     },
     {
       "id": "rtx4070tisuper",
@@ -868,7 +868,7 @@
       "tdp": 285,
       "tier": 9,
       "comprimento": 285,
-      "preco": 5300
+      "preco": 7400
     },
     {
       "id": "rx7900xt",
@@ -876,7 +876,7 @@
       "tdp": 315,
       "tier": 9,
       "comprimento": 287,
-      "preco": 5500
+      "preco": 7700
     },
     {
       "id": "rx9070xt",
@@ -884,7 +884,7 @@
       "tdp": 304,
       "tier": 9,
       "comprimento": 300,
-      "preco": 4600
+      "preco": 6400
     },
     {
       "id": "rtx5070ti",
@@ -892,7 +892,7 @@
       "tdp": 300,
       "tier": 9,
       "comprimento": 305,
-      "preco": 5800
+      "preco": 8100
     },
     {
       "id": "rtx4080super",
@@ -900,7 +900,7 @@
       "tdp": 320,
       "tier": 10,
       "comprimento": 310,
-      "preco": 6800
+      "preco": 9500
     },
     {
       "id": "rx7900xtx",
@@ -908,7 +908,7 @@
       "tdp": 355,
       "tier": 10,
       "comprimento": 287,
-      "preco": 7200
+      "preco": 10100
     },
     {
       "id": "rtx5080",
@@ -916,7 +916,7 @@
       "tdp": 360,
       "tier": 10,
       "comprimento": 310,
-      "preco": 8500
+      "preco": 11900
     },
     {
       "id": "rtx4090",
@@ -924,7 +924,7 @@
       "tdp": 450,
       "tier": 10,
       "comprimento": 336,
-      "preco": 13500
+      "preco": 18900
     },
     {
       "id": "rtx5090",
@@ -932,7 +932,7 @@
       "tdp": 575,
       "tier": 10,
       "comprimento": 336,
-      "preco": 14000
+      "preco": 19600
     }
   ],
   "storage": [
