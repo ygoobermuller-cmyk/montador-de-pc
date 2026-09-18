@@ -308,6 +308,18 @@
   .quote-row-actions button{padding:4px 10px; font-size:0.76rem;}
   .total-row.sub{font-size:0.86rem; color:var(--text-dim);}
   .total-row.final{border-top:1px solid var(--border); padding-top:8px; margin-top:6px;}
+
+  .budget-form{display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end; margin-bottom:18px;}
+  .budget-form label{display:flex; flex-direction:column; gap:5px; font-size:0.83rem; color:var(--text-dim);}
+  .budget-form input, .budget-form select{
+    padding:10px 12px; border-radius:8px; border:1px solid var(--border);
+    background:var(--panel-alt); color:var(--text); font-family:var(--font-head); font-size:0.92rem; min-width:180px;
+  }
+  .budget-summary{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:16px;
+    display:flex; flex-direction:column; gap:6px; max-width:520px;
+  }
+  .budget-summary p{margin:0;}
 </style>
 </head>
 <body>
@@ -317,6 +329,7 @@
     <a class="brand" href="#inicio"><span class="brand-mark"></span>Montador de PC</a>
     <div class="navlinks">
       <a href="#inicio">Início</a>
+      <a href="#orcamento-auto">Orçamento</a>
       <a href="#builds">Builds</a>
       <a href="#ofertas">Ofertas</a>
       <a href="#novidades">Novidades</a>
@@ -336,6 +349,29 @@
       <a class="btn" href="#ofertas">Ver onde comprar</a>
     </div>
     <div class="stat-row" id="stat-row"></div>
+  </div>
+</section>
+
+<section id="orcamento-auto" class="alt">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Não sabe por onde começar?</h2>
+      <p>Diz quanto você tem pra gastar e eu monto uma combinação equilibrada e compatível — depois é só ajustar o que quiser lá no Montador.</p>
+    </div>
+    <div class="budget-form">
+      <label>Quanto você tem pra gastar?
+        <input type="number" id="budget-input" min="300" step="50" placeholder="Ex: 4000">
+      </label>
+      <label>Prioridade
+        <select id="budget-priority">
+          <option value="jogos">Jogos</option>
+          <option value="equilibrado" selected>Equilibrado</option>
+          <option value="produtividade">Produtividade / trabalho</option>
+        </select>
+      </label>
+      <button id="btn-budget-build" class="btn primary">🎯 Montar automaticamente</button>
+    </div>
+    <div id="budget-result"></div>
   </div>
 </section>
 
@@ -744,6 +780,57 @@
       refreshSelect('case');
       saveSel();
       render();
+    }
+
+    const BUDGET_WEIGHTS={
+      jogos:{cpu:0.22, ram:0.08, gpu:0.42, storage:0.08},
+      equilibrado:{cpu:0.28, ram:0.10, gpu:0.32, storage:0.09},
+      produtividade:{cpu:0.36, ram:0.16, gpu:0.16, storage:0.10}
+    };
+
+    function pickBestAffordable(list, maxPrice, scoreFn){
+      const affordable=list.filter(function(i){ return i.preco<=maxPrice; });
+      const pool=affordable.length ? affordable : list.slice().sort(function(a,b){return a.preco-b.preco;}).slice(0,1);
+      return pool.slice().sort(function(a,b){ return scoreFn(b)-scoreFn(a); })[0];
+    }
+    function pickCheapest(list){
+      return list.slice().sort(function(a,b){ return a.preco-b.preco; })[0];
+    }
+
+    function buildFromBudget(budget, priority){
+      const w=BUDGET_WEIGHTS[priority] || BUDGET_WEIGHTS.equilibrado;
+
+      const cpu=pickBestAffordable(DATA.cpu, budget*w.cpu, function(i){ return i.tier*100000+i.preco; });
+      const board=pickCheapest(DATA.board.filter(function(b){ return b.socket===cpu.socket; }));
+      const ram=pickBestAffordable(DATA.ram.filter(function(r){ return r.tipo===board.ramType; }), budget*w.ram, function(i){ return i.capacidade*100000+i.preco; });
+
+      const gpuCandidates=DATA.gpu.filter(function(g){ return g.id!=='none'; });
+      const affordableGpu=gpuCandidates.filter(function(g){ return g.preco<=budget*w.gpu; });
+      let gpu;
+      if(affordableGpu.length){
+        gpu=affordableGpu.slice().sort(function(a,b){ return (b.tier*100000+b.preco)-(a.tier*100000+a.preco); })[0];
+      } else if(cpu.igpu){
+        gpu=DATA.gpu.find(function(g){ return g.id==='none'; });
+      } else {
+        gpu=pickCheapest(gpuCandidates);
+      }
+
+      const storage=pickBestAffordable(DATA.storage, budget*w.storage, function(i){ return i.preco; });
+
+      const coolerFits=DATA.cooler.filter(function(c){ return c.capacidadeW>=cpu.tdp; });
+      const cooler=pickCheapest(coolerFits.length ? coolerFits : DATA.cooler);
+
+      const caseFits=DATA['case'].filter(function(c){ return c.formFactors.indexOf(board.formFactor)!==-1; });
+      const pcCase=pickCheapest(caseFits.length ? caseFits : DATA['case']);
+
+      let coreW=cpu.tdp+gpu.tdp;
+      let totalW=coreW+40;
+      if(storage.extraW) totalW+=storage.extraW;
+      const recommendedIdeal=Math.ceil((totalW*1.35)/50)*50;
+      const psuFits=DATA.psu.filter(function(p){ return p.watt>=recommendedIdeal; });
+      const psu=pickCheapest(psuFits.length ? psuFits : DATA.psu);
+
+      return {cpu:cpu.id, cooler:cooler.id, board:board.id, ram:ram.id, gpu:gpu.id, storage:storage.id, psu:psu.id, case:pcCase.id};
     }
 
     const slotsEl=document.getElementById('slots');
@@ -1316,6 +1403,30 @@
     });
 
     renderQuotesList();
+
+    document.getElementById('btn-budget-build').addEventListener('click', function(){
+      const budgetVal=parseFloat(document.getElementById('budget-input').value);
+      const priority=document.getElementById('budget-priority').value;
+      const resultEl=document.getElementById('budget-result');
+      if(!budgetVal || budgetVal<=0){
+        resultEl.innerHTML='<p class="note">Digite um valor de orçamento primeiro.</p>';
+        return;
+      }
+      const newSel=buildFromBudget(budgetVal, priority);
+      sel=Object.assign({}, DEFAULT_SEL, newSel);
+      applySelToUI();
+      const s=compute(sel, extras);
+      const diff=s.totalPrice-budgetVal;
+      const diffText=diff>0
+        ? (fmtBRL(Math.abs(diff))+' acima do que você pediu')
+        : (fmtBRL(Math.abs(diff))+' abaixo do que você pediu');
+      resultEl.innerHTML='<div class="budget-summary">'+
+        '<p>Build montada: <strong>'+fmtBRL(s.totalPrice)+'</strong> ('+diffText+').</p>'+
+        '<p>'+(s.allOk ? '✅ Tudo compatível.' : '⚠️ Uma combinação ficou apertada — confira o painel de compatibilidade no Montador.')+'</p>'+
+        '<a class="btn small" href="#montador">Ver e ajustar no Montador</a>'+
+        '</div>';
+      document.getElementById('montador').scrollIntoView({behavior:'smooth'});
+    });
 
     const presetGrid=document.getElementById('preset-grid');
     PRESETS.forEach(function(preset){
