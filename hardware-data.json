@@ -7,7 +7,8 @@
       "tdp": 65,
       "tier": 1,
       "preco": 350,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": true
     },
     {
       "id": "r5-3600",
@@ -16,7 +17,8 @@
       "tdp": 65,
       "tier": 3,
       "preco": 550,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "r5-4500",
@@ -25,7 +27,8 @@
       "tdp": 65,
       "tier": 2,
       "preco": 400,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "r5-4600g",
@@ -34,7 +37,8 @@
       "tdp": 65,
       "tier": 3,
       "preco": 500,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": true
     },
     {
       "id": "r5-5500",
@@ -43,7 +47,8 @@
       "tdp": 65,
       "tier": 4,
       "preco": 450,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "r5-5600g",
@@ -52,7 +57,8 @@
       "tdp": 65,
       "tier": 4,
       "preco": 650,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": true
     },
     {
       "id": "r5-5600",
@@ -61,7 +67,8 @@
       "tdp": 65,
       "tier": 5,
       "preco": 700,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "r5-5600x",
@@ -70,7 +77,8 @@
       "tdp": 65,
       "tier": 5,
       "preco": 750,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": false
     },
     {
       "id": "r7-5700g",
@@ -79,7 +87,8 @@
       "tdp": 65,
       "tier": 6,
       "preco": 1000,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": true
     },
     {
       "id": "r7-5700x",
@@ -88,7 +97,8 @@
       "tdp": 65,
       "tier": 6,
       "preco": 900,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": false
     },
     {
       "id": "r7-5800x3d",
@@ -97,7 +107,8 @@
       "tdp": 105,
       "tier": 8,
       "preco": 1750,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": false
     },
     {
       "id": "r9-5900x",
@@ -106,7 +117,8 @@
       "tdp": 105,
       "tier": 8,
       "preco": 1700,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": false
     },
     {
       "id": "r9-5950x",
@@ -115,7 +127,8 @@
       "tdp": 105,
       "tier": 8,
       "preco": 2100,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": false
     },
     {
       "id": "r5-7600",
@@ -124,7 +137,8 @@
       "tdp": 65,
       "tier": 7,
       "preco": 1100,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": true
     },
     {
       "id": "r5-7600x",
@@ -133,7 +147,8 @@
       "tdp": 105,
       "tier": 7,
       "preco": 1200,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "r7-7700",
@@ -142,7 +157,8 @@
       "tdp": 65,
       "tier": 8,
       "preco": 1500,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": true
     },
     {
       "id": "r7-7800x3d",
@@ -151,7 +167,8 @@
       "tdp": 120,
       "tier": 10,
       "preco": 2200,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "r9-7950x3d",
@@ -160,7 +177,8 @@
       "tdp": 120,
       "tier": 10,
       "preco": 3400,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "r5-9600x",
@@ -169,7 +187,8 @@
       "tdp": 65,
       "tier": 8,
       "preco": 1600,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "r7-9700x",
@@ -178,7 +197,8 @@
       "tdp": 65,
       "tier": 9,
       "preco": 2100,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "r7-9800x3d",
@@ -187,7 +207,8 @@
       "tdp": 120,
       "tier": 10,
       "preco": 3000,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "r9-9950x",
@@ -196,7 +217,8 @@
       "tdp": 170,
       "tier": 10,
       "preco": 4200,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "i5-9400f",
@@ -205,7 +227,8 @@
       "tdp": 65,
       "tier": 2,
       "preco": 450,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "i7-9700k",
@@ -214,7 +237,8 @@
       "tdp": 95,
       "tier": 5,
       "preco": 700,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "i3-10100f",
@@ -223,7 +247,8 @@
       "tdp": 65,
       "tier": 2,
       "preco": 350,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "i5-10400f",
@@ -232,7 +257,8 @@
       "tdp": 65,
       "tier": 3,
       "preco": 500,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "i5-11400f",
@@ -241,7 +267,8 @@
       "tdp": 65,
       "tier": 4,
       "preco": 600,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "i7-11700k",
@@ -250,7 +277,8 @@
       "tdp": 125,
       "tier": 6,
       "preco": 1100,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "i3-12100f",
@@ -259,7 +287,8 @@
       "tdp": 58,
       "tier": 3,
       "preco": 500,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "i3-13100f",
@@ -268,7 +297,8 @@
       "tdp": 58,
       "tier": 4,
       "preco": 600,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "i5-12400f",
@@ -277,7 +307,8 @@
       "tdp": 65,
       "tier": 5,
       "preco": 700,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "i5-13400f",
@@ -286,7 +317,8 @@
       "tdp": 65,
       "tier": 6,
       "preco": 1050,
-      "igpu": false
+      "igpu": false,
+      "coolerBox": true
     },
     {
       "id": "i5-13600k",
@@ -295,7 +327,8 @@
       "tdp": 125,
       "tier": 7,
       "preco": 1600,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "i5-14600k",
@@ -304,7 +337,8 @@
       "tdp": 125,
       "tier": 8,
       "preco": 1750,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "i7-12700k",
@@ -313,7 +347,8 @@
       "tdp": 125,
       "tier": 7,
       "preco": 1500,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "i7-13700k",
@@ -322,7 +357,8 @@
       "tdp": 125,
       "tier": 8,
       "preco": 2100,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "i7-14700k",
@@ -331,7 +367,8 @@
       "tdp": 125,
       "tier": 9,
       "preco": 2200,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "i9-13900k",
@@ -340,7 +377,8 @@
       "tdp": 125,
       "tier": 10,
       "preco": 3000,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "i9-14900k",
@@ -349,7 +387,8 @@
       "tdp": 125,
       "tier": 10,
       "preco": 3400,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "ultra5-245k",
@@ -358,7 +397,8 @@
       "tdp": 125,
       "tier": 7,
       "preco": 1600,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     },
     {
       "id": "ultra9-285k",
@@ -367,7 +407,8 @@
       "tdp": 125,
       "tier": 10,
       "preco": 3600,
-      "igpu": true
+      "igpu": true,
+      "coolerBox": false
     }
   ],
   "board": [
