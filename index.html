@@ -719,7 +719,7 @@
       if(PAGES.indexOf(pageId)===-1) pageId='inicio';
       PAGES.forEach(function(id){
         const sec=document.getElementById(id);
-        if(sec) sec.style.display=(id===pageId) ? '' : 'none';
+        if(sec) sec.style.display=(id===pageId) ? 'block' : 'none';
         const link=document.getElementById('nav-'+id);
         if(link) link.className=(id===pageId) ? 'active' : '';
       });
