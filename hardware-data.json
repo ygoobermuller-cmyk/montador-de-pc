@@ -8,7 +8,8 @@
       "tier": 1,
       "preco": 350,
       "igpu": true,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "r5-3600",
@@ -18,7 +19,8 @@
       "tier": 3,
       "preco": 550,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "r5-4500",
@@ -28,7 +30,8 @@
       "tier": 2,
       "preco": 400,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "r5-4600g",
@@ -38,7 +41,8 @@
       "tier": 3,
       "preco": 500,
       "igpu": true,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "r5-5500",
@@ -48,7 +52,8 @@
       "tier": 4,
       "preco": 450,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "r5-5600g",
@@ -58,7 +63,8 @@
       "tier": 4,
       "preco": 650,
       "igpu": true,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "r5-5600",
@@ -68,7 +74,8 @@
       "tier": 5,
       "preco": 700,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "r5-5600x",
@@ -78,7 +85,8 @@
       "tier": 5,
       "preco": 750,
       "igpu": false,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r7-5700g",
@@ -88,7 +96,8 @@
       "tier": 6,
       "preco": 1000,
       "igpu": true,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "r7-5700x",
@@ -98,7 +107,8 @@
       "tier": 6,
       "preco": 900,
       "igpu": false,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r7-5800x3d",
@@ -108,7 +118,8 @@
       "tier": 8,
       "preco": 1750,
       "igpu": false,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r9-5900x",
@@ -118,7 +129,8 @@
       "tier": 8,
       "preco": 1700,
       "igpu": false,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r9-5950x",
@@ -128,7 +140,8 @@
       "tier": 8,
       "preco": 2100,
       "igpu": false,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r5-7600",
@@ -138,7 +151,8 @@
       "tier": 7,
       "preco": 1100,
       "igpu": true,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "r5-7600x",
@@ -148,7 +162,8 @@
       "tier": 7,
       "preco": 1200,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r7-7700",
@@ -158,7 +173,8 @@
       "tier": 8,
       "preco": 1500,
       "igpu": true,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "r7-7800x3d",
@@ -168,7 +184,8 @@
       "tier": 10,
       "preco": 2200,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r9-7950x3d",
@@ -178,7 +195,8 @@
       "tier": 10,
       "preco": 3400,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r5-9600x",
@@ -188,7 +206,8 @@
       "tier": 8,
       "preco": 1600,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r7-9700x",
@@ -198,7 +217,8 @@
       "tier": 9,
       "preco": 2100,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r7-9800x3d",
@@ -208,7 +228,8 @@
       "tier": 10,
       "preco": 3000,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "r9-9950x",
@@ -218,7 +239,8 @@
       "tier": 10,
       "preco": 4200,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "i5-9400f",
@@ -228,7 +250,8 @@
       "tier": 2,
       "preco": 450,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "i7-9700k",
@@ -238,7 +261,8 @@
       "tier": 5,
       "preco": 700,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "i3-10100f",
@@ -248,7 +272,8 @@
       "tier": 2,
       "preco": 350,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "i5-10400f",
@@ -258,7 +283,8 @@
       "tier": 3,
       "preco": 500,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "i5-11400f",
@@ -268,7 +294,8 @@
       "tier": 4,
       "preco": 600,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "i7-11700k",
@@ -278,7 +305,8 @@
       "tier": 6,
       "preco": 1100,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "i3-12100f",
@@ -288,7 +316,8 @@
       "tier": 3,
       "preco": 500,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "i3-13100f",
@@ -298,7 +327,8 @@
       "tier": 4,
       "preco": 600,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "i5-12400f",
@@ -308,7 +338,8 @@
       "tier": 5,
       "preco": 700,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "i5-13400f",
@@ -318,7 +349,8 @@
       "tier": 6,
       "preco": 1050,
       "igpu": false,
-      "coolerBox": true
+      "coolerBox": true,
+      "disponivel": true
     },
     {
       "id": "i5-13600k",
@@ -328,7 +360,8 @@
       "tier": 7,
       "preco": 1600,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "i5-14600k",
@@ -338,7 +371,8 @@
       "tier": 8,
       "preco": 1750,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "i7-12700k",
@@ -348,7 +382,8 @@
       "tier": 7,
       "preco": 1500,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "i7-13700k",
@@ -358,7 +393,8 @@
       "tier": 8,
       "preco": 2100,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "i7-14700k",
@@ -368,7 +404,8 @@
       "tier": 9,
       "preco": 2200,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "i9-13900k",
@@ -378,7 +415,8 @@
       "tier": 10,
       "preco": 3000,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "i9-14900k",
@@ -388,7 +426,8 @@
       "tier": 10,
       "preco": 3400,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "ultra5-245k",
@@ -398,7 +437,8 @@
       "tier": 7,
       "preco": 1600,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     },
     {
       "id": "ultra9-285k",
@@ -408,7 +448,8 @@
       "tier": 10,
       "preco": 3600,
       "igpu": true,
-      "coolerBox": false
+      "coolerBox": false,
+      "disponivel": true
     }
   ],
   "board": [
@@ -418,7 +459,8 @@
       "socket": "AM4",
       "formFactor": "mATX",
       "ramType": "DDR4",
-      "preco": 350
+      "preco": 350,
+      "disponivel": true
     },
     {
       "id": "a520m",
@@ -426,7 +468,8 @@
       "socket": "AM4",
       "formFactor": "mATX",
       "ramType": "DDR4",
-      "preco": 400
+      "preco": 400,
+      "disponivel": true
     },
     {
       "id": "b450m",
@@ -434,7 +477,8 @@
       "socket": "AM4",
       "formFactor": "mATX",
       "ramType": "DDR4",
-      "preco": 500
+      "preco": 500,
+      "disponivel": true
     },
     {
       "id": "b550m",
@@ -442,7 +486,8 @@
       "socket": "AM4",
       "formFactor": "mATX",
       "ramType": "DDR4",
-      "preco": 850
+      "preco": 850,
+      "disponivel": true
     },
     {
       "id": "b550-atx",
@@ -450,7 +495,8 @@
       "socket": "AM4",
       "formFactor": "ATX",
       "ramType": "DDR4",
-      "preco": 950
+      "preco": 950,
+      "disponivel": true
     },
     {
       "id": "x570-atx",
@@ -458,7 +504,8 @@
       "socket": "AM4",
       "formFactor": "ATX",
       "ramType": "DDR4",
-      "preco": 1600
+      "preco": 1600,
+      "disponivel": true
     },
     {
       "id": "itx-b550",
@@ -466,7 +513,8 @@
       "socket": "AM4",
       "formFactor": "ITX",
       "ramType": "DDR4",
-      "preco": 1300
+      "preco": 1300,
+      "disponivel": true
     },
     {
       "id": "a620m",
@@ -474,7 +522,8 @@
       "socket": "AM5",
       "formFactor": "mATX",
       "ramType": "DDR5",
-      "preco": 650
+      "preco": 650,
+      "disponivel": true
     },
     {
       "id": "a620i",
@@ -482,7 +531,8 @@
       "socket": "AM5",
       "formFactor": "ITX",
       "ramType": "DDR5",
-      "preco": 1100
+      "preco": 1100,
+      "disponivel": true
     },
     {
       "id": "b650m",
@@ -490,7 +540,8 @@
       "socket": "AM5",
       "formFactor": "mATX",
       "ramType": "DDR5",
-      "preco": 1100
+      "preco": 1100,
+      "disponivel": true
     },
     {
       "id": "b650-atx",
@@ -498,7 +549,8 @@
       "socket": "AM5",
       "formFactor": "ATX",
       "ramType": "DDR5",
-      "preco": 1500
+      "preco": 1500,
+      "disponivel": true
     },
     {
       "id": "x670e-atx",
@@ -506,7 +558,8 @@
       "socket": "AM5",
       "formFactor": "ATX",
       "ramType": "DDR5",
-      "preco": 3200
+      "preco": 3200,
+      "disponivel": true
     },
     {
       "id": "itx-b650",
@@ -514,7 +567,8 @@
       "socket": "AM5",
       "formFactor": "ITX",
       "ramType": "DDR5",
-      "preco": 1900
+      "preco": 1900,
+      "disponivel": true
     },
     {
       "id": "b365m",
@@ -522,7 +576,8 @@
       "socket": "LGA1151",
       "formFactor": "mATX",
       "ramType": "DDR4",
-      "preco": 450
+      "preco": 450,
+      "disponivel": true
     },
     {
       "id": "z390-atx",
@@ -530,7 +585,8 @@
       "socket": "LGA1151",
       "formFactor": "ATX",
       "ramType": "DDR4",
-      "preco": 900
+      "preco": 900,
+      "disponivel": true
     },
     {
       "id": "h510m",
@@ -538,7 +594,8 @@
       "socket": "LGA1200",
       "formFactor": "mATX",
       "ramType": "DDR4",
-      "preco": 420
+      "preco": 420,
+      "disponivel": true
     },
     {
       "id": "b560m",
@@ -546,7 +603,8 @@
       "socket": "LGA1200",
       "formFactor": "mATX",
       "ramType": "DDR4",
-      "preco": 600
+      "preco": 600,
+      "disponivel": true
     },
     {
       "id": "h610m",
@@ -554,7 +612,8 @@
       "socket": "LGA1700",
       "formFactor": "mATX",
       "ramType": "DDR4",
-      "preco": 550
+      "preco": 550,
+      "disponivel": true
     },
     {
       "id": "b660m",
@@ -562,7 +621,8 @@
       "socket": "LGA1700",
       "formFactor": "mATX",
       "ramType": "DDR4",
-      "preco": 800
+      "preco": 800,
+      "disponivel": true
     },
     {
       "id": "b760m-d4",
@@ -570,7 +630,8 @@
       "socket": "LGA1700",
       "formFactor": "mATX",
       "ramType": "DDR4",
-      "preco": 900
+      "preco": 900,
+      "disponivel": true
     },
     {
       "id": "b760m-d5",
@@ -578,7 +639,8 @@
       "socket": "LGA1700",
       "formFactor": "mATX",
       "ramType": "DDR5",
-      "preco": 1200
+      "preco": 1200,
+      "disponivel": true
     },
     {
       "id": "z690-atx",
@@ -586,7 +648,8 @@
       "socket": "LGA1700",
       "formFactor": "ATX",
       "ramType": "DDR5",
-      "preco": 1400
+      "preco": 1400,
+      "disponivel": true
     },
     {
       "id": "z790-atx",
@@ -594,7 +657,8 @@
       "socket": "LGA1700",
       "formFactor": "ATX",
       "ramType": "DDR5",
-      "preco": 2100
+      "preco": 2100,
+      "disponivel": true
     },
     {
       "id": "z890-atx",
@@ -602,7 +666,8 @@
       "socket": "LGA1851",
       "formFactor": "ATX",
       "ramType": "DDR5",
-      "preco": 2400
+      "preco": 2400,
+      "disponivel": true
     }
   ],
   "ram": [
@@ -611,63 +676,72 @@
       "nome": "8GB Kingston FURY DDR4 2666MHz",
       "tipo": "DDR4",
       "capacidade": 8,
-      "preco": 180
+      "preco": 180,
+      "disponivel": true
     },
     {
       "id": "ddr4-8-3200",
       "nome": "8GB Kingston FURY Beast DDR4 3200MHz",
       "tipo": "DDR4",
       "capacidade": 8,
-      "preco": 200
+      "preco": 200,
+      "disponivel": true
     },
     {
       "id": "ddr4-16",
       "nome": "Kit 16GB (2x8) Kingston FURY Beast DDR4 3200MHz",
       "tipo": "DDR4",
       "capacidade": 16,
-      "preco": 400
+      "preco": 400,
+      "disponivel": true
     },
     {
       "id": "ddr4-32",
       "nome": "Kit 32GB (2x16) Corsair Vengeance DDR4 3600MHz",
       "tipo": "DDR4",
       "capacidade": 32,
-      "preco": 700
+      "preco": 700,
+      "disponivel": true
     },
     {
       "id": "ddr4-64",
       "nome": "Kit 64GB (2x32) Kingston FURY Beast DDR4 3200MHz",
       "tipo": "DDR4",
       "capacidade": 64,
-      "preco": 1300
+      "preco": 1300,
+      "disponivel": true
     },
     {
       "id": "ddr5-16",
       "nome": "Kit 16GB (2x8) Kingston FURY Beast DDR5 5200MHz",
       "tipo": "DDR5",
       "capacidade": 16,
-      "preco": 550
+      "preco": 550,
+      "disponivel": true
     },
     {
       "id": "ddr5-32-5600",
       "nome": "Kit 32GB (2x16) Corsair Vengeance DDR5 5600MHz",
       "tipo": "DDR5",
       "capacidade": 32,
-      "preco": 1000
+      "preco": 1000,
+      "disponivel": true
     },
     {
       "id": "ddr5-32-6000",
       "nome": "Kit 32GB (2x16) Kingston FURY Beast DDR5 6000MHz",
       "tipo": "DDR5",
       "capacidade": 32,
-      "preco": 1100
+      "preco": 1100,
+      "disponivel": true
     },
     {
       "id": "ddr5-64",
       "nome": "Kit 64GB (2x32) Kingston FURY Renegade DDR5 6400MHz",
       "tipo": "DDR5",
       "capacidade": 64,
-      "preco": 2200
+      "preco": 2200,
+      "disponivel": true
     }
   ],
   "gpu": [
@@ -677,7 +751,8 @@
       "tdp": 0,
       "tier": 2,
       "comprimento": 0,
-      "preco": 0
+      "preco": 0,
+      "disponivel": true
     },
     {
       "id": "gtx1650",
@@ -685,7 +760,8 @@
       "tdp": 75,
       "tier": 2,
       "comprimento": 170,
-      "preco": 1250
+      "preco": 1250,
+      "disponivel": true
     },
     {
       "id": "rx6500xt",
@@ -693,7 +769,8 @@
       "tdp": 107,
       "tier": 2,
       "comprimento": 200,
-      "preco": 1400
+      "preco": 1400,
+      "disponivel": true
     },
     {
       "id": "rx580",
@@ -701,7 +778,8 @@
       "tdp": 185,
       "tier": 3,
       "comprimento": 240,
-      "preco": 1050
+      "preco": 1050,
+      "disponivel": true
     },
     {
       "id": "gtx1660super",
@@ -709,7 +787,8 @@
       "tdp": 125,
       "tier": 3,
       "comprimento": 210,
-      "preco": 1550
+      "preco": 1550,
+      "disponivel": true
     },
     {
       "id": "rtx3050",
@@ -717,7 +796,8 @@
       "tdp": 130,
       "tier": 3,
       "comprimento": 242,
-      "preco": 1800
+      "preco": 1800,
+      "disponivel": true
     },
     {
       "id": "rx5600xt",
@@ -725,7 +805,8 @@
       "tdp": 150,
       "tier": 4,
       "comprimento": 230,
-      "preco": 1800
+      "preco": 1800,
+      "disponivel": true
     },
     {
       "id": "rtx2060",
@@ -733,7 +814,8 @@
       "tdp": 160,
       "tier": 4,
       "comprimento": 200,
-      "preco": 1950
+      "preco": 1950,
+      "disponivel": true
     },
     {
       "id": "intel-a750",
@@ -741,7 +823,8 @@
       "tdp": 225,
       "tier": 4,
       "comprimento": 280,
-      "preco": 2000
+      "preco": 2000,
+      "disponivel": true
     },
     {
       "id": "rtx3060",
@@ -749,7 +832,8 @@
       "tdp": 170,
       "tier": 5,
       "comprimento": 242,
-      "preco": 2400
+      "preco": 2400,
+      "disponivel": true
     },
     {
       "id": "rx6600",
@@ -757,7 +841,8 @@
       "tdp": 132,
       "tier": 5,
       "comprimento": 220,
-      "preco": 1950
+      "preco": 1950,
+      "disponivel": true
     },
     {
       "id": "rtx4060",
@@ -765,7 +850,8 @@
       "tdp": 115,
       "tier": 5,
       "comprimento": 242,
-      "preco": 2700
+      "preco": 2700,
+      "disponivel": true
     },
     {
       "id": "rx7600",
@@ -773,7 +859,8 @@
       "tdp": 165,
       "tier": 6,
       "comprimento": 240,
-      "preco": 2500
+      "preco": 2500,
+      "disponivel": true
     },
     {
       "id": "rtx3060ti",
@@ -781,7 +868,8 @@
       "tdp": 200,
       "tier": 6,
       "comprimento": 242,
-      "preco": 2800
+      "preco": 2800,
+      "disponivel": true
     },
     {
       "id": "rtx4060ti",
@@ -789,7 +877,8 @@
       "tdp": 160,
       "tier": 6,
       "comprimento": 242,
-      "preco": 3500
+      "preco": 3500,
+      "disponivel": true
     },
     {
       "id": "rtx5060",
@@ -797,7 +886,8 @@
       "tdp": 145,
       "tier": 6,
       "comprimento": 242,
-      "preco": 3200
+      "preco": 3200,
+      "disponivel": true
     },
     {
       "id": "rx6700xt",
@@ -805,7 +895,8 @@
       "tdp": 230,
       "tier": 7,
       "comprimento": 267,
-      "preco": 3100
+      "preco": 3100,
+      "disponivel": true
     },
     {
       "id": "rtx3070",
@@ -813,7 +904,8 @@
       "tdp": 220,
       "tier": 7,
       "comprimento": 242,
-      "preco": 3400
+      "preco": 3400,
+      "disponivel": true
     },
     {
       "id": "rtx3070ti",
@@ -821,7 +913,8 @@
       "tdp": 290,
       "tier": 7,
       "comprimento": 267,
-      "preco": 3900
+      "preco": 3900,
+      "disponivel": true
     },
     {
       "id": "rtx5060ti",
@@ -829,7 +922,8 @@
       "tdp": 180,
       "tier": 7,
       "comprimento": 268,
-      "preco": 4200
+      "preco": 4200,
+      "disponivel": true
     },
     {
       "id": "rx7700xt",
@@ -837,7 +931,8 @@
       "tdp": 245,
       "tier": 8,
       "comprimento": 280,
-      "preco": 4300
+      "preco": 4300,
+      "disponivel": true
     },
     {
       "id": "rx7800xt",
@@ -845,7 +940,8 @@
       "tdp": 263,
       "tier": 8,
       "comprimento": 280,
-      "preco": 5200
+      "preco": 5200,
+      "disponivel": true
     },
     {
       "id": "rtx4070",
@@ -853,7 +949,8 @@
       "tdp": 200,
       "tier": 8,
       "comprimento": 242,
-      "preco": 5300
+      "preco": 5300,
+      "disponivel": true
     },
     {
       "id": "rx6800xt",
@@ -861,7 +958,8 @@
       "tdp": 300,
       "tier": 8,
       "comprimento": 267,
-      "preco": 4500
+      "preco": 4500,
+      "disponivel": true
     },
     {
       "id": "rtx3080",
@@ -869,7 +967,8 @@
       "tdp": 320,
       "tier": 8,
       "comprimento": 285,
-      "preco": 5000
+      "preco": 5000,
+      "disponivel": true
     },
     {
       "id": "rtx5070",
@@ -877,7 +976,8 @@
       "tdp": 250,
       "tier": 8,
       "comprimento": 280,
-      "preco": 5900
+      "preco": 5900,
+      "disponivel": true
     },
     {
       "id": "rx9070",
@@ -885,7 +985,8 @@
       "tdp": 220,
       "tier": 8,
       "comprimento": 280,
-      "preco": 5300
+      "preco": 5300,
+      "disponivel": true
     },
     {
       "id": "rtx4070super",
@@ -893,7 +994,8 @@
       "tdp": 220,
       "tier": 9,
       "comprimento": 242,
-      "preco": 6000
+      "preco": 6000,
+      "disponivel": true
     },
     {
       "id": "rtx4070ti",
@@ -901,7 +1003,8 @@
       "tdp": 285,
       "tier": 9,
       "comprimento": 285,
-      "preco": 6700
+      "preco": 6700,
+      "disponivel": true
     },
     {
       "id": "rtx4070tisuper",
@@ -909,7 +1012,8 @@
       "tdp": 285,
       "tier": 9,
       "comprimento": 285,
-      "preco": 7400
+      "preco": 7400,
+      "disponivel": true
     },
     {
       "id": "rx7900xt",
@@ -917,7 +1021,8 @@
       "tdp": 315,
       "tier": 9,
       "comprimento": 287,
-      "preco": 7700
+      "preco": 7700,
+      "disponivel": true
     },
     {
       "id": "rx9070xt",
@@ -925,7 +1030,8 @@
       "tdp": 304,
       "tier": 9,
       "comprimento": 300,
-      "preco": 6400
+      "preco": 6400,
+      "disponivel": true
     },
     {
       "id": "rtx5070ti",
@@ -933,7 +1039,8 @@
       "tdp": 300,
       "tier": 9,
       "comprimento": 305,
-      "preco": 8100
+      "preco": 8100,
+      "disponivel": true
     },
     {
       "id": "rtx4080super",
@@ -941,7 +1048,8 @@
       "tdp": 320,
       "tier": 10,
       "comprimento": 310,
-      "preco": 9500
+      "preco": 9500,
+      "disponivel": true
     },
     {
       "id": "rx7900xtx",
@@ -949,7 +1057,8 @@
       "tdp": 355,
       "tier": 10,
       "comprimento": 287,
-      "preco": 10100
+      "preco": 10100,
+      "disponivel": true
     },
     {
       "id": "rtx5080",
@@ -957,7 +1066,8 @@
       "tdp": 360,
       "tier": 10,
       "comprimento": 310,
-      "preco": 11900
+      "preco": 11900,
+      "disponivel": true
     },
     {
       "id": "rtx4090",
@@ -965,7 +1075,8 @@
       "tdp": 450,
       "tier": 10,
       "comprimento": 336,
-      "preco": 18900
+      "preco": 18900,
+      "disponivel": true
     },
     {
       "id": "rtx5090",
@@ -973,62 +1084,73 @@
       "tdp": 575,
       "tier": 10,
       "comprimento": 336,
-      "preco": 19600
+      "preco": 19600,
+      "disponivel": true
     }
   ],
   "storage": [
     {
       "id": "sata-240",
       "nome": "SSD SATA 240GB Kingston A400",
-      "preco": 130
+      "preco": 130,
+      "disponivel": true
     },
     {
       "id": "sata-480",
       "nome": "SSD SATA 480GB Kingston A400",
-      "preco": 200
+      "preco": 200,
+      "disponivel": true
     },
     {
       "id": "sata-1tb",
       "nome": "SSD SATA 1TB Kingston A400",
-      "preco": 380
+      "preco": 380,
+      "disponivel": true
     },
     {
       "id": "nvme-500",
       "nome": "SSD NVMe 500GB Kingston NV2",
-      "preco": 250
+      "preco": 250,
+      "disponivel": true
     },
     {
       "id": "nvme-1tb",
       "nome": "SSD NVMe 1TB Kingston NV2 (Gen 4)",
-      "preco": 420
+      "preco": 420,
+      "disponivel": true
     },
     {
       "id": "nvme-2tb",
       "nome": "SSD NVMe 2TB WD Black SN850X",
-      "preco": 950
+      "preco": 950,
+      "disponivel": true
     },
     {
       "id": "nvme-4tb",
       "nome": "SSD NVMe 4TB Kingston FURY Renegade",
-      "preco": 2200
+      "preco": 2200,
+      "disponivel": true
     },
     {
       "id": "hdd-1tb",
       "nome": "HD 1TB Seagate Barracuda",
       "preco": 280,
-      "extraW": 8
+      "extraW": 8,
+      "disponivel": true
     },
     {
       "id": "hdd-2tb",
       "nome": "HD 2TB Seagate Barracuda",
       "preco": 380,
-      "extraW": 8
+      "extraW": 8,
+      "disponivel": true
     },
     {
       "id": "hdd-4tb",
       "nome": "HD 4TB WD Blue",
       "preco": 650,
-      "extraW": 8
+      "extraW": 8,
+      "disponivel": true
     }
   ],
   "psu": [
@@ -1036,73 +1158,85 @@
       "id": "400-white",
       "nome": "Fonte 400W 80+ White",
       "watt": 400,
-      "preco": 180
+      "preco": 180,
+      "disponivel": true
     },
     {
       "id": "450-bronze",
       "nome": "Fonte 450W 80+ Bronze",
       "watt": 450,
-      "preco": 250
+      "preco": 250,
+      "disponivel": true
     },
     {
       "id": "500-bronze",
       "nome": "Fonte 500W 80+ Bronze",
       "watt": 500,
-      "preco": 280
+      "preco": 280,
+      "disponivel": true
     },
     {
       "id": "550-bronze",
       "nome": "Fonte 550W 80+ Bronze",
       "watt": 550,
-      "preco": 320
+      "preco": 320,
+      "disponivel": true
     },
     {
       "id": "600-bronze",
       "nome": "Fonte 600W 80+ Bronze",
       "watt": 600,
-      "preco": 360
+      "preco": 360,
+      "disponivel": true
     },
     {
       "id": "650-bronze",
       "nome": "Fonte 650W 80+ Bronze",
       "watt": 650,
-      "preco": 400
+      "preco": 400,
+      "disponivel": true
     },
     {
       "id": "700-bronze",
       "nome": "Fonte 700W 80+ Bronze",
       "watt": 700,
-      "preco": 450
+      "preco": 450,
+      "disponivel": true
     },
     {
       "id": "750-gold",
       "nome": "Fonte 750W 80+ Gold Modular",
       "watt": 750,
-      "preco": 600
+      "preco": 600,
+      "disponivel": true
     },
     {
       "id": "850-gold",
       "nome": "Fonte 850W 80+ Gold ATX 3.0",
       "watt": 850,
-      "preco": 750
+      "preco": 750,
+      "disponivel": true
     },
     {
       "id": "1000-gold",
       "nome": "Fonte 1000W 80+ Gold ATX 3.0",
       "watt": 1000,
-      "preco": 1000
+      "preco": 1000,
+      "disponivel": true
     },
     {
       "id": "1200-platinum",
       "nome": "Fonte 1200W 80+ Platinum ATX 3.0",
       "watt": 1200,
-      "preco": 1500
+      "preco": 1500,
+      "disponivel": true
     },
     {
       "id": "1600-titanium",
       "nome": "Fonte 1600W 80+ Titanium",
       "watt": 1600,
-      "preco": 2800
+      "preco": 2800,
+      "disponivel": true
     }
   ],
   "case": [
@@ -1113,7 +1247,8 @@
         "ITX"
       ],
       "maxGpu": 330,
-      "preco": 600
+      "preco": 600,
+      "disponivel": true
     },
     {
       "id": "matx-mid",
@@ -1123,7 +1258,8 @@
         "mATX"
       ],
       "maxGpu": 330,
-      "preco": 300
+      "preco": 300,
+      "disponivel": true
     },
     {
       "id": "atx-mid",
@@ -1134,7 +1270,8 @@
         "ATX"
       ],
       "maxGpu": 380,
-      "preco": 450
+      "preco": 450,
+      "disponivel": true
     },
     {
       "id": "atx-aquarium",
@@ -1145,7 +1282,8 @@
         "ATX"
       ],
       "maxGpu": 420,
-      "preco": 700
+      "preco": 700,
+      "disponivel": true
     },
     {
       "id": "atx-full",
@@ -1156,7 +1294,8 @@
         "ATX"
       ],
       "maxGpu": 450,
-      "preco": 900
+      "preco": 900,
+      "disponivel": true
     }
   ],
   "cooler": [
@@ -1164,43 +1303,50 @@
       "id": "stock",
       "nome": "Cooler Box Original AMD/Intel",
       "capacidadeW": 65,
-      "preco": 0
+      "preco": 0,
+      "disponivel": true
     },
     {
       "id": "ar-basico",
       "nome": "Air Cooler Básico 120mm",
       "capacidadeW": 130,
-      "preco": 120
+      "preco": 120,
+      "disponivel": true
     },
     {
       "id": "ar-duplo",
       "nome": "Air Cooler Duplo Premium (ex: AK620)",
       "capacidadeW": 220,
-      "preco": 350
+      "preco": 350,
+      "disponivel": true
     },
     {
       "id": "aio-120",
       "nome": "Water Cooler 120mm",
       "capacidadeW": 150,
-      "preco": 250
+      "preco": 250,
+      "disponivel": true
     },
     {
       "id": "aio-240",
       "nome": "Water Cooler 240mm",
       "capacidadeW": 220,
-      "preco": 400
+      "preco": 400,
+      "disponivel": true
     },
     {
       "id": "aio-280",
       "nome": "Water Cooler 280mm",
       "capacidadeW": 250,
-      "preco": 550
+      "preco": 550,
+      "disponivel": true
     },
     {
       "id": "aio-360",
       "nome": "Water Cooler 360mm",
       "capacidadeW": 300,
-      "preco": 700
+      "preco": 700,
+      "disponivel": true
     }
   ]
 }
