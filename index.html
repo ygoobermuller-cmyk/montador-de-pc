@@ -364,6 +364,30 @@
   .home-tile:hover{border-color:var(--accent);}
   .home-tile h3{margin:0; font-size:1.05rem; font-weight:600;}
   .home-tile p{margin:0; font-size:0.86rem; color:var(--text-dim);}
+
+  /* Modo "link pro cliente": esconde tudo que é edição/controle interno,
+     mostra só o resumo limpo pra quem recebeu o link. */
+  body.client-view .admin-only{ display:none !important; }
+  .client-only-block{ display:none; }
+  body.client-view .client-only-block{ display:block; }
+  #client-heading{
+    margin:0 0 14px; padding-bottom:12px; border-bottom:1px solid var(--border);
+    font-size:1.1rem; font-weight:600;
+  }
+  #client-banner{
+    display:none; background:var(--panel); border:1px solid var(--accent);
+    border-radius:10px; padding:10px 14px; margin-bottom:18px; font-size:0.9rem;
+  }
+  body.client-view #client-banner{ display:block; }
+  .client-parts-item{
+    display:flex; justify-content:space-between; gap:12px; padding:10px 0;
+    border-bottom:1px solid var(--border); font-size:0.92rem;
+  }
+  .client-parts-item:last-child{ border-bottom:none; }
+  .client-parts-item .cpl{ color:var(--text-dim); min-width:120px; }
+  .client-parts-item .cpr{ text-align:right; }
+  .client-parts-item .cpr strong{ display:block; }
+  .client-parts-item .cpr small{ color:var(--text-dim); }
 </style>
 </head>
 <body>
@@ -587,13 +611,16 @@
       <h2>Monte sua build</h2>
       <p>Escolha uma peça em cada slot. O painel ao lado atualiza na hora.</p>
     </div>
-    <div class="hero-ctas" style="margin-bottom:28px;">
+    <div id="client-banner">👤 Orçamento pronto pra você conferir. Fique à vontade pra chamar no WhatsApp se estiver tudo certo.</div>
+
+    <div class="hero-ctas admin-only" style="margin-bottom:28px;">
       <button class="primary" id="btn-random">🎲 Sortear peças</button>
       <button id="btn-reset">↺ Build recomendada</button>
     </div>
 
     <div class="layout">
-      <div class="rail" id="slots"></div>
+      <div class="rail admin-only" id="slots"></div>
+      <div class="rail client-only-block" id="client-parts-list"></div>
 
       <aside class="summary">
         <div class="card">
@@ -623,7 +650,7 @@
         <div class="card">
           <h2>Consumo de energia</h2>
           <div id="power-status"></div>
-          <div class="extras-row">
+          <div class="extras-row admin-only">
             <label>Fans extras <input type="number" id="extra-fans" min="0" max="8" value="0"></label>
             <label>Discos extras <input type="number" id="extra-drives" min="0" max="4" value="0"></label>
             <label><input type="checkbox" id="extra-oc"> Overclock (+15%)</label>
@@ -643,7 +670,7 @@
           <div class="bar-label"><span>Fonte selecionada</span><span id="power-scale-b"></span></div>
           <div class="bar-track"><div class="bar-fill neutral" id="bar-psu" style="width:0%"></div></div>
           <p class="note" id="power-note"></p>
-          <button id="btn-fix-psu" class="btn small" style="display:none;">⚡ Trocar por fonte adequada</button>
+          <button id="btn-fix-psu" class="btn small admin-only" style="display:none;">⚡ Trocar por fonte adequada</button>
         </div>
 
         <div class="card">
@@ -669,26 +696,30 @@
 
         <div class="card">
           <h2>Resumo</h2>
-          <div class="total-row sub"><span>Subtotal peças</span><span id="total-price">R$ 0</span></div>
-          <div class="total-row sub" id="row-margin" style="display:none;"><span>Margem</span><span id="margin-amount">R$ 0</span></div>
-          <div class="total-row sub" id="row-fee" style="display:none;"><span>Montagem</span><span id="fee-amount">R$ 0</span></div>
+          <h3 id="client-heading" class="client-only-block"></h3>
+          <div class="total-row sub admin-only"><span>Subtotal peças</span><span id="total-price">R$ 0</span></div>
+          <div class="total-row sub admin-only" id="row-margin" style="display:none;"><span>Margem</span><span id="margin-amount">R$ 0</span></div>
+          <div class="total-row sub admin-only" id="row-fee" style="display:none;"><span>Montagem</span><span id="fee-amount">R$ 0</span></div>
           <div class="total-row final"><span><strong>Total do orçamento</strong></span><span class="amount" id="final-price">R$ 0</span></div>
           <p class="note">Preços e especificações são valores de referência aproximados, para simular a montagem — confira sempre no fornecedor antes de comprar de verdade.</p>
-          <div class="extras-row">
+          <div class="extras-row admin-only">
             <label>Margem (%) <input type="number" id="quote-margin" min="0" max="500" step="1" value="0"></label>
             <label>Montagem (R$) <input type="number" id="quote-fee" min="0" step="10" value="0"></label>
           </div>
-          <input type="text" id="client-name" placeholder="Nome do cliente (opcional, aparece no orçamento em PDF)">
+          <input type="text" id="client-name" class="admin-only" placeholder="Nome do cliente (opcional, aparece no orçamento em PDF e no link pro cliente)">
+          <div class="share-row admin-only">
+            <button id="btn-share" class="btn small">🔗 Compartilhar build (editável)</button>
+            <button id="btn-client-link" class="btn small">👤 Gerar link pro cliente</button>
+          </div>
           <div class="share-row">
-            <button id="btn-share" class="btn small">🔗 Compartilhar build</button>
             <button id="btn-shoplist" class="btn small">🛒 Ir às compras</button>
             <button id="btn-whatsapp" class="btn small">📱 Enviar no WhatsApp</button>
           </div>
-          <div class="share-row">
+          <div class="share-row admin-only">
             <button id="btn-save-quote" class="btn small">💾 Salvar este orçamento</button>
           </div>
           <div class="shop-list" id="shop-list"></div>
-          <div class="share-row">
+          <div class="share-row admin-only">
             <p class="note" style="margin-top:0; margin-bottom:6px;">Quer uma segunda opinião? Pergunte pra uma IA sobre essa build exata:</p>
             <div class="quicklinks">
               <a class="chip" id="ai-chatgpt" href="#" target="_blank" rel="noopener">ChatGPT</a>
@@ -697,7 +728,7 @@
             </div>
           </div>
         </div>
-      <div class="card">
+      <div class="card admin-only">
         <h2>Meus orçamentos</h2>
         <div id="quotes-list"></div>
       </div>
@@ -784,6 +815,7 @@
     function initialPage(){
       const h=window.location.hash.replace('#','');
       if(h.indexOf('build=')===0) return 'montador';
+      if(h.indexOf('cliente=')===0) return 'montador';
       if(PAGES.indexOf(h)!==-1) return h;
       return 'inicio';
     }
@@ -793,9 +825,32 @@
     });
 
     let sel=Object.assign({}, DEFAULT_SEL);
+    let isClientView=false;
+    let clientViewName='';
+
+    let quoteMargin=0, quoteFee=0;
+    try{
+      const qs=JSON.parse(localStorage.getItem('montador-pc-quotesettings'));
+      if(qs){ quoteMargin=Number(qs.margin)||0; quoteFee=Number(qs.fee)||0; }
+    }catch(e){ /* ignora, mantém padrão */ }
 
     (function restoreSel(){
       const h=window.location.hash;
+      if(h && h.indexOf('#cliente=')===0){
+        const parts=h.slice(9).split(',');
+        ORDER.forEach(function(cat,idx){
+          const val=parts[idx];
+          if(val && DATA[cat].some(function(i){return i.id===val;})) sel[cat]=val;
+        });
+        const marginVal=parseFloat(parts[8]);
+        if(Number.isFinite(marginVal)) quoteMargin=marginVal;
+        const feeVal=parseFloat(parts[9]);
+        if(Number.isFinite(feeVal)) quoteFee=feeVal;
+        const nameRaw=parts.slice(10).join(',');
+        try{ clientViewName=nameRaw ? decodeURIComponent(nameRaw) : ''; }catch(e){ clientViewName=''; }
+        isClientView=true;
+        return;
+      }
       if(h && h.indexOf('#build=')===0){
         const parts=h.slice(7).split(',');
         ORDER.forEach(function(cat,idx){
@@ -813,6 +868,12 @@
         }
       }catch(e){ /* ignora, mantém padrão */ }
     })();
+
+    if(isClientView){
+      document.body.classList.add('client-view');
+      const cnEl=document.getElementById('client-name');
+      if(cnEl) cnEl.value=clientViewName;
+    }
 
     function saveSel(){
       try{ localStorage.setItem('montador-pc-sel', JSON.stringify(sel)); }
@@ -833,12 +894,6 @@
       try{ localStorage.setItem('montador-pc-extras', JSON.stringify(extras)); }
       catch(e){ /* armazenamento indisponível, segue sem salvar */ }
     }
-
-    let quoteMargin=0, quoteFee=0;
-    try{
-      const qs=JSON.parse(localStorage.getItem('montador-pc-quotesettings'));
-      if(qs){ quoteMargin=Number(qs.margin)||0; quoteFee=Number(qs.fee)||0; }
-    }catch(e){ /* ignora, mantém padrão */ }
 
     function saveQuoteSettings(){
       try{ localStorage.setItem('montador-pc-quotesettings', JSON.stringify({margin:quoteMargin, fee:quoteFee})); }
@@ -1276,6 +1331,20 @@
         dotEl.className='dot '+(s.dots[cat]==='neutral'?'':s.dots[cat]);
       });
 
+      const clientPartsEl=document.getElementById('client-parts-list');
+      if(clientPartsEl){
+        clientPartsEl.innerHTML=ORDER.map(function(cat){
+          const item=findItem(sel,cat);
+          return '<div class="client-parts-item"><span class="cpl">'+LABELS[cat]+'</span>'+
+            '<span class="cpr"><strong>'+item.nome+'</strong><small>'+specLine(cat,item)+'</small></span></div>';
+        }).join('');
+      }
+      const clientHeadingEl=document.getElementById('client-heading');
+      if(clientHeadingEl){
+        if(clientViewName){ clientHeadingEl.textContent='Orçamento para '+clientViewName; clientHeadingEl.style.display=''; }
+        else { clientHeadingEl.style.display='none'; }
+      }
+
       document.getElementById('all-ok-banner').className='all-ok-banner'+(s.allOk?' show':'');
 
       const checks=document.getElementById('checks');
@@ -1501,6 +1570,20 @@
         navigator.clipboard.writeText(url).then(function(){done('Link copiado ✓');}).catch(function(){ window.prompt('Copie o link da sua build:', url); });
       } else {
         window.prompt('Copie o link da sua build:', url);
+      }
+    });
+
+    document.getElementById('btn-client-link').addEventListener('click', function(){
+      const clientName=document.getElementById('client-name').value.trim();
+      const url=location.origin+location.pathname+'#cliente='+ORDER.map(function(c){return sel[c];}).join(',')+
+        ','+quoteMargin+','+quoteFee+','+encodeURIComponent(clientName);
+      const btn=document.getElementById('btn-client-link');
+      const original=btn.textContent;
+      function done(msg){ btn.textContent=msg; setTimeout(function(){btn.textContent=original;},1800); }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(function(){done('Link copiado ✓');}).catch(function(){ window.prompt('Copie o link pro cliente:', url); });
+      } else {
+        window.prompt('Copie o link pro cliente:', url);
       }
     });
 
