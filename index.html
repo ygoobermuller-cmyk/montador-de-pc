@@ -210,6 +210,14 @@
   .status-pill.warn{background:var(--warn-bg); color:var(--warn);}
   .status-pill.bad{background:var(--danger-bg); color:var(--danger);}
 
+  .featured-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px; margin-bottom:8px;}
+  .featured-card{
+    text-decoration:none; color:var(--text); display:block; transition:border-color .15s;
+  }
+  .featured-card:hover{border-color:var(--accent);}
+  .featured-card h3{margin:0 0 6px; font-size:0.98rem; font-weight:600;}
+  .featured-card .fg-spec{margin:0; font-size:0.85rem; color:var(--text-dim);}
+
   .bottleneck-track{position:relative; height:34px; margin:10px 0 6px;}
   .bottleneck-line{position:absolute; left:0; right:0; top:16px; height:2px; background:var(--border);}
   .marker{
@@ -418,6 +426,14 @@
       <a class="btn" href="#ofertas">Ver onde comprar</a>
     </div>
     <div class="stat-row" id="stat-row"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="section-head" style="margin-top:16px;">
+      <h2>Peças em destaque</h2>
+      <p>Um gostinho do catálogo, com preço de referência.</p>
+    </div>
+    <div class="featured-grid" id="featured-grid"></div>
   </div>
 
   <div class="wrap">
@@ -739,7 +755,7 @@
 </section>
 
 <footer>
-  Feito pra brincar e testar combinações de PC · preços de referência atualizados em 18/09/2026, não em tempo real
+  Feito pra brincar e testar combinações de PC · preços de referência atualizados em <span id="footer-date"></span>, não em tempo real
 </footer>
 
 <script>
@@ -751,6 +767,7 @@
   const ORDER=['cpu','cooler','board','ram','gpu','storage','psu','case'];
 
   const DEFAULT_SEL={cpu:'r7-9700x',cooler:'ar-basico',board:'b650-atx',ram:'ddr5-32-6000',gpu:'rtx5070',storage:'nvme-1tb',psu:'750-gold',case:'atx-mid'};
+  const CATALOG_UPDATED='18/09/2026';
 
   const PRESETS=[
     {id:'entrada',nome:'Entrada / uso geral',desc:'Navegar, estudar, trabalho e jogos leves em 1080p baixo.',sel:{cpu:'r3-3200g',cooler:'stock',board:'a320m',ram:'ddr4-8-3200',gpu:'none',storage:'sata-480',psu:'400-white',case:'matx-mid'}},
@@ -797,6 +814,23 @@
     function optionLabel(cat,item){
       if(cat==='gpu' && item.id==='none') return item.nome;
       return item.nome+' — '+fmtBRL(item.preco);
+    }
+
+    function renderFeaturedGrid(){
+      const el=document.getElementById('featured-grid');
+      if(!el) return;
+      const picks=[{cat:'cpu',id:DEFAULT_SEL.cpu},{cat:'gpu',id:DEFAULT_SEL.gpu},{cat:'ram',id:DEFAULT_SEL.ram}];
+      el.innerHTML=picks.map(function(p){
+        const item=DATA[p.cat].find(function(i){return i.id===p.id;});
+        if(!item) return '';
+        return '<a class="card featured-card" href="#montador">'+
+          '<span class="status-pill ok">Atualizado em '+CATALOG_UPDATED+'</span>'+
+          '<h3>'+item.nome+'</h3>'+
+          '<p class="fg-spec">'+specLine(p.cat,item)+'</p>'+
+          '</a>';
+      }).join('');
+      const footerDate=document.getElementById('footer-date');
+      if(footerDate) footerDate.textContent=CATALOG_UPDATED;
     }
 
     const PAGES=['inicio','orcamento-auto','builds','ofertas','novidades','montador'];
@@ -1739,6 +1773,7 @@
     });
 
 
+  renderFeaturedGrid();
   render();
   showPage(initialPage(), true);
   }
